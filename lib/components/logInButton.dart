@@ -24,6 +24,5 @@ class LogInButton extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:golf_app/views/bagView.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:golf_app/views/home.dart';
-import 'package:golf_app/views/register.dart';
+import 'package:golf_app/views/splashScreen.dart';
 
-void main() {
+Future main() async {
+  await DotEnv().load('.env');
   runApp(MyApp());
 }
 
@@ -15,8 +16,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Color(0xFF2ED199),
         textSelectionColor: Color(0xFF9EAAB0),
+        colorScheme: ColorScheme.light(
+          primary: Color(0xFF2ED199),
+        ),
       ),
-      home: Home(),
+      home: SplashScreen(),
     );
   }
 }

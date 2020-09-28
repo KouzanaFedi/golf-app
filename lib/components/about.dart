@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 
 class About extends StatelessWidget {
-  List<String> services = ["9 trous", "18 trous", "Voiturette", "Restaurant"];
+  final List<String> services = [
+    "9 trous",
+    "18 trous",
+    "Voiturette",
+    "Restaurant"
+  ];
 
   List<Widget> serviceList() {
     List<Widget> list = [];
     for (var service in services) {
+      String imagePath =
+          "assets/${service.replaceAll(' ', '_').toLowerCase()}.png";
       list.add(ServiceIcon(
         title: service,
+        imagePath: imagePath,
       ));
     }
     return list;
@@ -34,6 +42,7 @@ class About extends StatelessWidget {
           ),
         ),
         child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           child: Container(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,25 +116,30 @@ class About extends StatelessWidget {
 }
 
 class ServiceIcon extends StatelessWidget {
-  final String title, icon;
-  ServiceIcon({this.icon, this.title});
-  // TODO: Add Icon
+  final String title, imagePath;
+  ServiceIcon({@required this.title, @required this.imagePath});
+
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
     double wh = 50;
     return Column(
       children: [
-        Container(
-          margin: EdgeInsets.only(bottom: 5),
-          width: wh,
-          height: wh,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(
-              color: theme.textSelectionColor,
+        Stack(
+          children: [
+            Image.asset(imagePath),
+            Container(
+              margin: EdgeInsets.only(bottom: 5),
+              width: wh,
+              height: wh,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: theme.textSelectionColor,
+                ),
+              ),
             ),
-          ),
+          ],
         ),
         Text(
           title,
