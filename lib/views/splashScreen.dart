@@ -4,13 +4,15 @@ import 'package:golf_app/components/animatedLogo.dart';
 import 'package:golf_app/components/branding.dart';
 import 'package:golf_app/components/copyrights.dart';
 import 'package:golf_app/views/home.dart';
-import 'package:golf_app/views/test.dart';
+import 'package:golf_app/views/acceuil.dart';
 
 class SplashScreen extends StatelessWidget {
   Widget brand() => Container(
         child: Column(
           children: [
-            AnimatedLogo(),
+            AnimatedLogo(
+              width: 75,
+            ),
             Branding(),
           ],
         ),
@@ -22,7 +24,6 @@ class SplashScreen extends StatelessWidget {
       child: FutureBuilder<Auth>(
           future: Auth.getInstance(),
           builder: (context, snapshot) {
-            debugPrint(snapshot.toString());
             if (snapshot.connectionState == ConnectionState.waiting)
               return Scaffold(
                 resizeToAvoidBottomPadding: false,
@@ -37,7 +38,7 @@ class SplashScreen extends StatelessWidget {
                 ),
               );
             else if (snapshot.hasData && snapshot.data.isAuth()) {
-              return Test();
+              return Acceuil();
             } else
               return Home();
           }),

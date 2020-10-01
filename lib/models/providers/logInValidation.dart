@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:golf_app/api/requests/auth.dart';
+import 'package:golf_app/models/interfaces/user.dart';
 import 'package:golf_app/models/interfaces/validationItem.dart';
 
 class LogInValidation with ChangeNotifier {
@@ -49,7 +50,7 @@ class LogInValidation with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<int> logInUser() async {
+  Future<User> logInUser() async {
     return Auth.getInstance()
         .then((value) => value.logInUser(_email.value, _password.value));
   }

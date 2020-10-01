@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:golf_app/models/interfaces/user.dart';
 import 'package:golf_app/models/providers/logInValidation.dart';
-import 'package:golf_app/views/test.dart';
+import 'package:golf_app/views/acceuil.dart';
 import 'package:provider/provider.dart';
 
 class LogInButton extends StatefulWidget {
@@ -30,12 +31,13 @@ class _LogInButtonState extends State<LogInButton> {
                 setState(() {
                   loading = true;
                 });
-                int rep = await logInValidation.logInUser();
+                User user = await logInValidation.logInUser();
+
                 setState(() {
                   loading = false;
                 });
-                if (rep == 0) {
-                  Navigator.of(context).pushReplacement(Test.route());
+                if (user != null) {
+                  Navigator.of(context).pushReplacement(Acceuil.route(user));
                 } else {
                   Scaffold.of(context).showSnackBar(SnackBar(
                     content: Text("Mot de passe incorrect"),

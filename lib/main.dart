@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:golf_app/views/home.dart';
 import 'package:golf_app/views/splashScreen.dart';
 
 Future main() async {
@@ -19,6 +18,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.light(
           primary: Color(0xFF2ED199),
         ),
+        fontFamily: "poppins",
       ),
       home: SplashScreen(),
     );

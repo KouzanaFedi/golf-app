@@ -9,6 +9,7 @@ class EmailField extends StatelessWidget {
     final logInValidation = Provider.of<LogInValidation>(context);
     ValidationItem item = logInValidation.email;
     return TextField(
+      enableSuggestions: true,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         hintText: "Adresse e-mail",

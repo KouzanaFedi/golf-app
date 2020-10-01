@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:golf_app/api/requests/auth.dart';
 import 'package:golf_app/components/RegisterForm/dobField.dart';
 import 'package:golf_app/components/RegisterForm/emailField.dart';
 import 'package:golf_app/components/RegisterForm/genderSelection.dart';

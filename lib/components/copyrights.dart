@@ -10,6 +10,7 @@ class Copyrights extends StatelessWidget {
         style: TextStyle(
           fontSize: 10,
           color: Colors.white,
+          fontWeight: FontWeight.w300,
         ),
       ),
     );

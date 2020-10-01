@@ -14,6 +14,7 @@ class Branding extends StatelessWidget {
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,
+                fontWeight: FontWeight.w300,
               ),
             ),
           ),
@@ -21,8 +22,8 @@ class Branding extends StatelessWidget {
             "TUNIS BAY",
             style: TextStyle(
               color: Colors.white,
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
+              fontSize: 35,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ],

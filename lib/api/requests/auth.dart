@@ -33,7 +33,8 @@ class Auth {
     await _pref.setString("token", token);
   }
 
-  Future<int> logInUser(String email, String password) async {
+  Future<User> logInUser(String email, String password) async {
+    User usr;
     try {
       Map<String, dynamic> json = await Client.getInstance()
           .post(logInUrl, data: {"email": email, "password": password});
@@ -42,11 +43,11 @@ class Auth {
       await persistAuth(_userToken);
 
       Client.getInstance().setToken(_userToken);
-      await getUser();
+      usr = await getUser();
 
-      return 0;
+      return usr;
     } catch (e) {
-      return -1;
+      return usr;
     }
   }
 
@@ -77,14 +78,16 @@ class Auth {
         headers: {"authorization": "Bearer $_userToken"},
       ),
     );
-    print(json.toString());
     return User.fromJSON(json);
   }
 
   Future<int> logOutUser() async {
     Client client = Client.getInstance();
     try {
-      // await client.post(logOutUrl);
+      await client.post(logOutUrl,
+          options: Options(
+            headers: {"authorization": "Bearer $_userToken"},
+          ));
 
       await _pref.remove("token");
       _userToken = null;
