@@ -5,10 +5,20 @@ class FullBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      child: Image.asset(
-        "assets/background.png",
-        fit: BoxFit.fitWidth,
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset(
+            "assets/background.png",
+            fit: BoxFit.fitWidth,
+          ),
+          Opacity(
+            opacity: .4,
+            child: Container(
+              color: Color(0xFF1E1D1D),
+            ),
+          ),
+        ],
       ),
     );
   }

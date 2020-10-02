@@ -68,6 +68,7 @@ class DOBField extends StatelessWidget {
                     ),
                   ),
                   onTap: () {
+                    DeviceUtils.hideKeyboard(context);
                     showDatePicker(
                       initialDatePickerMode: DatePickerMode.year,
                       context: context,
@@ -78,7 +79,6 @@ class DOBField extends StatelessWidget {
                       if (value != null) {
                         registerValidation.setDOB(
                             value.year, value.month, value.day);
-                        DeviceUtils.hideKeyboard(context);
                       }
                     });
                   },

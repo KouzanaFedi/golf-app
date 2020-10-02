@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:golf_app/models/providers/golfBag.dart';
+import 'package:golf_app/models/providers/golfBagProvider.dart';
 import 'package:provider/provider.dart';
 
 class Club extends StatelessWidget {
@@ -10,8 +10,8 @@ class Club extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final golfSac =
-        Provider.of<GolfBag>((this.context == null) ? context : this.context);
+    final golfSac = Provider.of<GolfBagProvider>(
+        (this.context == null) ? context : this.context);
     bool exists = golfSac.alreadyHave(index);
     return Stack(
       alignment: Alignment.topLeft,
@@ -27,7 +27,11 @@ class Club extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset("assets/clubs/driver_head.png"),
+              Image.asset(
+                "assets/clubs/driver_head.png",
+                height: 45,
+                width: 45,
+              ),
               Container(
                 margin: EdgeInsets.only(top: 10),
                 child: Text(
@@ -54,7 +58,7 @@ class Club extends StatelessWidget {
                         width: 20,
                         height: 20,
                         child: Icon(
-                          Icons.close,
+                          Icons.remove,
                           color: Colors.white,
                           size: 16,
                         ),

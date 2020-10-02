@@ -127,7 +127,6 @@ class ServiceIcon extends StatelessWidget {
       children: [
         Stack(
           children: [
-            Image.asset(imagePath),
             Container(
               margin: EdgeInsets.only(bottom: 5),
               width: wh,
@@ -137,6 +136,10 @@ class ServiceIcon extends StatelessWidget {
                 border: Border.all(
                   color: theme.textSelectionColor,
                 ),
+              ),
+              padding: EdgeInsets.all(10),
+              child: Image.asset(
+                imagePath,
               ),
             ),
           ],

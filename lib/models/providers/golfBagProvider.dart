@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class GolfBag with ChangeNotifier {
+class GolfBagProvider with ChangeNotifier {
   List<int> _availableClubs = [
     1,
     2,

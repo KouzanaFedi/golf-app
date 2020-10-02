@@ -5,12 +5,10 @@ class AnimatedLogo extends StatelessWidget {
   AnimatedLogo({this.width = 75});
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Image.asset(
+      "assets/golfLogo.png",
       height: width,
       width: width,
-      child: Image.asset(
-        "assets/golfLogo.png",
-      ),
     );
   }
 }

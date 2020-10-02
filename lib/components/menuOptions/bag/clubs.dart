@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:golf_app/components/bag/club.dart';
-import 'package:golf_app/models/providers/golfBag.dart';
+import 'package:golf_app/components/menuOptions/bag/club.dart';
+import 'package:golf_app/models/providers/golfBagProvider.dart';
 import 'package:provider/provider.dart';
 
 class Clubs extends StatelessWidget {
@@ -8,7 +8,7 @@ class Clubs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final golfBag = Provider.of<GolfBag>(context);
+    final golfBag = Provider.of<GolfBagProvider>(context);
     List<int> availableClubs = golfBag.availableClubs;
     return Container(
       width: 100,

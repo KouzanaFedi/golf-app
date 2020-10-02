@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:golf_app/api/requests/auth.dart';
 import 'package:golf_app/components/animatedLogo.dart';
 import 'package:golf_app/components/fullBackground.dart';
+import 'package:golf_app/components/menuOptions/menuOptions.dart';
 import 'package:golf_app/components/tabs/options.dart';
-import 'package:golf_app/components/tabs/sac.dart';
 import 'package:golf_app/models/interfaces/user.dart';
 import 'package:golf_app/utils/custom_icons_icons.dart';
 
@@ -41,10 +41,12 @@ class _AcceuilState extends State<Acceuil> {
       });
   }
 
-  List<Widget> _list = [Sac(), Text("2"), Text("3"), Options()];
+  List<Widget> _list = [Text("1"), Text("2"), Text("3"), OptionsTab()];
   int _currentIndex = 0;
-  final double openHeight = 0, closedHeight = -250;
-  double upperHeigt = -250;
+  final double menuHeight = 400;
+
+  final double openHeight = 0, closedHeight = -350;
+  double upperHeigt = -350;
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
@@ -142,6 +144,8 @@ class _AcceuilState extends State<Acceuil> {
         ),
       ),
     ];
+    double menuWidth = MediaQuery.of(context).size.width * .95;
+
     return SafeArea(
       child: Stack(
         children: [
@@ -175,38 +179,85 @@ class _AcceuilState extends State<Acceuil> {
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
             body: Stack(
+              alignment: Alignment.topCenter,
               children: [
                 Center(child: _list[_currentIndex]),
                 Positioned(
                   bottom: upperHeigt,
-                  right: MediaQuery.of(context).size.width * .075,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white70,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(50),
-                        topRight: Radius.circular(50),
-                      ),
-                    ),
-                    width: MediaQuery.of(context).size.width * .85,
-                    height: 300,
-                    child: Column(
-                      children: [
-                        GestureDetector(
-                          child: Icon(
-                            (upperHeigt == closedHeight)
-                                ? Icons.keyboard_arrow_up
-                                : Icons.keyboard_arrow_down,
-                            color: Color(0xFF9AA6AC),
+                  right: MediaQuery.of(context).size.width * .025,
+                  child: Stack(
+                    children: [
+                      Opacity(
+                        opacity: .8,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(50),
+                              topRight: Radius.circular(50),
+                            ),
                           ),
-                          onTap: () {
-                            setState(() {
-                              upperHeigt = closedHeight;
-                            });
-                          },
-                        )
-                      ],
-                    ),
+                          width: menuWidth,
+                          height: menuHeight,
+                          alignment: Alignment.topCenter,
+                          child: GestureDetector(
+                            child: Icon(
+                              (upperHeigt == closedHeight)
+                                  ? Icons.keyboard_arrow_up
+                                  : Icons.keyboard_arrow_down,
+                              color: Color(0xFF9AA6AC),
+                            ),
+                            onTap: () {
+                              setState(() {
+                                upperHeigt = closedHeight;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: menuHeight,
+                        width: menuWidth,
+                        padding: EdgeInsets.all(40),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15),
+                              child: Text(
+                                "Votre partie est prévu pour le mardi 07 septembre à 17h",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 15,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                MenuOption(
+                                  title: "Confirmer Sac de Golf",
+                                  image: "assets/golf_bag_icon.png",
+                                  index: 0,
+                                ),
+                                MenuOption(
+                                  title: "Liste des parcours",
+                                  image: "assets/hole_icon1.png",
+                                  index: 1,
+                                )
+                              ],
+                            ),
+                            MenuOption(
+                              title: "Liste des joueurs",
+                              image: "assets/player.png",
+                              index: 2,
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],

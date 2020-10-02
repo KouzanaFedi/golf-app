@@ -11,7 +11,7 @@ class SplashScreen extends StatelessWidget {
         child: Column(
           children: [
             AnimatedLogo(
-              width: 75,
+              width: 60,
             ),
             Branding(),
           ],
