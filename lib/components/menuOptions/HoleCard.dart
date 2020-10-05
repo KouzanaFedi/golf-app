@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class HoleCard extends StatelessWidget {
+  final int index;
+  HoleCard({this.index});
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -27,7 +29,7 @@ class HoleCard extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(bottom: 10),
                   child: Text(
-                    "trou 2",
+                    "trou $index",
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: Colors.red,

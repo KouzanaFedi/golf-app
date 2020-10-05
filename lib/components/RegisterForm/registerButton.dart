@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:golf_app/models/providers/registerValidation.dart';
+import 'package:golf_app/utils/deviceUtils.dart';
 import 'package:provider/provider.dart';
 
 class RegisterButton extends StatefulWidget {
@@ -26,6 +27,7 @@ class _RegisterButtonState extends State<RegisterButton> {
         ),
         onPressed: (registerValidation.canRegister != null)
             ? () async {
+                DeviceUtils.hideKeyboard(context);
                 setState(() {
                   loading = true;
                 });

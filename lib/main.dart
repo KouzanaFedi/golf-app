@@ -12,15 +12,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        primaryColor: Color(0xFF2ED199),
-        textSelectionColor: Color(0xFF9EAAB0),
-        colorScheme: ColorScheme.light(
-          primary: Color(0xFF2ED199),
+        theme: ThemeData(
+          primaryColor: Color(0xFF2ED199),
+          textSelectionColor: Color(0xFF9EAAB0),
+          colorScheme: ColorScheme.light(
+            primary: Color(0xFF2ED199),
+          ),
+          fontFamily: "poppins",
         ),
-        fontFamily: "poppins",
-      ),
-      home: SplashScreen(),
-    );
+        home: SplashScreen());
   }
 }

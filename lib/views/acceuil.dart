@@ -188,7 +188,7 @@ class _AcceuilState extends State<Acceuil> {
                   child: Stack(
                     children: [
                       Opacity(
-                        opacity: .8,
+                        opacity: (upperHeigt == closedHeight) ? 1 : .8,
                         child: Container(
                           decoration: BoxDecoration(
                             color: Colors.white,

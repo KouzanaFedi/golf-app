@@ -1,47 +1,132 @@
 import 'package:flutter/material.dart';
 import 'package:golf_app/components/menuOptions/HoleCard.dart';
+import 'package:golf_app/components/menuOptions/map.dart';
 
-class Parcours extends StatelessWidget {
+class Parcours extends StatefulWidget {
+  @override
+  _ParcoursState createState() => _ParcoursState();
+}
+
+class _ParcoursState extends State<Parcours> {
+  // PageController _pageController;
+  List<int> holes = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  bool isParcours = true;
+  int initialPage = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(top: 20),
-      child: Column(
-        children: [
-          SizedBox(
-            height: 330,
-            child: ListView.separated(
-              physics: BouncingScrollPhysics(),
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                if (index == 0) {
-                  return Row(
-                    children: [
-                      SizedBox(
-                        width: 55,
-                      ),
-                      HoleCard()
-                    ],
+      child: AnimatedSwitcher(
+        duration: Duration(milliseconds: 200),
+        child: (isParcours) ? view2D(initialPage) : mapView(),
+        transitionBuilder: (child, animation) {
+          final inAnimation =
+              Tween<Offset>(begin: Offset(0.0, -1.0), end: Offset(0.0, 0.0))
+                  .animate(animation);
+          final outAnimation =
+              Tween<Offset>(begin: Offset(0.0, 0.0), end: Offset(0.0, 1.0))
+                  .animate(animation);
+          if (child.key == view2D(initialPage).key) {
+            return SlideTransition(
+              position: outAnimation,
+              child: child,
+            );
+          } else {
+            return SlideTransition(
+              position: inAnimation,
+              child: child,
+            );
+          }
+        },
+      ),
+    );
+  }
+
+  Widget view2D(int initialPage) {
+    PageController _pageController =
+        PageController(viewportFraction: 0.75, initialPage: initialPage);
+
+    return Column(
+      key: UniqueKey(),
+      children: [
+        SizedBox(
+          height: 330,
+          child: PageView.builder(
+            itemCount: holes.length,
+            controller: _pageController,
+            itemBuilder: (context, index) => Center(
+              child: AnimatedBuilder(
+                animation: _pageController,
+                builder: (context, child) {
+                  double ratio = 1;
+                  if (_pageController.position.haveDimensions) {
+                    ratio = _pageController.page - index;
+                    ratio = (1 - (ratio.abs() * 0.3)).clamp(0, 1);
+                  } else if (index != initialPage) {
+                    ratio = 0.7;
+                  }
+                  return SizedBox(
+                    width: Curves.easeInOut.transform(ratio) * 250,
+                    height: Curves.easeInOut.transform(ratio) * 330,
+                    child: HoleCard(
+                      index: holes[index],
+                    ),
                   );
-                } else if (index == 4) {
-                  return Row(
-                    children: [
-                      HoleCard(),
-                      SizedBox(
-                        width: 55,
-                      ),
-                    ],
-                  );
-                }
-                return HoleCard();
-              },
-              scrollDirection: Axis.horizontal,
-              separatorBuilder: (BuildContext context, int index) {
-                return SizedBox(
-                  width: 20,
-                );
-              },
+                },
+              ),
             ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: 20),
+          child: FlatButton(
+            splashColor: Colors.white,
+            color: Theme.of(context).primaryColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(25),
+              ),
+            ),
+            onPressed: () {
+              setState(() {
+                if (isParcours == true) isParcours = false;
+              });
+            },
+            child: Container(
+              height: 50,
+              width: 220,
+              alignment: Alignment.center,
+              child: Text(
+                "Voir map",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget mapView() => Column(
+        key: UniqueKey(),
+        children: [
+          Container(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(40),
+              child: Map(),
+            ),
+            height: 400,
+            width: 300,
           ),
           Padding(
             padding: EdgeInsets.only(top: 20),
@@ -53,13 +138,17 @@ class Parcours extends StatelessWidget {
                   Radius.circular(25),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  if (isParcours == false) isParcours = true;
+                });
+              },
               child: Container(
                 height: 50,
                 width: 220,
                 alignment: Alignment.center,
                 child: Text(
-                  "Voir map",
+                  "Voir parcours",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,
@@ -70,7 +159,5 @@ class Parcours extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
+      );
 }
