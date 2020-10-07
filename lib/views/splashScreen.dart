@@ -3,6 +3,7 @@ import 'package:golf_app/api/requests/auth.dart';
 import 'package:golf_app/components/animatedLogo.dart';
 import 'package:golf_app/components/branding.dart';
 import 'package:golf_app/components/copyrights.dart';
+import 'package:golf_app/models/interfaces/user.dart';
 import 'package:golf_app/views/home.dart';
 import 'package:golf_app/views/acceuil.dart';
 
@@ -21,8 +22,11 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
     return SafeArea(
-      child: FutureBuilder<Auth>(
-          future: Auth.getInstance(),
+      child: FutureBuilder(
+          future: Future.wait([
+            Auth.getInstance(),
+            Auth.getInstance().then((value) => value.getUser())
+          ]),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting)
               return Scaffold(
@@ -37,8 +41,8 @@ class SplashScreen extends StatelessWidget {
                   ],
                 ),
               );
-            else if (snapshot.hasData && snapshot.data.isAuth()) {
-              return Acceuil();
+            else if (snapshot.hasData && (snapshot.data[0] as Auth).isAuth()) {
+              return Acceuil(user: snapshot.data[1] as User);
             } else
               return Home();
           }),

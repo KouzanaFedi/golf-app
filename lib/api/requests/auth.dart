@@ -72,13 +72,16 @@ class Auth {
   }
 
   Future<User> getUser() async {
-    Map<String, dynamic> json = await Client.getInstance().get(
-      getUserFromUrl,
-      options: Options(
-        headers: {"authorization": "Bearer $_userToken"},
-      ),
-    );
-    return User.fromJSON(json);
+    if (isAuth()) {
+      Map<String, dynamic> json = await Client.getInstance().get(
+        getUserFromUrl,
+        options: Options(
+          headers: {"authorization": "Bearer $_userToken"},
+        ),
+      );
+      return User.fromJSON(json);
+    } else
+      return null;
   }
 
   Future<int> logOutUser() async {

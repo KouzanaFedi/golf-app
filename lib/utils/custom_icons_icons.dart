@@ -32,5 +32,6 @@ class CustomIcons {
   static const IconData cog = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData calendar = IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData user = IconData(0xf007, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData user_plus = IconData(0xf234, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData golf_ball = IconData(0xf450, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

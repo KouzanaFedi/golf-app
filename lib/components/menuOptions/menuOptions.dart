@@ -6,9 +6,12 @@ import 'package:golf_app/views/options.dart';
 
 class MenuOption extends StatefulWidget {
   final String title, image;
-  final int index;
-  MenuOption(
-      {@required this.title, @required this.image, @required this.index});
+  final Widget child;
+  MenuOption({
+    @required this.title,
+    @required this.image,
+    @required this.child,
+  });
 
   @override
   _MenuOptionState createState() => _MenuOptionState();
@@ -18,17 +21,7 @@ class _MenuOptionState extends State<MenuOption> {
   bool tappedDown = false;
 
   void _handleTap(BuildContext context) {
-    switch (widget.index) {
-      case 0:
-        Navigator.of(context).push(Options.route(Sac(), widget.title));
-        break;
-      case 1:
-        Navigator.of(context).push(Options.route(Parcours(), widget.title));
-        break;
-      case 2:
-        Navigator.of(context).push(Options.route(Joueurs(), widget.title));
-        break;
-    }
+    Navigator.of(context).push(Options.route(widget.child, widget.title));
   }
 
   @override
