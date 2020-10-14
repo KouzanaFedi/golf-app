@@ -10,6 +10,7 @@ class RegisterValidation with ChangeNotifier {
   ValidationItem _password = ValidationItem(null, null);
   ValidationItem _dob = ValidationItem(null, null);
   ValidationItem _number = ValidationItem(null, null);
+  bool _registred = false;
 
   //errors
 
@@ -27,19 +28,23 @@ class RegisterValidation with ChangeNotifier {
   ValidationItem get gender => _gender;
   ValidationItem get number => _number;
 
-  bool get canRegister {
-    if (_prenom.value != null &&
-        _nom.value != null &&
-        _email.value != null &&
-        _password.value != null &&
-        _dob.value != null &&
-        _number.value != null)
-      return true;
-    else
-      return null;
-  }
+  bool get registred => _registred;
+
+  bool get canRegister => (_prenom.value != null &&
+          _nom.value != null &&
+          _email.value != null &&
+          _password.value != null &&
+          _dob.value != null &&
+          _number.value != null)
+      ? true
+      : null;
 
   //setters
+
+  void setRegistred() {
+    _registred = true;
+    notifyListeners();
+  }
 
   void setPrenom(String value) {
     if (value.isEmpty) {
@@ -124,7 +129,6 @@ class RegisterValidation with ChangeNotifier {
   Future<int> registerUser() {
     String nom =
         "${upperCaseFirstLetter(_prenom.value)} ${upperCaseFirstLetter(_nom.value)}";
-
     return Auth.getInstance().then((value) => value.registerUser(
         nom,
         _password.value,

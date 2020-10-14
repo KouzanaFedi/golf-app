@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:golf_app/components/RegisterForm/dobField.dart';
 import 'package:golf_app/components/RegisterForm/emailField.dart';
 import 'package:golf_app/components/RegisterForm/genderSelection.dart';
+import 'package:golf_app/components/RegisterForm/greeting.dart';
 import 'package:golf_app/components/RegisterForm/nameField.dart';
 import 'package:golf_app/components/RegisterForm/numberField.dart';
 import 'package:golf_app/components/RegisterForm/passwordField.dart';
@@ -20,6 +21,28 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  Widget formulaire() => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+            child: Text(
+              "Créer un compte",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          GenderSelection(),
+          NameField(),
+          NameField(nom: false),
+          EmailField(),
+          PasswordField(),
+          DOBField(),
+          NumberField(),
+          RegisterButton(),
+        ],
+      );
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -30,52 +53,33 @@ class _RegisterState extends State<Register> {
             backgroundColor: Colors.transparent,
             body: ChangeNotifierProvider(
               create: (_) => RegisterValidation(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  BackButton(
-                    color: Colors.white,
-                  ),
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.only(top: 25, left: 25, right: 25),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(50),
-                          topRight: Radius.circular(50),
-                        ),
-                      ),
-                      child: SingleChildScrollView(
-                        physics: BouncingScrollPhysics(),
-                        child: Container(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Center(
-                                child: Text(
-                                  "Créer un compte",
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              GenderSelection(),
-                              NameField(),
-                              NameField(nom: false),
-                              EmailField(),
-                              PasswordField(),
-                              DOBField(),
-                              NumberField(),
-                              RegisterButton(),
-                            ],
+              child: Selector<RegisterValidation, bool>(
+                selector: (context, registerValidation) =>
+                    registerValidation.registred,
+                builder: (context, value, child) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    BackButton(
+                      color: Colors.white,
+                    ),
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.only(top: 25, left: 25, right: 25),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(50),
+                            topRight: Radius.circular(50),
                           ),
                         ),
+                        child: SingleChildScrollView(
+                          physics: BouncingScrollPhysics(),
+                          child: (!value) ? formulaire() : Greeting(),
+                        ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),

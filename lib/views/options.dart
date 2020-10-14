@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:golf_app/components/fullBackground.dart';
 import 'package:golf_app/models/providers/golfBagProvider.dart';
+import 'package:golf_app/models/providers/reservationProvider.dart';
 import 'package:provider/provider.dart';
 
 class Options extends StatelessWidget {

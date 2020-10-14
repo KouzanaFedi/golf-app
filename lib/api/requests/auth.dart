@@ -3,7 +3,6 @@ import 'package:golf_app/api/client.dart';
 import 'package:golf_app/api/constants/endPoints.dart';
 import 'package:golf_app/models/interfaces/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../constants/endPoints.dart';
 
 class Auth {
   static Auth _instance;
@@ -37,7 +36,7 @@ class Auth {
     User usr;
     try {
       Map<String, dynamic> json = await Client.getInstance()
-          .post(logInUrl, data: {"email": email, "password": password});
+          .post(LOGIN_URL, data: {"email": email, "password": password});
 
       _userToken = json["token"];
       await persistAuth(_userToken);
@@ -54,7 +53,7 @@ class Auth {
   Future<int> registerUser(String nom, String password, String email,
       String gender, String number, String dob) async {
     return await Client.getInstance()
-        .post(registerUrl, data: {
+        .post(REGISTER_URL, data: {
           "name": nom,
           "password": password,
           "email": email,
@@ -74,7 +73,7 @@ class Auth {
   Future<User> getUser() async {
     if (isAuth()) {
       Map<String, dynamic> json = await Client.getInstance().get(
-        getUserFromUrl,
+        GETUSER_URL,
         options: Options(
           headers: {"authorization": "Bearer $_userToken"},
         ),
@@ -87,7 +86,7 @@ class Auth {
   Future<int> logOutUser() async {
     Client client = Client.getInstance();
     try {
-      await client.post(logOutUrl,
+      await client.post(LOGOUT_URL,
           options: Options(
             headers: {"authorization": "Bearer $_userToken"},
           ));

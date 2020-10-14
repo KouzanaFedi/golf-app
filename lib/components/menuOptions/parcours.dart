@@ -23,26 +23,13 @@ class _ParcoursState extends State<Parcours> {
     return Padding(
       padding: EdgeInsets.only(top: 20),
       child: AnimatedSwitcher(
-        duration: Duration(milliseconds: 200),
+        duration: Duration(milliseconds: 500),
         child: (isParcours) ? view2D(initialPage) : mapView(),
         transitionBuilder: (child, animation) {
-          final inAnimation =
-              Tween<Offset>(begin: Offset(0.0, -1.0), end: Offset(0.0, 0.0))
-                  .animate(animation);
-          final outAnimation =
-              Tween<Offset>(begin: Offset(0.0, 0.0), end: Offset(0.0, 1.0))
-                  .animate(animation);
-          if (child.key == view2D(initialPage).key) {
-            return SlideTransition(
-              position: outAnimation,
-              child: child,
-            );
-          } else {
-            return SlideTransition(
-              position: inAnimation,
-              child: child,
-            );
-          }
+          return ScaleTransition(
+            scale: animation,
+            child: child,
+          );
         },
       ),
     );
@@ -50,13 +37,13 @@ class _ParcoursState extends State<Parcours> {
 
   Widget view2D(int initialPage) {
     PageController _pageController =
-        PageController(viewportFraction: 0.75, initialPage: initialPage);
+        PageController(viewportFraction: .8, initialPage: initialPage);
 
     return Column(
       key: UniqueKey(),
       children: [
         SizedBox(
-          height: 330,
+          height: 400,
           child: PageView.builder(
             itemCount: holes.length,
             controller: _pageController,
@@ -71,9 +58,10 @@ class _ParcoursState extends State<Parcours> {
                   } else if (index != initialPage) {
                     ratio = 0.7;
                   }
+
                   return SizedBox(
-                    width: Curves.easeInOut.transform(ratio) * 250,
-                    height: Curves.easeInOut.transform(ratio) * 330,
+                    width: Curves.easeInOut.transform(ratio) * 300,
+                    height: Curves.easeInOut.transform(ratio) * 400,
                     child: HoleCard(
                       index: holes[index],
                     ),

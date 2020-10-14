@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:golf_app/models/interfaces/validationItem.dart';
 import 'package:golf_app/models/providers/registerValidation.dart';
+import 'package:golf_app/utils/custom_icons_icons.dart';
 import 'package:provider/provider.dart';
 
 class GenderSelection extends StatelessWidget {
@@ -9,17 +10,7 @@ class GenderSelection extends StatelessWidget {
     final registerValidation = Provider.of<RegisterValidation>(context);
     ValidationItem item = registerValidation.gender;
     ThemeData theme = Theme.of(context);
-    Color activeColor = Colors.white;
-    Color disabledColor = Colors.black;
-    BoxDecoration active = BoxDecoration(
-      color: theme.primaryColor,
-      borderRadius: BorderRadius.circular(15),
-    );
 
-    BoxDecoration disabled = BoxDecoration(
-      borderRadius: BorderRadius.circular(15),
-      border: Border.all(),
-    );
     return Padding(
       padding: EdgeInsets.only(top: 15, bottom: 15),
       child: Row(
@@ -31,17 +22,42 @@ class GenderSelection extends StatelessWidget {
                 : null,
             child: Container(
               width: 120,
-              height: 30,
-              decoration: (item.value == "homme") ? active : disabled,
+              height: 35,
+              decoration: BoxDecoration(
+                color:
+                    (item.value == "homme") ? theme.primaryColor : Colors.white,
+                borderRadius: BorderRadius.circular(25),
+                border: Border.all(
+                  color: (item.value == "homme")
+                      ? Colors.transparent
+                      : Color(0xFF9AA6AC),
+                ),
+              ),
               child: Center(
-                child: Text(
-                  "Golfeur",
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color:
-                        (item.value == "homme") ? activeColor : disabledColor,
-                  ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      "Golfeur",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: (item.value == "homme")
+                            ? Colors.white
+                            : Color(0xFF9AA6AC),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 5),
+                      child: Icon(
+                        CustomIcons.male,
+                        color: (item.value == "homme")
+                            ? Colors.white
+                            : Color(0xFF9AA6AC),
+                        size: 20,
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),
@@ -52,17 +68,42 @@ class GenderSelection extends StatelessWidget {
                 : null,
             child: Container(
               width: 120,
-              height: 30,
-              decoration: (item.value == "femme") ? active : disabled,
+              height: 35,
+              decoration: BoxDecoration(
+                color:
+                    (item.value == "femme") ? theme.primaryColor : Colors.white,
+                borderRadius: BorderRadius.circular(25),
+                border: Border.all(
+                  color: (item.value == "femme")
+                      ? Colors.transparent
+                      : Color(0xFF9AA6AC),
+                ),
+              ),
               child: Center(
-                child: Text(
-                  "Golfeuse",
-                  style: TextStyle(
-                    fontSize: 15,
-                    color:
-                        (item.value == "femme") ? activeColor : disabledColor,
-                    fontWeight: FontWeight.bold,
-                  ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      "Golfeuse",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: (item.value == "femme")
+                            ? Colors.white
+                            : Color(0xFF9AA6AC),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 5),
+                      child: Icon(
+                        CustomIcons.female,
+                        color: (item.value == "femme")
+                            ? Colors.white
+                            : Color(0xFF9AA6AC),
+                        size: 20,
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),

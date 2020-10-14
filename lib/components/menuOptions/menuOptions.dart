@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:golf_app/components/menuOptions/joueurs.dart';
-import 'package:golf_app/components/menuOptions/parcours.dart';
-import 'package:golf_app/components/menuOptions/sac.dart';
 import 'package:golf_app/views/options.dart';
 
 class MenuOption extends StatefulWidget {

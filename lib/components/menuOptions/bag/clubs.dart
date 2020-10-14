@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:golf_app/components/menuOptions/bag/club.dart';
+import 'package:golf_app/components/menuOptions/bag/clubCard.dart';
+import 'package:golf_app/models/interfaces/club.dart';
 import 'package:golf_app/models/providers/golfBagProvider.dart';
 import 'package:provider/provider.dart';
 
@@ -9,7 +10,7 @@ class Clubs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final golfBag = Provider.of<GolfBagProvider>(context);
-    List<int> availableClubs = golfBag.availableClubs;
+    List<Club> availableClubs = golfBag.availableClubs;
     return Container(
       width: 100,
       child: Scrollbar(
@@ -19,24 +20,25 @@ class Clubs extends StatelessWidget {
           itemCount: availableClubs.length,
           itemBuilder: (context, index) {
             if (golfBag.alreadyHave(availableClubs[index]))
-              return Club(index: availableClubs[index]);
+              return ClubCard(club: availableClubs[index]);
             else
-              return Draggable<int>(
+              return Draggable<Club>(
                 data: availableClubs[index],
-                feedback: Material(
-                  color: Colors.transparent,
-                  child: Club(
-                    index: availableClubs[index],
-                    context: context,
-                  ),
+                feedback: Image.asset(
+                  availableClubs[index].clubLongAsset,
+                  scale: 1.25,
                 ),
                 childWhenDragging: Container(
+                  margin:
+                      EdgeInsets.only(bottom: 10, top: 12, left: 12, right: 12),
+                  width: 75,
+                  height: 100,
                   decoration: BoxDecoration(
-                    color: Colors.grey[200],
+                    color: Colors.black.withOpacity(.3),
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
-                child: Club(index: availableClubs[index]),
+                child: ClubCard(club: availableClubs[index]),
               );
           },
           controller: scrollController,

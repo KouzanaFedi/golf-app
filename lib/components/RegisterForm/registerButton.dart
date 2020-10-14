@@ -42,6 +42,7 @@ class _RegisterButtonState extends State<RegisterButton> {
                     content: Text("Register succesful"),
                     backgroundColor: Colors.green,
                   ));
+                  registerValidation.setRegistred();
                 } else if (rep == -1) {
                   Scaffold.of(context).showSnackBar(SnackBar(
                     content: Text("Error"),

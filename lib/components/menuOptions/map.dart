@@ -99,7 +99,7 @@ class _MapState extends State<Map> {
         OverlayImageLayerOptions(
           overlayImages: [
             OverlayImage(
-              imageProvider: AssetImage("assets/TunisBayGolf.png"),
+              imageProvider: AssetImage("assets/map1.png"),
               bounds: LatLngBounds(
                 LatLng(37.006079, 10.162561),
                 LatLng(36.979981, 10.211115), //36.982658, 10.214165

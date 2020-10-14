@@ -1,15 +1,16 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:golf_app/models/interfaces/club.dart';
 import 'package:golf_app/models/providers/golfBagProvider.dart';
 import 'package:provider/provider.dart';
 
 class Bag extends StatelessWidget {
-  List<Widget> generateClubs(List<int> myClubs) {
+  List<Widget> generateClubs(List<Club> myClubs) {
     if (myClubs != null) {
       List<Widget> clubs = [];
       int index = 0;
-      for (var _ in myClubs) {
+      for (var club in myClubs) {
         clubs.add(
           Positioned(
             top: 20 + (20.0 * (index % 3)),
@@ -18,7 +19,7 @@ class Bag extends StatelessWidget {
               transform: Matrix4.rotationZ(-(pi / 14))
                 ..rotateY(pi * (index % 2)), //
               child: Image.asset(
-                "assets/clubs/hybrid_club.png",
+                club.clubLongAsset,
                 width: 20,
               ),
             ),
@@ -35,7 +36,7 @@ class Bag extends StatelessWidget {
   Widget build(BuildContext context) {
     final golfBag = Provider.of<GolfBagProvider>(context);
     return DragTarget(
-      builder: (context, List<int> candidateData, rejectedData) {
+      builder: (context, List<Club> candidateData, rejectedData) {
         return Container(
           decoration: BoxDecoration(
             color: Colors.white,

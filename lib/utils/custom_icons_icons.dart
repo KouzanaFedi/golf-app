@@ -16,6 +16,10 @@
 ///         Author:    Dave Gandy
 ///         License:   SIL ()
 ///         Homepage:  http://fortawesome.github.com/Font-Awesome/
+/// * MFG Labs, Copyright (C) 2012 by Daniel Bruce
+///         Author:    MFG Labs
+///         License:   SIL (http://scripts.sil.org/OFL)
+///         Homepage:  http://www.mfglabs.com/
 /// * Font Awesome 5, Copyright (C) 2016 by Dave Gandy
 ///         Author:    Dave Gandy
 ///         License:   SIL (https://github.com/FortAwesome/Font-Awesome/blob/master/LICENSE.txt)
@@ -30,7 +34,9 @@ class CustomIcons {
   static const _kFontPkg = null;
 
   static const IconData cog = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData female = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData calendar = IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData male = IconData(0xe803, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData user = IconData(0xf007, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData user_plus = IconData(0xf234, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData golf_ball = IconData(0xf450, fontFamily: _kFontFam, fontPackage: _kFontPkg);

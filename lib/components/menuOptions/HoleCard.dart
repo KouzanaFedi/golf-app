@@ -8,8 +8,8 @@ class HoleCard extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          width: 250,
-          height: 330,
+          width: 300,
+          height: 400,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(40),

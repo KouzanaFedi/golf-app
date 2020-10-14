@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 
 class Client {
   static Client _instance;
@@ -80,6 +81,40 @@ class Client {
         cancelToken: cancelToken,
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress,
+      );
+      return response.data;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  // delete:--------------------------------------------------------------
+
+  Future<dynamic> delete(
+    String url, {
+    data,
+    Map<String, dynamic> queryParameters,
+    Options options,
+    CancelToken cancelToken,
+  }) async {
+    try {
+      if (this._token != null) {
+        if (options != null) {
+          options.headers["Authorization"] = "Bearer $_token";
+        } else
+          options = Options(
+              headers: {"Authorization": "Bearer $_token"},
+              followRedirects: false,
+              validateStatus: (status) {
+                return status < 500;
+              });
+      }
+      final Response response = await _dio.delete(
+        url,
+        data: data,
+        queryParameters: queryParameters,
+        options: options,
+        cancelToken: cancelToken,
       );
       return response.data;
     } catch (e) {

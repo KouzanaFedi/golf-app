@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:golf_app/models/interfaces/club.dart';
 import 'package:golf_app/models/providers/golfBagProvider.dart';
 import 'package:provider/provider.dart';
 
-class Club extends StatelessWidget {
-  final int index;
-  final BuildContext context;
+class ClubCard extends StatelessWidget {
+  final Club club;
 
-  Club({@required this.index, this.context});
+  ClubCard({@required this.club});
 
   @override
   Widget build(BuildContext context) {
-    final golfSac = Provider.of<GolfBagProvider>(
-        (this.context == null) ? context : this.context);
-    bool exists = golfSac.alreadyHave(index);
+    final golfSac = Provider.of<GolfBagProvider>(context);
+    bool exists = golfSac.alreadyHave(club);
     return Stack(
       alignment: Alignment.topLeft,
       children: [
@@ -28,21 +27,34 @@ class Club extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                "assets/clubs/driver_head.png",
+                club.clubHeadAsset,
                 height: 45,
                 width: 45,
               ),
               Container(
-                margin: EdgeInsets.only(top: 10),
+                margin: EdgeInsets.only(top: 5),
                 child: Text(
-                  "Club $index",
+                  club.nom,
                   style: TextStyle(
                     color: exists ? Colors.white : Color(0xFF9AA6AC),
                     fontSize: 11,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-              )
+              ),
+              (club.distance != null)
+                  ? Container(
+                      margin: EdgeInsets.only(top: 5),
+                      child: Text(
+                        "${club.distance} métres",
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    )
+                  : Container()
             ],
           ),
         ),
@@ -64,7 +76,7 @@ class Club extends StatelessWidget {
                         ),
                       ),
                       onTap: () {
-                        golfSac.deleteFromMyClubs(index);
+                        golfSac.deleteFromMyClubs(club);
                       },
                     ),
                   ),

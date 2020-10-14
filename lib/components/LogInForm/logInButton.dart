@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:golf_app/models/interfaces/user.dart';
 import 'package:golf_app/models/providers/logInValidation.dart';
-import 'package:golf_app/models/providers/userProvider.dart';
 import 'package:golf_app/utils/deviceUtils.dart';
 import 'package:golf_app/views/acceuil.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +17,6 @@ class _LogInButtonState extends State<LogInButton> {
     ThemeData theme = Theme.of(context);
     Size screenSize = MediaQuery.of(context).size;
     final logInValidation = Provider.of<LogInValidation>(context);
-    final userProvider = Provider.of<UserProvider>(context);
     return Center(
       child: FlatButton(
         disabledColor: Colors.grey,

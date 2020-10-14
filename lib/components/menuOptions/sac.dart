@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:golf_app/components/menuOptions/bag/bag.dart';
 import 'package:golf_app/components/menuOptions/bag/clubs.dart';
+import 'package:golf_app/models/providers/golfBagProvider.dart';
+import 'package:provider/provider.dart';
 
 class Sac extends StatelessWidget {
   @override
@@ -11,7 +13,7 @@ class Sac extends StatelessWidget {
         Padding(
           padding: EdgeInsets.all(20),
           child: Text(
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer quis arcu tortor. Viveuismod eget.",
+            "Pour modifier le contenu de votre sac de golf, faites un glisser-déposer des clubs dans le sac du golf.",
             style: TextStyle(
               color: Colors.white,
               fontSize: 13,
@@ -39,7 +41,13 @@ class Sac extends StatelessWidget {
                 Radius.circular(25),
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              Provider.of<GolfBagProvider>(context, listen: false)
+                  .availableClubs
+                  .forEach((element) {
+                debugPrint("id: ${element.id}, nom: ${element.nom}");
+              });
+            },
             child: Container(
               height: 50,
               width: 220,

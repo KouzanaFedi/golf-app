@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:golf_app/api/client.dart';
 import 'package:golf_app/api/requests/auth.dart';
 import 'package:golf_app/components/animatedLogo.dart';
 import 'package:golf_app/components/branding.dart';
@@ -42,6 +45,7 @@ class SplashScreen extends StatelessWidget {
                 ),
               );
             else if (snapshot.hasData && (snapshot.data[0] as Auth).isAuth()) {
+              Client.getInstance().setToken((snapshot.data[0] as Auth).token);
               return Acceuil(user: snapshot.data[1] as User);
             } else
               return Home();
