@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:golf_app/api/client.dart';
 import 'package:golf_app/api/requests/auth.dart';
+import 'package:golf_app/api/requests/partie.dart';
 import 'package:golf_app/components/animatedLogo.dart';
 import 'package:golf_app/components/branding.dart';
 import 'package:golf_app/components/copyrights.dart';
+import 'package:golf_app/models/interfaces/partieModel.dart';
 import 'package:golf_app/models/interfaces/user.dart';
 import 'package:golf_app/views/home.dart';
 import 'package:golf_app/views/acceuil.dart';
@@ -28,7 +30,7 @@ class SplashScreen extends StatelessWidget {
       child: FutureBuilder(
           future: Future.wait([
             Auth.getInstance(),
-            Auth.getInstance().then((value) => value.getUser())
+            Auth.getInstance().then((value) => value.getUser()),
           ]),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting)
@@ -46,7 +48,9 @@ class SplashScreen extends StatelessWidget {
               );
             else if (snapshot.hasData && (snapshot.data[0] as Auth).isAuth()) {
               Client.getInstance().setToken((snapshot.data[0] as Auth).token);
-              return Acceuil(user: snapshot.data[1] as User);
+              return Acceuil(
+                user: snapshot.data[1] as User,
+              );
             } else
               return Home();
           }),

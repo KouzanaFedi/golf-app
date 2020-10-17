@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:golf_app/models/interfaces/partieModel.dart';
 import 'package:golf_app/models/interfaces/user.dart';
 import 'package:golf_app/models/providers/logInValidation.dart';
 import 'package:golf_app/utils/deviceUtils.dart';
@@ -33,6 +34,7 @@ class _LogInButtonState extends State<LogInButton> {
                 setState(() {
                   loading = true;
                 });
+
                 User user = await logInValidation.logInUser();
 
                 setState(() {

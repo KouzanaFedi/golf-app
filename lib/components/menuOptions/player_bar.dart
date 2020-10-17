@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:golf_app/models/interfaces/joueur.dart';
 
 class PlayerBar extends StatelessWidget {
+  final Joueur joueur;
+  PlayerBar({this.joueur});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -41,7 +45,7 @@ class PlayerBar extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 5),
                   margin: EdgeInsets.only(left: 10),
                   child: Text(
-                    "Foulen Ben Foulen",
+                    joueur.name,
                     softWrap: true,
                     style: TextStyle(
                       fontSize: 15,
@@ -67,7 +71,7 @@ class PlayerBar extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.only(left: 10),
                   child: Text(
-                    "3",
+                    joueur.handicap,
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,

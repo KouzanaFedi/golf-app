@@ -16,7 +16,7 @@ class Bag extends StatelessWidget {
             top: 20 + (20.0 * (index % 3)),
             left: 20 + ((7.5 * index)) % 60,
             child: Transform(
-              transform: Matrix4.rotationZ(-(pi / 14))
+              transform: Matrix4.rotationZ(-(pi / 20))
                 ..rotateY(pi * (index % 2)), //
               child: Image.asset(
                 club.clubLongAsset,

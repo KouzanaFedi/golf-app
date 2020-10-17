@@ -19,7 +19,7 @@ class Branding extends StatelessWidget {
             ),
           ),
           Text(
-            "TUNIS BAY",
+            "GOlfUp",
             style: TextStyle(
               color: Colors.white,
               fontSize: 35,

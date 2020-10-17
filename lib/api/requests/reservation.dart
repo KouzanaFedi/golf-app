@@ -67,4 +67,22 @@ class Reservation {
     });
     return res['message'];
   }
+
+  Future<Map<String, dynamic>> checkReservation() async {
+    dynamic res = await _client.get(CHECK_RESERVATION);
+    if ((res['message'] as String).contains("sucess"))
+      return res;
+    else
+      return null;
+  }
+
+  // Future<bool> deleteReservation(int id) async {
+  //   String res = (await _client.delete(DELETE_RESERVATION, data: {
+  //     'reservation_id': id,
+  //   }))["message"];
+  //   if (res.contains('sucess'))
+  //     return true;
+  //   else
+  //     return false;
+  // }
 }

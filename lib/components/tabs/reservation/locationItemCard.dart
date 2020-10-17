@@ -27,7 +27,7 @@ class _LocationItemCardState extends State<LocationItemCard> {
   @override
   Widget build(BuildContext context) {
     final reservationProvider = Provider.of<ReservationProvider>(context);
-
+    bool reserved = reservationProvider.alreadyLocated(widget.id);
     return Container(
       width: 145,
       height: 115,
@@ -39,6 +39,7 @@ class _LocationItemCardState extends State<LocationItemCard> {
             height: 110,
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             decoration: BoxDecoration(
+              color: (reserved) ? Colors.blueGrey[50] : Colors.white,
               border: Border.all(color: Color(0xFFEEEEEE)),
               borderRadius: BorderRadius.circular(25),
             ),
@@ -59,7 +60,7 @@ class _LocationItemCardState extends State<LocationItemCard> {
           ),
           Positioned(
             top: 0,
-            child: (reservationProvider.alreadyLocated(widget.id))
+            child: (reserved)
                 ? ClipOval(
                     child: Material(
                       color:
@@ -92,7 +93,7 @@ class _LocationItemCardState extends State<LocationItemCard> {
                     child: Material(
                       color: (loading)
                           ? Colors.grey
-                          : Colors.green, // button color
+                          : Theme.of(context).primaryColor, // button color
                       child: InkWell(
                         child: SizedBox(
                           width: 30,

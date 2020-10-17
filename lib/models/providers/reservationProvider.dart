@@ -16,8 +16,13 @@ class ReservationProvider with ChangeNotifier {
   bool _done = false;
 
   ReservationProvider() {
-    initMatches();
-    initLocationItems();
+    initRes();
+  }
+
+  initRes() async {
+    await initMatches();
+    await initLocationItems();
+    await chechReservation();
   }
 
   void setDone() {
@@ -62,6 +67,37 @@ class ReservationProvider with ChangeNotifier {
     }
   }
 
+  Future<void> chechReservation() async {
+    Map<String, dynamic> data = await _reservation.checkReservation();
+    if (data != null) {
+      _matche = _matches.firstWhere(
+          (element) => element.name == data["match"][0]["nom"] as String);
+
+      _reservationModel = ReservationModel(
+        id: data["reservation_id"] as int,
+        matcheDate: data["date_matche"] as String,
+        matcheId: _matche.id,
+      );
+
+      _tarif = double.parse(_matche.tarif);
+
+      List<int> list = [];
+      if (data["data"].length > 0) {
+        for (var _item in data["data"] as List<dynamic>) {
+          LocationItem item = LocationItem.fromJSON(_item);
+          list.add(item.id);
+          _tarif = _tarif + double.parse(item.tarif);
+        }
+      }
+      _itemsLocatedId = list;
+      setDone();
+    }
+  }
+
+  int getMatchIdByName(String name) {
+    return _matches.firstWhere((element) => element.name == name).id;
+  }
+
   void deleteLocation(int id) async {
     if (alreadyLocated(id) && haveReservation) {
       String res = await _reservation.deleteLocation(id, reservationModel.id);
@@ -73,12 +109,12 @@ class ReservationProvider with ChangeNotifier {
     }
   }
 
-  void initMatches() async {
+  Future<void> initMatches() async {
     _matches = await _reservation.fetchAvailableMatches();
     notifyListeners();
   }
 
-  void initLocationItems() async {
+  Future<void> initLocationItems() async {
     _locationItems = await _reservation.fetchAvailableLocations();
     notifyListeners();
   }
@@ -119,4 +155,18 @@ class ReservationProvider with ChangeNotifier {
         await _reservation.createReservation(fullDate, _matche.id);
     notifyListeners();
   }
+
+  // Future<void> deleteReservation() async {
+  //   bool res = await _reservation.deleteReservation(reservationModel.id);
+  //   if (res) {
+  //     _itemsLocatedId = [];
+  //     _time = null;
+  //     _date = null;
+  //     _matche = null;
+  //     _tarif = null;
+  //     _reservationModel = null;
+  //     setUndone();
+  //   }
+  //   notifyListeners();
+  // }
 }

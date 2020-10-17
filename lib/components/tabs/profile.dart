@@ -176,7 +176,7 @@ class Profile extends StatelessWidget {
                 ),
                 padding: EdgeInsets.all(10),
                 child: Image.asset(
-                  "assets/clubs/${club.toLowerCase()}_head.png",
+                  "assets/clubs/${club.toLowerCase()}.png",
                 ),
               ),
               Text(
@@ -362,25 +362,24 @@ class Profile extends StatelessWidget {
                       width: screenSize.width * .75,
                       height: screenSize.width * .75,
                       child: RadarChart(
-                          featuresTextStyle: TextStyle(
-                            color: Color(0xFF9AA6AC),
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                          ),
-                          ticksTextStyle: TextStyle(
-                            color: Colors.black,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          outlineColor: Colors.grey,
-                          ticks: ticks,
-                          features: features,
-                          data: data,
-                          reverseAxis: true,
-                          sides: features.length,
-                          graphColors: colors
-                          //useSides: true,
-                          ),
+                        featuresTextStyle: TextStyle(
+                          color: Color(0xFF9AA6AC),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        ticksTextStyle: TextStyle(
+                          color: Colors.black,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        outlineColor: Colors.grey,
+                        ticks: ticks,
+                        features: features,
+                        data: data,
+                        reverseAxis: true,
+                        sides: features.length,
+                        graphColors: colors,
+                      ),
                     ),
                   ),
                   generateLegend(),
@@ -409,7 +408,7 @@ class Profile extends StatelessWidget {
                     padding: EdgeInsets.only(top: 30),
                     child: Column(
                       children: [
-                        clubRow(theme, "Fairway", 51),
+                        clubRow(theme, "Driver", 51),
                         clubRow(theme, "Hybrid", 24),
                         clubRow(theme, "Wedge", 11),
                       ],

@@ -33,4 +33,17 @@ class Ressource {
     }
     return listOfClubs;
   }
+
+  Future<bool> updateContenuSac(List<int> clubs) async {
+    final Map<String, int> _data = {};
+    String key = "baton_id";
+    for (var i = 0; i < 14; i++) {
+      if (i < clubs.length) {
+        _data["$key${i + 1}"] = clubs[i];
+      } else
+        _data["$key${i + 1}"] = 0;
+    }
+    String res = (await _client.delete(UPDATE_SAC, data: _data))["message"];
+    return res.contains('sucess');
+  }
 }

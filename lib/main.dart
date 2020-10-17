@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:golf_app/models/providers/menuProvider.dart';
 import 'package:golf_app/models/providers/userProvider.dart';
 import 'package:golf_app/views/splashScreen.dart';
 import 'package:provider/provider.dart';
 
-Future main() async {
-  await DotEnv().load('.env');
+main() {
   runApp(MyApp());
 }
 
@@ -17,6 +17,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => UserProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => MenuProvider(),
         ),
       ],
       child: MaterialApp(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:golf_app/components/tabs/reservation/deleteButton.dart';
 import 'package:golf_app/models/providers/reservationProvider.dart';
 import 'package:provider/provider.dart';
 
@@ -65,7 +66,7 @@ class ReservationRecap extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(bottom: 15),
+            padding: EdgeInsets.only(bottom: 10),
             child: Text(
               "Ma réservation",
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
@@ -75,7 +76,7 @@ class ReservationRecap extends StatelessWidget {
             padding: EdgeInsets.only(bottom: 30),
             child: Text(
               "${day[2]}/${day[1]}/${day[0]} à ${date[1]}",
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: 16),
             ),
           ),
           Container(
@@ -210,30 +211,7 @@ class ReservationRecap extends StatelessWidget {
                   ),
                 )),
           ),
-          FlatButton(
-            disabledColor: Colors.grey,
-            splashColor: Colors.deepOrange[900],
-            color: Colors.red,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(25),
-              ),
-            ),
-            onPressed: () {
-              reservationProvider.setUndone();
-            },
-            child: Container(
-                width: MediaQuery.of(context).size.width * .7,
-                padding: EdgeInsets.symmetric(vertical: 10),
-                alignment: Alignment.center,
-                child: Text(
-                  "Supprimer",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                  ),
-                )),
-          ),
+          DeleteButton(),
           Container(
             height: 70,
           ),

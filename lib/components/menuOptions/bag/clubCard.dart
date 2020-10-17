@@ -20,7 +20,7 @@ class ClubCard extends StatelessWidget {
           width: 75,
           height: 100,
           decoration: BoxDecoration(
-            color: exists ? Colors.grey : Colors.white,
+            color: Colors.white,
             borderRadius: BorderRadius.circular(20),
           ),
           child: Column(
@@ -36,7 +36,7 @@ class ClubCard extends StatelessWidget {
                 child: Text(
                   club.nom,
                   style: TextStyle(
-                    color: exists ? Colors.white : Color(0xFF9AA6AC),
+                    color: Colors.black,
                     fontSize: 11,
                     fontWeight: FontWeight.w500,
                   ),
@@ -58,9 +58,19 @@ class ClubCard extends StatelessWidget {
             ],
           ),
         ),
-        (!exists)
-            ? Container()
-            : Padding(
+        (exists)
+            ? Container(
+                margin: EdgeInsets.only(bottom: 10, top: 12, left: 12),
+                width: 75,
+                height: 100,
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(.25),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              )
+            : Container(),
+        (exists && !golfSac.clubMustHave(club.id))
+            ? Padding(
                 padding: EdgeInsets.only(top: 6, left: 6),
                 child: ClipOval(
                   child: Material(
@@ -81,7 +91,8 @@ class ClubCard extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
+              )
+            : Container(),
       ],
     );
   }
