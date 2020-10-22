@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:golf_app/components/menuOptions/map/distences.dart';
+import 'package:golf_app/models/interfaces/trouModel.dart';
 
 class HoleCard extends StatelessWidget {
-  final int index;
-  HoleCard({this.index});
+  final TrouModel trou;
+  HoleCard({this.trou});
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -10,15 +12,30 @@ class HoleCard extends StatelessWidget {
         Container(
           width: 300,
           height: 400,
+          padding: EdgeInsets.all(25),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(40),
           ),
-          child: Image.asset("assets/holes/hole_1.png"),
+          child: Transform.rotate(
+            angle: trou.rotation,
+            child: Image.asset(
+              "assets/holes/${trou.image2D}",
+              fit: BoxFit.contain,
+            ),
+          ),
+        ),
+        Distences(
+          top: trou.fTop,
+          left: trou.fLeft,
+          blue: trou.dtBlue,
+          red: trou.dtRed,
+          white: trou.dtWhite,
+          yellow: trou.dtYellow,
         ),
         Positioned(
-          bottom: 20,
-          left: 15,
+          top: trou.sTop,
+          left: trou.sLeft,
           child: Container(
             width: 60,
             height: 70,
@@ -29,7 +46,7 @@ class HoleCard extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(bottom: 10),
                   child: Text(
-                    "trou $index",
+                    "trou ${trou.number}",
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: Colors.red,
@@ -46,7 +63,7 @@ class HoleCard extends StatelessWidget {
                           fontSize: 13),
                     ),
                     Text(
-                      "4",
+                      "${trou.par}",
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 13,
@@ -64,7 +81,7 @@ class HoleCard extends StatelessWidget {
                           fontSize: 13),
                     ),
                     Text(
-                      "8",
+                      "${trou.parGir}",
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 13,

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_circular_chart/flutter_circular_chart.dart';
 import 'package:flutter_radar_chart/flutter_radar_chart.dart';
+import 'package:golf_app/components/menuOptions/sac.dart';
 import 'package:golf_app/models/providers/userProvider.dart';
 import 'package:golf_app/utils/custom_icons_icons.dart';
+import 'package:golf_app/views/options.dart';
 import 'package:provider/provider.dart';
 
 class Profile extends StatelessWidget {
@@ -323,7 +325,10 @@ class Profile extends StatelessWidget {
                           splashColor: Colors.greenAccent,
                           color: theme.primaryColor,
                           shape: CircleBorder(),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).push(
+                                Options.route(Sac(), "Confirmer Sac de Golf"));
+                          },
                           padding: EdgeInsets.all(5),
                           child: Image.asset(
                             "assets/golf_bag_icon.png",

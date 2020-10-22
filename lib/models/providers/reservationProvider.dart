@@ -156,17 +156,17 @@ class ReservationProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  // Future<void> deleteReservation() async {
-  //   bool res = await _reservation.deleteReservation(reservationModel.id);
-  //   if (res) {
-  //     _itemsLocatedId = [];
-  //     _time = null;
-  //     _date = null;
-  //     _matche = null;
-  //     _tarif = null;
-  //     _reservationModel = null;
-  //     setUndone();
-  //   }
-  //   notifyListeners();
-  // }
+  Future<void> deleteReservation() async {
+    bool res = await _reservation.deleteReservation(reservationModel.id);
+    if (res) {
+      _itemsLocatedId = [];
+      _time = null;
+      _date = null;
+      _matche = null;
+      _tarif = null;
+      _reservationModel = null;
+      setUndone();
+    }
+    notifyListeners();
+  }
 }

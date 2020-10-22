@@ -1,6 +1,8 @@
 import 'package:golf_app/api/client.dart';
 import 'package:golf_app/models/interfaces/club.dart';
 import 'package:golf_app/api/constants/endPoints.dart';
+import 'package:golf_app/models/interfaces/news.dart';
+import 'package:golf_app/models/interfaces/trouModel.dart';
 
 class Ressource {
   static Ressource _instance;
@@ -45,5 +47,29 @@ class Ressource {
     }
     String res = (await _client.delete(UPDATE_SAC, data: _data))["message"];
     return res.contains('sucess');
+  }
+
+  Future<List<TrouModel>> fetchHoles() async {
+    List<TrouModel> list = [];
+    List<dynamic> data = await _client.get(MAPS_URL);
+
+    if (data.length > 0) {
+      for (var item in data) {
+        list.add(TrouModel.fromJSON(item));
+      }
+    }
+    return list;
+  }
+
+  Future<List<News>> fetchNews() async {
+    List<News> list = [];
+    List<dynamic> data = (await _client.get(NEWS_URL))["data"];
+
+    if (data.length > 0) {
+      for (var item in data) {
+        list.add(News.fromJSON(item));
+      }
+    }
+    return list;
   }
 }

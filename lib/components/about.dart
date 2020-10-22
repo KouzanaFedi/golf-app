@@ -42,9 +42,11 @@ class About extends StatelessWidget {
                     title: "18 trous \n 72 Par",
                     imagePath: "assets/18_trous.png"),
                 ServiceIcon(
-                    title: "Proshop", imagePath: "assets/voiturette.png"),
+                    title: "Golf \n Proshop",
+                    imagePath: "assets/voiturette.png"),
                 ServiceIcon(
-                    title: "Restaurant", imagePath: "assets/restaurant.png")
+                    title: "Restaurant \n Bar",
+                    imagePath: "assets/restaurant.png")
               ]),
         ],
       ),

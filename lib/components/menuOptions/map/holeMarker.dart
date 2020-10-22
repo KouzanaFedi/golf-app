@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:golf_app/components/menuOptions/map/animatedArrow.dart';
+import 'package:golf_app/models/providers/trousProvider.dart';
+import 'package:provider/provider.dart';
 
 class HoleMarker extends StatefulWidget {
   final int order, currentHole;
@@ -10,7 +12,9 @@ class HoleMarker extends StatefulWidget {
 
 class _HoleMarkerState extends State<HoleMarker> {
   Color markerColor() {
-    return (widget.order == widget.currentHole) ? Colors.red : Colors.blue;
+    return (widget.order == widget.currentHole)
+        ? Colors.red
+        : Colors.blueAccent[400];
   }
 
   Widget playingHole() {
@@ -20,6 +24,8 @@ class _HoleMarkerState extends State<HoleMarker> {
 
   @override
   Widget build(BuildContext context) {
+    final trouProvider = Provider.of<TrouProvider>(context, listen: false);
+
     return Stack(
       children: <Widget>[
         playingHole(),
@@ -45,7 +51,10 @@ class _HoleMarkerState extends State<HoleMarker> {
                     ),
                   ),
                 ),
-                onDoubleTap: () {},
+                onDoubleTap: () {
+                  trouProvider.setPage(widget.order);
+                  trouProvider.set2DView();
+                },
               ),
             ),
           ),

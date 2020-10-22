@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:golf_app/models/providers/menuProvider.dart';
+import 'package:golf_app/models/providers/trousProvider.dart';
 import 'package:golf_app/models/providers/userProvider.dart';
 import 'package:golf_app/views/splashScreen.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +22,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => MenuProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => TrouProvider(),
+        )
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,

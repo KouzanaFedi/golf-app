@@ -76,13 +76,13 @@ class Reservation {
       return null;
   }
 
-  // Future<bool> deleteReservation(int id) async {
-  //   String res = (await _client.delete(DELETE_RESERVATION, data: {
-  //     'reservation_id': id,
-  //   }))["message"];
-  //   if (res.contains('sucess'))
-  //     return true;
-  //   else
-  //     return false;
-  // }
+  Future<bool> deleteReservation(int id) async {
+    String res = (await _client.delete(DELETE_RESERVATION, data: {
+      'reseervation_id': id,
+    }))["message"];
+    if (res.contains('sucess'))
+      return true;
+    else
+      return false;
+  }
 }

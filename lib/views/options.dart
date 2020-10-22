@@ -25,6 +25,7 @@ class Options extends StatelessWidget {
             providers: [
               ChangeNotifierProvider(
                 create: (_) => GolfBagProvider(),
+                lazy: false,
               ),
             ],
             child: Scaffold(

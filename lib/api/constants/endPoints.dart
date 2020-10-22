@@ -25,8 +25,14 @@ const String DELETE_LOCATION_FROM_RESERVATION =
     BASE_URL + "/location/supprimer_location_du_panier";
 const String CHECK_RESERVATION = BASE_URL + "/location/check_reservation";
 const String DELETE_RESERVATION =
-    BASE_URL + "reservation/supprimer_reservation";
+    BASE_URL + "/reservation/supprimer_la_reservation";
 
 // partie
 const String VOIR_PARTIE = BASE_URL + "/parties/voir_parties";
 const String VOIR_JOUEURS = BASE_URL + "/parties/voir_joueurs";
+
+// maps
+const String MAPS_URL = BASE_URL + "/parties/index_trous";
+
+//news
+const String NEWS_URL = BASE_URL + "/actualite/index";

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:golf_app/api/requests/partie.dart';
 import 'package:golf_app/components/animatedLogo.dart';
 import 'package:golf_app/components/fullBackground.dart';
 import 'package:golf_app/components/halfBackground.dart';
 import 'package:golf_app/components/menu.dart';
 import 'package:golf_app/components/navBar.dart';
+import 'package:golf_app/components/news/newsDialog.dart';
 import 'package:golf_app/components/tabs/general.dart';
 import 'package:golf_app/components/tabs/options.dart';
 import 'package:golf_app/components/tabs/profile.dart';
@@ -54,6 +54,7 @@ class _AcceuilState extends State<Acceuil> {
             providers: [
               ChangeNotifierProvider(
                 create: (_) => ReservationProvider(),
+                lazy: false,
               ),
             ],
             child: Scaffold(
@@ -114,7 +115,12 @@ class _AcceuilState extends State<Acceuil> {
                                       color: Colors.white,
                                     ),
                                   ),
-                                  onTap: () {},
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => NewsDialog(),
+                                    );
+                                  },
                                 ),
                               ),
                             ),

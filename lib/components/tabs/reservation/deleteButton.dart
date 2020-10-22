@@ -22,13 +22,13 @@ class _DeleteButtonState extends State<DeleteButton> {
         ),
       ),
       onPressed: () async {
-        // setState(() {
-        //   loading = true;
-        // });
-        // reservationProvider.deleteReservation();
-        // setState(() {
-        //   loading = false;
-        // });
+        setState(() {
+          loading = true;
+        });
+        reservationProvider.deleteReservation();
+        setState(() {
+          loading = false;
+        });
       },
       child: Container(
           width: MediaQuery.of(context).size.width * .7,

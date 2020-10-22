@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:golf_app/models/providers/menuProvider.dart';
+import 'package:golf_app/models/providers/userProvider.dart';
+import 'package:golf_app/views/partieView.dart';
 import 'package:provider/provider.dart';
 
 import 'menuOptions/joueurs.dart';
@@ -8,12 +10,80 @@ import 'menuOptions/parcours.dart';
 import 'menuOptions/sac.dart';
 
 class Menu extends StatelessWidget {
-  final double menuHeight = 400;
+  final double menuHeight = 460;
+  String getDay(int d) {
+    switch (d) {
+      case 1:
+        return "lundi";
+        break;
+      case 2:
+        return "mardi";
+        break;
+      case 3:
+        return "mercredi";
+        break;
+      case 4:
+        return "jeudi";
+        break;
+      case 5:
+        return "vendredi";
+        break;
+      case 6:
+        return "samedi";
+        break;
+      default:
+        return "dimance";
+        break;
+    }
+  }
+
+  String getMonth(int d) {
+    switch (d) {
+      case 1:
+        return "janvier";
+        break;
+      case 2:
+        return "février";
+        break;
+      case 3:
+        return "mars";
+        break;
+      case 4:
+        return "avril";
+        break;
+      case 5:
+        return "mai";
+        break;
+      case 6:
+        return "juin";
+        break;
+      case 7:
+        return "juillet";
+        break;
+      case 8:
+        return "août";
+        break;
+      case 9:
+        return "septembre";
+        break;
+      case 10:
+        return "octobre";
+        break;
+      case 11:
+        return "novembre";
+        break;
+      default:
+        return "décembre";
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final menuProvider = Provider.of<MenuProvider>(context);
     final double menuWidth = MediaQuery.of(context).size.width * .95;
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final DateTime matchDate = DateTime.parse(userProvider.partieModel.date);
     return Positioned(
       bottom: menuProvider.currentHeight,
       right: MediaQuery.of(context).size.width * .025,
@@ -56,7 +126,7 @@ class Menu extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Text(
-                    "Votre partie est prévu pour le mardi 07 septembre à 17h",
+                    "Votre partie est prévu pour le ${getDay(matchDate.weekday)} ${matchDate.day} ${getMonth(matchDate.month)} à ${matchDate.hour}h${matchDate.minute}",
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 15,
@@ -83,7 +153,31 @@ class Menu extends StatelessWidget {
                   title: "Liste des joueurs",
                   image: "assets/player.png",
                   child: Joueurs(),
-                )
+                ),
+                FlatButton(
+                  splashColor: Colors.white,
+                  color: Theme.of(context).primaryColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(25),
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(PartieView.route());
+                  },
+                  child: Container(
+                    height: 50,
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Lancer Partie",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

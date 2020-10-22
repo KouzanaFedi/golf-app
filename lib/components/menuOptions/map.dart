@@ -1,13 +1,11 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:golf_app/components/menuOptions/map/holeMarker.dart';
-import 'package:golf_app/models/interfaces/hole.dart';
+import 'package:golf_app/models/providers/trousProvider.dart';
 import 'package:latlong/latlong.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
+import 'package:provider/provider.dart';
 
 class Map extends StatefulWidget {
   @override
@@ -16,7 +14,6 @@ class Map extends StatefulWidget {
 
 class _MapState extends State<Map> {
   MapController _ctrlr = MapController();
-  List<Hole> holes = [];
   List<Marker> holeMarkers = [];
   int currentHole = 0;
   final LatLng boundTR = LatLng(37.011874, 10.206642),
@@ -24,55 +21,33 @@ class _MapState extends State<Map> {
 
   bool gameStarted = false;
 
-  @override
-  void initState() {
-    super.initState();
-    loadHoles().then((value) {
-      setState(() {
-        holes = value;
-        initHoleMarkers();
-      });
-    });
-  }
-
-  Future<List<Hole>> loadHoles() async {
-    List<Hole> list = [];
-    String _fileContent = await rootBundle.loadString("assets/holes.json");
-    List json = jsonDecode(_fileContent);
-    json.forEach((element) {
-      list.add(Hole.fromJSON(element));
-    });
-    return list;
-  }
-
-  void initHoleMarkers() {
-    List<Marker> list = [];
-    holes.forEach((element) {
-      Marker marker = Marker(
-          width: 25,
-          height: 50,
-          point: LatLng(element.latitude, element.longitude),
-          builder: (ctx) =>
-              HoleMarker(order: element.order, currentHole: currentHole));
-      list.add(marker);
-    });
-    setState(() {
-      holeMarkers = list;
-    });
-  }
-
-  void centerCurrentHole(int i, MapController ctrlr) {
-    if (i - 1 >= 0) {
-      Hole current = holes[i - 1];
-      ctrlr.move(LatLng(current.latitude, current.longitude), 15);
-    }
-  }
+  // void centerCurrentHole(int i, MapController ctrlr) {
+  //   if (i - 1 >= 0) {
+  //     Hole current = holes[i - 1];
+  //     ctrlr.move(LatLng(current.latitude, current.longitude), 15);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     final String accesToken =
         'pk.eyJ1IjoiZmVkaWtvdXphbmEiLCJhIjoiY2tlZTF2cHY2MGNiYzJ0bnRmdGg0cXJtNyJ9.WF5qL_GtMGzaV2smEVyOeA';
+
+    final trouProvider = Provider.of<TrouProvider>(context);
+    List<Marker> list = [];
+    trouProvider.trouList.forEach((element) {
+      Marker marker = Marker(
+          width: 25,
+          height: 50,
+          point: LatLng(element.latitude, element.longitude),
+          builder: (ctx) =>
+              HoleMarker(order: element.number, currentHole: currentHole));
+      list.add(marker);
+    });
+    setState(() {
+      holeMarkers = list;
+    });
     return FlutterMap(
       mapController: _ctrlr,
       options: MapOptions(

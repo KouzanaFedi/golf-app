@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class MenuProvider with ChangeNotifier {
   double _openHeight = 0;
-  double _closedHeight = -350;
+  double _closedHeight = -410;
 
   double _currentHeight;
-  int _currentTab = 1;
+  int _currentTab = 0;
 
   MenuProvider() {
     _currentHeight = _closedHeight;
@@ -38,6 +38,12 @@ class MenuProvider with ChangeNotifier {
     if (_currentTab != 0) {
       _currentTab = 0;
       notifyListeners();
+    }
+  }
+
+  void goToHomeTabWithouNotfiying() {
+    if (_currentTab != 0) {
+      _currentTab = 0;
     }
   }
 
