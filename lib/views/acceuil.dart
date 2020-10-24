@@ -111,7 +111,7 @@ class _AcceuilState extends State<Acceuil> {
                                     width: 50,
                                     height: 50,
                                     child: Icon(
-                                      Icons.notifications_none,
+                                      Icons.notifications,
                                       color: Colors.white,
                                     ),
                                   ),

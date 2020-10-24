@@ -1,13 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:golf_app/api/client.dart';
 import 'package:golf_app/api/requests/auth.dart';
-import 'package:golf_app/api/requests/partie.dart';
 import 'package:golf_app/components/animatedLogo.dart';
 import 'package:golf_app/components/branding.dart';
 import 'package:golf_app/components/copyrights.dart';
-import 'package:golf_app/models/interfaces/partieModel.dart';
 import 'package:golf_app/models/interfaces/user.dart';
 import 'package:golf_app/views/home.dart';
 import 'package:golf_app/views/acceuil.dart';

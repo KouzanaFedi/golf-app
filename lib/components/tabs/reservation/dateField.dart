@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:golf_app/models/interfaces/validationItem.dart';
 import 'package:golf_app/models/providers/reservationProvider.dart';
 import 'package:provider/provider.dart';
 

@@ -25,13 +25,15 @@ class HoleCard extends StatelessWidget {
             ),
           ),
         ),
-        Distences(
+        Positioned(
           top: trou.fTop,
           left: trou.fLeft,
-          blue: trou.dtBlue,
-          red: trou.dtRed,
-          white: trou.dtWhite,
-          yellow: trou.dtYellow,
+          child: Distences(
+            blue: trou.dtBlue,
+            red: trou.dtRed,
+            white: trou.dtWhite,
+            yellow: trou.dtYellow,
+          ),
         ),
         Positioned(
           top: trou.sTop,
