@@ -34,58 +34,74 @@ class DOBField extends StatelessWidget {
           "Date de naissence",
           style: TextStyle(color: Colors.grey[600]),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              width: 40,
-              height: 30,
-              decoration: boxDecoration,
-              child: Center(child: Text(d)),
-            ),
-            Container(
-              width: 40,
-              height: 30,
-              decoration: boxDecoration,
-              child: Center(child: Text(m)),
-            ),
-            Container(
-              width: 60,
-              height: 30,
-              decoration: boxDecoration,
-              child: Center(child: Text(y)),
-            ),
-            ClipOval(
-              child: Material(
-                color: Colors.transparent, // button color
-                child: InkWell(
-                  child: SizedBox(
-                    width: 40,
-                    height: 40,
-                    child: Icon(
-                      Icons.date_range,
-                      color: theme.primaryColor,
+        GestureDetector(
+          onTap: () {
+            DeviceUtils.hideKeyboard(context);
+            showDatePicker(
+              initialDatePickerMode: DatePickerMode.year,
+              context: context,
+              initialDate: DateTime.now(),
+              firstDate: DateTime(1940),
+              lastDate: DateTime.now(),
+            ).then((value) {
+              if (value != null) {
+                registerValidation.setDOB(value.year, value.month, value.day);
+              }
+            });
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                width: 40,
+                height: 30,
+                decoration: boxDecoration,
+                child: Center(child: Text(d)),
+              ),
+              Container(
+                width: 40,
+                height: 30,
+                decoration: boxDecoration,
+                child: Center(child: Text(m)),
+              ),
+              Container(
+                width: 60,
+                height: 30,
+                decoration: boxDecoration,
+                child: Center(child: Text(y)),
+              ),
+              ClipOval(
+                child: Material(
+                  color: Colors.transparent, // button color
+                  child: InkWell(
+                    child: SizedBox(
+                      width: 40,
+                      height: 40,
+                      child: Icon(
+                        Icons.date_range,
+                        color: theme.primaryColor,
+                      ),
                     ),
+                    onTap: () {
+                      DeviceUtils.hideKeyboard(context);
+                      showDatePicker(
+                        initialDatePickerMode: DatePickerMode.year,
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(1940),
+                        lastDate: DateTime.now(),
+                      ).then((value) {
+                        if (value != null) {
+                          registerValidation.setDOB(
+                              value.year, value.month, value.day);
+                        }
+                      });
+                    },
                   ),
-                  onTap: () {
-                    DeviceUtils.hideKeyboard(context);
-                    showDatePicker(
-                      initialDatePickerMode: DatePickerMode.year,
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(1940),
-                      lastDate: DateTime.now(),
-                    ).then((value) {
-                      if (value != null) {
-                        registerValidation.setDOB(
-                            value.year, value.month, value.day);
-                      }
-                    });
-                  },
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         (item.error == null)
             ? Container()

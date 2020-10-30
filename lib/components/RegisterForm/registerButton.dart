@@ -15,6 +15,7 @@ class _RegisterButtonState extends State<RegisterButton> {
     ThemeData theme = Theme.of(context);
     Size screenSize = MediaQuery.of(context).size;
     final registerValidation = Provider.of<RegisterValidation>(context);
+
     return Center(
       child: FlatButton(
         disabledColor: Colors.grey,
@@ -38,10 +39,6 @@ class _RegisterButtonState extends State<RegisterButton> {
                 });
 
                 if (rep == 0) {
-                  Scaffold.of(context).showSnackBar(SnackBar(
-                    content: Text("Register succesful"),
-                    backgroundColor: Colors.green,
-                  ));
                   registerValidation.setRegistred();
                 } else if (rep == -1) {
                   Scaffold.of(context).showSnackBar(SnackBar(

@@ -24,7 +24,7 @@ class UserProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void setPartie() async {
+  Future<void> setPartie() async {
     _partieModel = await _partie.getPartie();
     setListJoueur();
   }
@@ -33,5 +33,10 @@ class UserProvider with ChangeNotifier {
     if (havePartie) {
       _listJoueur = await _partie.getJoueurs(_partieModel.id);
     }
+  }
+
+  Future<void> refreshPartie() async {
+    await setPartie();
+    notifyListeners();
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:golf_app/components/tabs/reservation/deleteButton.dart';
 import 'package:golf_app/models/providers/reservationProvider.dart';
+import 'package:golf_app/models/providers/userProvider.dart';
 import 'package:provider/provider.dart';
 
 class ReservationRecap extends StatelessWidget {
@@ -29,7 +30,7 @@ class ReservationRecap extends StatelessWidget {
               height: 45,
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               child: Text(
-                tarif,
+                "${tarif}dt",
                 style: TextStyle(color: Color(0xFF9AA6AC), fontSize: 15),
                 textAlign: TextAlign.center,
               ),
@@ -41,6 +42,7 @@ class ReservationRecap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final reservationProvider = Provider.of<ReservationProvider>(context);
+    bool havePartie = Provider.of<UserProvider>(context).havePartie;
     List<String> date =
         reservationProvider.reservationModel.matcheDate.split(" ");
     List<String> day = date[0].split("-");
@@ -75,7 +77,7 @@ class ReservationRecap extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(bottom: 30),
             child: Text(
-              "${day[2]}/${day[1]}/${day[0]} à ${date[1]}",
+              "${day[2]}/${day[1]}/${day[0]} à ${date[1].substring(0, 5)}",
               style: TextStyle(fontSize: 16),
             ),
           ),
@@ -187,31 +189,34 @@ class ReservationRecap extends StatelessWidget {
               ),
             ),
           ),
-          FlatButton(
-            disabledColor: Colors.grey,
-            splashColor: Colors.greenAccent,
-            color: theme.primaryColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(25),
-              ),
-            ),
-            onPressed: () {
-              reservationProvider.setUndone();
-            },
-            child: Container(
-                width: MediaQuery.of(context).size.width * .7,
-                padding: EdgeInsets.symmetric(vertical: 10),
-                alignment: Alignment.center,
-                child: Text(
-                  "Modifier",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
+          !havePartie
+              ? FlatButton(
+                  disabledColor: Colors.grey,
+                  splashColor: Colors.greenAccent,
+                  color: theme.primaryColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(25),
+                    ),
                   ),
-                )),
-          ),
-          DeleteButton(),
+                  onPressed: () {
+                    reservationProvider.setUndone();
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * .7,
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Modifier",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                )
+              : Container(),
+          !havePartie ? DeleteButton() : Container(),
           Container(
             height: 70,
           ),

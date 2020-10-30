@@ -55,7 +55,8 @@ class Greeting extends StatelessWidget {
             padding: EdgeInsets.only(top: 20),
             child: FlatButton(
               onPressed: () {
-                Navigator.of(context).pushReplacement(LogIn.route());
+                Navigator.of(context).pushReplacement(
+                    LogIn.route(registerValidation.email.value));
               },
               splashColor: Colors.greenAccent,
               color: theme.primaryColor,

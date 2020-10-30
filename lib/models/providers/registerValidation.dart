@@ -15,7 +15,7 @@ class RegisterValidation with ChangeNotifier {
   //errors
 
   String _obliField() => "Champ obligatoir.";
-  String _miniChar(int x) => "Minimun $x charactéres.";
+  String _miniChar(int x) => "Minimun $x caractères.";
   String _invalidFormat() => "Format invalide.";
 
   //getters

@@ -8,8 +8,12 @@ import 'package:golf_app/views/register.dart';
 import 'package:provider/provider.dart';
 
 class LogIn extends StatefulWidget {
-  static Route<dynamic> route() => MaterialPageRoute(
-        builder: (context) => LogIn(),
+  final String email;
+  LogIn({this.email});
+  static Route<dynamic> route([String email]) => MaterialPageRoute(
+        builder: (context) => LogIn(
+          email: email,
+        ),
       );
   @override
   _LogInState createState() => _LogInState();
@@ -19,7 +23,6 @@ class _LogInState extends State<LogIn> {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
-
     return SafeArea(
       child: Stack(
         children: [
@@ -64,7 +67,7 @@ class _LogInState extends State<LogIn> {
                               ),
                               Column(
                                 children: [
-                                  EmailField(),
+                                  EmailField(email: widget.email),
                                   PasswordField(),
                                   Padding(
                                     padding:

@@ -36,3 +36,10 @@ const String MAPS_URL = BASE_URL + "/parties/index_trous";
 
 //news
 const String NEWS_URL = BASE_URL + "/actualite/index";
+
+//methods
+const String METHODS_LIST = BASE_URL + "/methodes/index";
+
+//news image
+const String NEWS_IMAGE =
+    "http://club-house-api.herokuapp.com/uploads/actualite/";

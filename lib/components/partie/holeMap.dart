@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:golf_app/components/menuOptions/map/distences.dart';
+import 'package:golf_app/components/partie/partieBottomSheet.dart';
 import 'package:golf_app/models/providers/partieProvider.dart';
 import 'package:golf_app/views/fullScreenMap.dart';
 import 'package:golf_app/views/score.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
 class HoleMap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
-    final partieProvider = Provider.of<PartieProvider>(context);
-    final trou = partieProvider.trous[partieProvider.currentHole];
     final theme = Theme.of(context);
+    final screenSize = MediaQuery.of(context).size;
+
+    final partieProvider = Provider.of<PartieProvider>(context);
+    int holeNb = partieProvider.currentHole;
+    final trou = partieProvider.trous[holeNb];
+    int shotNb = partieProvider.currentShot;
+    final shot = partieProvider.holePlayed[holeNb].shots[shotNb];
+
     return Container(
       width: screenSize.width,
       height: screenSize.height - 210,
@@ -26,12 +33,12 @@ class HoleMap extends StatelessWidget {
             ),
           ),
           Positioned(
-            left: screenSize.width - 100,
-            top: screenSize.height - 420,
+            right: 15,
+            bottom: 25,
             child: Column(
               children: [
                 Container(
-                  margin: EdgeInsets.only(bottom: 10),
+                  margin: EdgeInsets.only(bottom: 15),
                   child: SizedBox(
                     width: 50,
                     height: 50,
@@ -39,12 +46,26 @@ class HoleMap extends StatelessWidget {
                         heroTag: "coups",
                         backgroundColor: Colors.red,
                         splashColor: Colors.amber,
-                        onPressed: () {},
+                        onPressed: () {
+                          showBarModalBottomSheet(
+                            barrierColor: Colors.grey.withOpacity(.5),
+                            isDismissible: false,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadiusDirectional.only(
+                                topStart: Radius.circular(50),
+                                topEnd: Radius.circular(50),
+                              ),
+                            ),
+                            context: context,
+                            builder: (context, controller) =>
+                                PartieBottomSheet(),
+                          );
+                        },
                         child: RichText(
                           textAlign: TextAlign.center,
                           text: TextSpan(
                             children: [
-                              TextSpan(text: "#5 \n"),
+                              TextSpan(text: "#${shot.shotNumber} \n"),
                               TextSpan(
                                   text: "Coups",
                                   style: TextStyle(

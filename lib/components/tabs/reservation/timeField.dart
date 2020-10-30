@@ -68,23 +68,30 @@ class TimeField extends StatelessWidget {
               ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Container(
-                width: 35,
-                height: 30,
-                decoration: boxDecoration,
-                child: Center(child: Text(h)),
-              ),
-              Text(':'),
-              Container(
-                width: 35,
-                height: 30,
-                decoration: boxDecoration,
-                child: Center(child: Text(m)),
-              ),
-            ],
+          GestureDetector(
+            onTap: () {
+              showTimePicker(context: context, initialTime: TimeOfDay.now())
+                  .then((value) =>
+                      reservationProvider.setTime(value.hour, value.minute));
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                  width: 35,
+                  height: 30,
+                  decoration: boxDecoration,
+                  child: Center(child: Text(h)),
+                ),
+                Text(':'),
+                Container(
+                  width: 35,
+                  height: 30,
+                  decoration: boxDecoration,
+                  child: Center(child: Text(m)),
+                ),
+              ],
+            ),
           ),
         ],
       ),

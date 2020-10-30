@@ -27,6 +27,7 @@ class GolfBagProvider with ChangeNotifier {
   void initAvailableClubs() {
     _ressource.fetchAvailableClubs().then((value) {
       _availableClubs = value;
+      _availableClubs.shuffle();
       notifyListeners();
     });
   }

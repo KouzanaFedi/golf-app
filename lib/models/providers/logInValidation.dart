@@ -10,7 +10,7 @@ class LogInValidation with ChangeNotifier {
   //errors
 
   String _obliField() => "Champ obligatoir.";
-  String _miniChar(int x) => "Minimun $x charactéres.";
+  String _miniChar(int x) => "Minimun $x caractères.";
   String _invalidFormat() => "Format invalide.";
 
   //getters
@@ -38,6 +38,10 @@ class LogInValidation with ChangeNotifier {
     } else
       _email = ValidationItem(value, null);
     notifyListeners();
+  }
+
+  void setInitEmail(String s) {
+    _email = ValidationItem(s, null);
   }
 
   void setPassword(String value) {

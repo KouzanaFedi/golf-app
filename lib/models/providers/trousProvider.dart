@@ -3,10 +3,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:golf_app/api/requests/ressource.dart';
+import 'package:golf_app/models/interfaces/methodJeu.dart';
 import 'package:golf_app/models/interfaces/trouModel.dart';
 
 class TrouProvider with ChangeNotifier {
   List<TrouModel> _trouList = [];
+  List<MethodJeu> _methods;
+
   int _page = 0;
   bool _is2DView = true;
   TrouProvider() {
@@ -14,6 +17,8 @@ class TrouProvider with ChangeNotifier {
   }
 
   List<TrouModel> get trouList => _trouList;
+  List<MethodJeu> get methods => _methods;
+
   bool get is2DView => _is2DView;
   int get page => _page;
 
@@ -40,7 +45,12 @@ class TrouProvider with ChangeNotifier {
 
   void loadTrou() async {
     _trouList = await Ressource.getInstance().fetchHoles();
+    await fetchMethods();
     await addLatLongToTrou();
+  }
+
+  Future<void> fetchMethods() async {
+    _methods = await Ressource.getInstance().fetchMethods();
   }
 
   Future<void> addLatLongToTrou() async {

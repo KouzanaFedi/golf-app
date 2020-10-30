@@ -15,7 +15,9 @@ class Distences extends StatelessWidget {
         vertical: 20,
         horizontal: 15,
       ),
+      height: 160,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
             padding: EdgeInsets.only(bottom: 10),

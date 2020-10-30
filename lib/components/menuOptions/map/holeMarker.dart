@@ -51,7 +51,7 @@ class _HoleMarkerState extends State<HoleMarker> {
                     ),
                   ),
                 ),
-                onDoubleTap: () {
+                onTap: () {
                   trouProvider.setPage(widget.order);
                   trouProvider.set2DView();
                 },

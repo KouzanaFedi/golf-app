@@ -1,6 +1,7 @@
 import 'package:golf_app/api/client.dart';
 import 'package:golf_app/models/interfaces/club.dart';
 import 'package:golf_app/api/constants/endPoints.dart';
+import 'package:golf_app/models/interfaces/methodJeu.dart';
 import 'package:golf_app/models/interfaces/news.dart';
 import 'package:golf_app/models/interfaces/trouModel.dart';
 
@@ -68,6 +69,18 @@ class Ressource {
     if (data.length > 0) {
       for (var item in data) {
         list.add(News.fromJSON(item));
+      }
+    }
+    return list;
+  }
+
+  Future<List<MethodJeu>> fetchMethods() async {
+    List<MethodJeu> list = [];
+    List<dynamic> data = (await _client.get(METHODS_LIST))["data"];
+
+    if (data.length > 0) {
+      for (var item in data) {
+        list.add(MethodJeu.fromJSON(item));
       }
     }
     return list;

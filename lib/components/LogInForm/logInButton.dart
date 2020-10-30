@@ -54,7 +54,7 @@ class _LogInButtonState extends State<LogInButton> {
           alignment: Alignment.center,
           child: (!loading)
               ? Text(
-                  "Connecte",
+                  "Se connecter",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,

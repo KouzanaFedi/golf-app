@@ -3,7 +3,7 @@ import 'package:golf_app/models/interfaces/trouModel.dart';
 import 'package:golf_app/models/providers/partieProvider.dart';
 import 'package:provider/provider.dart';
 
-class Header extends StatelessWidget {
+class HoleHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final partieProvider = Provider.of<PartieProvider>(context);
@@ -61,9 +61,9 @@ class Header extends StatelessWidget {
                         color: Color(0xFF4D4D4D),
                       ),
                     ),
-                    TextSpan(text: "Hcp "),
+                    TextSpan(text: "Index "),
                     TextSpan(
-                      text: trou.parGir.toString(),
+                      text: trou.strokeIndex.toString(),
                       style: TextStyle(
                         color: Color(0xFF4D4D4D),
                       ),

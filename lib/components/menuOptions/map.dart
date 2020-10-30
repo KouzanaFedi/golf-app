@@ -61,6 +61,9 @@ class _MapState extends State<Map> {
         screenSize: screenSize,
         nePanBoundary: boundTR,
         swPanBoundary: boundBL,
+        onTap: (point) {
+          print("lat ${point.latitude}, longi ${point.longitude}");
+        },
       ),
       layers: [
         TileLayerOptions(

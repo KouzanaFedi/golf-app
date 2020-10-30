@@ -126,7 +126,7 @@ class Menu extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Text(
-                    "Votre partie est prévu pour le ${getDay(matchDate.weekday)} ${matchDate.day} ${getMonth(matchDate.month)} à ${matchDate.hour}h${matchDate.minute}",
+                    "Votre partie est prévu pour le ${getDay(matchDate.weekday)} ${matchDate.day} ${getMonth(matchDate.month)} ${matchDate.year} à ${matchDate.hour}h${matchDate.minute.toString().padLeft(2, "0")}",
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 15,
@@ -138,12 +138,12 @@ class Menu extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     MenuOption(
-                      title: "Confirmer Sac de Golf",
+                      title: "Modifier Sac de Golf",
                       image: "assets/golf_bag_icon.png",
                       child: Sac(),
                     ),
                     MenuOption(
-                      title: "Liste des parcours",
+                      title: "Le parcours",
                       image: "assets/hole_icon1.png",
                       child: Parcours(),
                     )

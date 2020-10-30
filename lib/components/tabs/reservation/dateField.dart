@@ -5,8 +5,6 @@ import 'package:provider/provider.dart';
 class DateField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    DateTime now = DateTime.now();
-    DateTime firstDate = now.add(Duration(days: 2));
     ThemeData theme = Theme.of(context);
     final reservationProvider = Provider.of<ReservationProvider>(context);
     String item = reservationProvider.date;
@@ -63,9 +61,9 @@ class DateField extends StatelessWidget {
                       showDatePicker(
                         initialDatePickerMode: DatePickerMode.year,
                         context: context,
-                        initialDate: firstDate,
-                        firstDate: firstDate,
-                        lastDate: now.add(Duration(days: 682)),
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime.now(),
+                        lastDate: DateTime.now().add(Duration(days: 3650)),
                       ).then((value) {
                         if (value != null) {
                           reservationProvider.setDate(
@@ -78,28 +76,44 @@ class DateField extends StatelessWidget {
               ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                width: 35,
-                height: 30,
-                decoration: boxDecoration,
-                child: Center(child: Text(d)),
-              ),
-              Container(
-                width: 35,
-                height: 30,
-                decoration: boxDecoration,
-                child: Center(child: Text(m)),
-              ),
-              Container(
-                width: 50,
-                height: 30,
-                decoration: boxDecoration,
-                child: Center(child: Text(y)),
-              ),
-            ],
+          GestureDetector(
+            onTap: () {
+              showDatePicker(
+                initialDatePickerMode: DatePickerMode.year,
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime.now(),
+                lastDate: DateTime.now().add(Duration(days: 3650)),
+              ).then((value) {
+                if (value != null) {
+                  reservationProvider.setDate(
+                      value.year, value.month, value.day);
+                }
+              });
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  width: 35,
+                  height: 30,
+                  decoration: boxDecoration,
+                  child: Center(child: Text(d)),
+                ),
+                Container(
+                  width: 35,
+                  height: 30,
+                  decoration: boxDecoration,
+                  child: Center(child: Text(m)),
+                ),
+                Container(
+                  width: 50,
+                  height: 30,
+                  decoration: boxDecoration,
+                  child: Center(child: Text(y)),
+                ),
+              ],
+            ),
           ),
         ],
       ),

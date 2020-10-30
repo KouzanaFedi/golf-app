@@ -39,7 +39,7 @@ class HoleCard extends StatelessWidget {
           top: trou.sTop,
           left: trou.sLeft,
           child: Container(
-            width: 60,
+            width: 70,
             height: 70,
             padding: EdgeInsets.all(5),
             child: Column(
@@ -48,9 +48,9 @@ class HoleCard extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(bottom: 10),
                   child: Text(
-                    "trou ${trou.number}",
+                    "Trou ${trou.number}",
                     style: TextStyle(
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w700,
                       color: Colors.red,
                     ),
                   ),
@@ -60,14 +60,14 @@ class HoleCard extends StatelessWidget {
                     Text(
                       "Par  ",
                       style: TextStyle(
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w700,
                           color: Colors.grey,
                           fontSize: 13),
                     ),
                     Text(
                       "${trou.par}",
                       style: TextStyle(
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w700,
                         fontSize: 13,
                       ),
                     ),
@@ -76,16 +76,16 @@ class HoleCard extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      "Hcp  ",
+                      "Index  ",
                       style: TextStyle(
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w700,
                           color: Colors.grey,
                           fontSize: 13),
                     ),
                     Text(
-                      "${trou.parGir}",
+                      "${trou.strokeIndex}",
                       style: TextStyle(
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w700,
                         fontSize: 13,
                       ),
                     ),

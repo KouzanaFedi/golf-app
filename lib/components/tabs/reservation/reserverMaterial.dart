@@ -30,7 +30,7 @@ class ReserverMaterial extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(bottom: 30),
           child: Text(
-            "Tarifs location des matériels",
+            "Tarifs locations des matériels",
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
           ),
         ),

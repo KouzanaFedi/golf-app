@@ -54,7 +54,6 @@ class _AcceuilState extends State<Acceuil> {
             providers: [
               ChangeNotifierProvider(
                 create: (_) => ReservationProvider(),
-                lazy: false,
               ),
             ],
             child: Scaffold(
@@ -127,7 +126,22 @@ class _AcceuilState extends State<Acceuil> {
                           ),
                         ],
                       ),
-                      Expanded(child: _list[menuProvider.currentTab]),
+                      RefreshIndicator(
+                        onRefresh: () {
+                          return userProvider.refreshPartie();
+                        },
+                        child: SingleChildScrollView(
+                          physics: AlwaysScrollableScrollPhysics(),
+                          child: ConstrainedBox(
+                            constraints: BoxConstraints(
+                                maxHeight:
+                                    MediaQuery.of(context).size.height - 149,
+                                minHeight:
+                                    MediaQuery.of(context).size.height - 149),
+                            child: _list[menuProvider.currentTab],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                   menuProvider.isOpen && userProvider.havePartie

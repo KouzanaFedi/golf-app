@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:golf_app/models/interfaces/news.dart';
+import 'package:golf_app/api/constants/endPoints.dart';
 
 class NewsCard extends StatelessWidget {
   final News news;
@@ -12,14 +13,15 @@ class NewsCard extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(
             vertical: 10,
+            horizontal: 5,
           ),
           child: Text(
             news.title,
-            style: TextStyle(fontWeight: FontWeight.w600),
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
           ),
         ),
         Image.network(
-          "http://club-house-api.herokuapp.com/uploads/actualite/${news.image}",
+          NEWS_IMAGE + news.image,
         ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 5),
@@ -32,7 +34,11 @@ class NewsCard extends StatelessWidget {
             ),
           ),
         ),
-        Divider(),
+        Divider(
+          endIndent: 35,
+          thickness: 2,
+          indent: 35,
+        ),
       ],
     );
   }
