@@ -127,6 +127,9 @@ class _AcceuilState extends State<Acceuil> {
                         ],
                       ),
                       RefreshIndicator(
+                        color: Colors.white,
+                        backgroundColor: theme.primaryColor,
+                        strokeWidth: 3,
                         onRefresh: () {
                           return userProvider.refreshPartie();
                         },

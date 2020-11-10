@@ -30,6 +30,11 @@ const String DELETE_RESERVATION =
 // partie
 const String VOIR_PARTIE = BASE_URL + "/parties/voir_parties";
 const String VOIR_JOUEURS = BASE_URL + "/parties/voir_joueurs";
+const String GENERAL_SCORE = BASE_URL + "/scores/voir_score_apres_match";
+const String PLAY_HOLE = BASE_URL + "/scores/jouer_trou";
+const String PLAY_SHOT = BASE_URL + "/scores/jouer_coup";
+const String UPDATE_SHOT = BASE_URL + "/scores/update_coup";
+const String HOLE_SCORE = BASE_URL + "/scores/voir_score_apres_trou";
 
 // maps
 const String MAPS_URL = BASE_URL + "/parties/index_trous";
@@ -43,3 +48,6 @@ const String METHODS_LIST = BASE_URL + "/methodes/index";
 //news image
 const String NEWS_IMAGE =
     "http://club-house-api.herokuapp.com/uploads/actualite/";
+
+const String WEATHER =
+    "http://api.weatherapi.com/v1/current.json?key=f30a3398d6934305b4394836201610&q=Tunis";

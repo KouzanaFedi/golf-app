@@ -1,9 +1,11 @@
+import 'package:dio/dio.dart';
 import 'package:golf_app/api/client.dart';
 import 'package:golf_app/models/interfaces/club.dart';
 import 'package:golf_app/api/constants/endPoints.dart';
 import 'package:golf_app/models/interfaces/methodJeu.dart';
 import 'package:golf_app/models/interfaces/news.dart';
 import 'package:golf_app/models/interfaces/trouModel.dart';
+import 'package:golf_app/models/interfaces/weatherModel.dart';
 
 class Ressource {
   static Ressource _instance;
@@ -84,5 +86,11 @@ class Ressource {
       }
     }
     return list;
+  }
+
+  Future<WeatherModerl> fetchWeather() async {
+    var data = (await Dio().get(WEATHER)).data;
+
+    return WeatherModerl.fromJSON(data["current"]);
   }
 }

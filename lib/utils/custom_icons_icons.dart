@@ -39,5 +39,6 @@ class CustomIcons {
   static const IconData male = IconData(0xe803, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData user = IconData(0xf007, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData user_plus = IconData(0xf234, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData long_arrow_alt_right = IconData(0xf30b, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData golf_ball = IconData(0xf450, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

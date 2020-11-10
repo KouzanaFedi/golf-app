@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:golf_app/models/providers/partieProvider.dart';
+import 'package:golf_app/views/scoreHole.dart';
 import 'package:provider/provider.dart';
 
 class ValidateButton extends StatefulWidget {
@@ -28,8 +29,16 @@ class _ValidateButtonState extends State<ValidateButton> {
       ),
       onPressed: shot.canSubmitShot
           ? () async {
-              partieProvider.submitShot();
-              if (shot.inHole) Navigator.pop(context);
+              setState(() {
+                loading = true;
+              });
+              await partieProvider.submitShot();
+              setState(() {
+                loading = false;
+              });
+
+              if (shot.inHole)
+                Navigator.of(context).pushReplacement(ScoreHole.route());
             }
           : null,
       child: Container(

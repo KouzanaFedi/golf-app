@@ -9,6 +9,9 @@ import 'package:golf_app/views/home.dart';
 import 'package:golf_app/views/acceuil.dart';
 
 class SplashScreen extends StatelessWidget {
+  static Route<dynamic> route() => MaterialPageRoute(
+        builder: (context) => SplashScreen(),
+      );
   Widget brand() => Container(
         child: Column(
           children: [

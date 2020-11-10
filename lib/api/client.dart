@@ -120,4 +120,36 @@ class Client {
       throw e;
     }
   }
+
+  Future<dynamic> put(
+    String url, {
+    data,
+    Map<String, dynamic> queryParameters,
+    Options options,
+    CancelToken cancelToken,
+  }) async {
+    try {
+      if (this._token != null) {
+        if (options != null) {
+          options.headers["Authorization"] = "Bearer $_token";
+        } else
+          options = Options(
+              headers: {"Authorization": "Bearer $_token"},
+              followRedirects: false,
+              validateStatus: (status) {
+                return status < 500;
+              });
+      }
+      final Response response = await _dio.put(
+        url,
+        data: data,
+        queryParameters: queryParameters,
+        options: options,
+        cancelToken: cancelToken,
+      );
+      return response.data;
+    } catch (e) {
+      throw e;
+    }
+  }
 }

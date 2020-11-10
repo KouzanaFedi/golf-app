@@ -59,6 +59,7 @@ class ClubsChoice extends StatelessWidget {
       child: Theme(
         data: _expansionTileTheme,
         child: ExpansionTile(
+          key: Key(partieProvider.key.toString()),
           tilePadding: EdgeInsets.only(right: 16),
           childrenPadding: EdgeInsets.only(top: 5),
           title: shot.clubId == null

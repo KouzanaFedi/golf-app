@@ -12,6 +12,7 @@ class PartieView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         body: Consumer<PartieProvider>(
           builder: (context, value, child) {

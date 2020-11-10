@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:golf_app/models/providers/golfBagProvider.dart';
-import 'package:golf_app/models/providers/logInValidation.dart';
 import 'package:golf_app/models/providers/menuProvider.dart';
 import 'package:golf_app/models/providers/partieProvider.dart';
 import 'package:golf_app/models/providers/trousProvider.dart';
@@ -16,6 +16,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -30,18 +32,21 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => GolfBagProvider(),
         ),
-        ChangeNotifierProxyProvider2<TrouProvider, GolfBagProvider,
-            PartieProvider>(
+        ChangeNotifierProxyProvider3<UserProvider, TrouProvider,
+            GolfBagProvider, PartieProvider>(
           create: (context) => PartieProvider(
+            partieData:
+                Provider.of<UserProvider>(context, listen: false).partieModel,
             trous: Provider.of<TrouProvider>(context, listen: false).trouList,
             myClubs:
                 Provider.of<GolfBagProvider>(context, listen: false).myClubs,
             methods: Provider.of<TrouProvider>(context, listen: false).methods,
           ),
-          update: (context, value, value2, previous) => PartieProvider(
-            trous: value.trouList,
-            myClubs: value2.myClubs,
-            methods: value.methods,
+          update: (context, value, value2, value3, previous) => PartieProvider(
+            partieData: value.partieModel,
+            trous: value2.trouList,
+            myClubs: value3.myClubs,
+            methods: value2.methods,
           ),
         ),
       ],

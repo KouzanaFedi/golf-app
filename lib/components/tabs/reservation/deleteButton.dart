@@ -31,26 +31,27 @@ class _DeleteButtonState extends State<DeleteButton> {
         });
       },
       child: Container(
-          width: MediaQuery.of(context).size.width * .7,
-          padding: EdgeInsets.symmetric(vertical: 10),
-          alignment: Alignment.center,
-          child: loading
-              ? Center(
-                  child: SizedBox(
-                    width: 25,
-                    height: 25,
-                    child: CircularProgressIndicator(
-                      backgroundColor: Colors.white,
-                    ),
+        width: MediaQuery.of(context).size.width * .7,
+        padding: EdgeInsets.symmetric(vertical: 10),
+        alignment: Alignment.center,
+        child: loading
+            ? Center(
+                child: SizedBox(
+                  width: 25,
+                  height: 25,
+                  child: CircularProgressIndicator(
+                    backgroundColor: Colors.white,
                   ),
-                )
-              : Text(
-                  "Supprimer",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                  ),
-                )),
+                ),
+              )
+            : Text(
+                "Supprimer",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                ),
+              ),
+      ),
     );
   }
 }

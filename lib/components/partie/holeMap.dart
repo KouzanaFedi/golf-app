@@ -3,7 +3,8 @@ import 'package:golf_app/components/menuOptions/map/distences.dart';
 import 'package:golf_app/components/partie/partieBottomSheet.dart';
 import 'package:golf_app/models/providers/partieProvider.dart';
 import 'package:golf_app/views/fullScreenMap.dart';
-import 'package:golf_app/views/score.dart';
+import 'package:golf_app/views/generalScore.dart';
+import 'package:golf_app/views/scoreHole.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
@@ -21,7 +22,7 @@ class HoleMap extends StatelessWidget {
 
     return Container(
       width: screenSize.width,
-      height: screenSize.height - 210,
+      height: screenSize.height - 200,
       child: Stack(
         children: [
           Container(
@@ -82,12 +83,18 @@ class HoleMap extends StatelessWidget {
                         )),
                   ),
                 ),
+                // GestureDetector(
+                //   onTap: () {
+                //     Navigator.of(context).push(ScoreHole.route());
+                //   },
+                //   child:
                 Distences(
                   blue: trou.dtBlue,
                   red: trou.dtRed,
                   white: trou.dtWhite,
                   yellow: trou.dtYellow,
                 ),
+                // ),
               ],
             ),
           ),
@@ -102,7 +109,7 @@ class HoleMap extends StatelessWidget {
                 backgroundColor: theme.primaryColor,
                 splashColor: Colors.white,
                 onPressed: () {
-                  Navigator.of(context).push(Score.route());
+                  Navigator.of(context).push(GeneralScore.route());
                 },
                 child: Icon(
                   Icons.table_chart,

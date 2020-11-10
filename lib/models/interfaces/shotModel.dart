@@ -1,43 +1,72 @@
-class ShotModel {
-  int _clubId, _methodId;
-  final int shotNumber;
-  bool _penality = false, _sandSave = false, _inHole = false, _send = false;
+import 'package:flutter/material.dart';
 
-  ShotModel({this.shotNumber});
+class ShotModel {
+  int clubId, methodId, scoreUnitId;
+  final int shotNumber;
+  bool penality, sandSave, inHole;
+
+  ShotModel({
+    @required this.shotNumber,
+    this.clubId,
+    this.inHole = false,
+    this.methodId,
+    this.penality = false,
+    this.sandSave = false,
+    this.scoreUnitId,
+  });
 
   //getters
 
-  int get clubId => _clubId;
-  int get methodId => _methodId;
-  bool get penality => _penality;
-  bool get sandSave => _sandSave;
-  bool get send => _send;
-  bool get inHole => _inHole;
-  bool get canSubmitShot => _clubId != null && _methodId != null;
-  bool get canModifyShot => canSubmitShot && _send;
+  bool get send => scoreUnitId != null;
+  bool get canSubmitShot => clubId != null && methodId != null;
+  bool get canModifyShot => canSubmitShot && send;
   //setters
 
   void setClubId(int id) {
-    _clubId = id;
+    clubId = id;
   }
 
   void setMethodId(int id) {
-    _methodId = id;
+    methodId = id;
   }
 
   void setpenality() {
-    _penality = !_penality;
+    penality = !penality;
   }
 
   void setSandSave() {
-    _sandSave = !_sandSave;
+    sandSave = !sandSave;
   }
 
   void setinHole() {
-    _inHole = !_inHole;
+    inHole = !inHole;
   }
 
-  void setSend() {
-    _send = true;
+  setSend(int i) {
+    scoreUnitId = i;
+  }
+
+  factory ShotModel.fromJSON(Map<String, dynamic> data) {
+    return ShotModel(
+      shotNumber: data["shotNumber"] as int,
+      clubId: data["clubId"] as int,
+      inHole: data["inHole"] as bool,
+      methodId: data["methodId"] as int,
+      penality: data["penality"] as bool,
+      sandSave: data["sandSave"] as bool,
+      scoreUnitId: (data["scoreUnitId"] != null) ? data["scoreUnitId"] : null,
+    );
+  }
+
+  Map<String, dynamic> toJSON() {
+    return {
+      "clubId": clubId,
+      "methodId": methodId,
+      "shotNumber": shotNumber,
+      "penality": penality,
+      "sandSave": sandSave,
+      "inHole": inHole,
+      "scoreUnitId": scoreUnitId,
+    };
   }
 }

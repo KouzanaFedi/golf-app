@@ -78,7 +78,7 @@ class Reservation {
 
   Future<bool> deleteReservation(int id) async {
     String res = (await _client.delete(DELETE_RESERVATION, data: {
-      'reseervation_id': id,
+      'reservation_id': id,
     }))["message"];
     if (res.contains('sucess'))
       return true;
