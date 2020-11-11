@@ -26,7 +26,7 @@ class _ScoreHoleState extends State<ScoreHole> {
   StreamController<List<PlayerScoreProfile>> _controller;
   final Partie _partie = Partie.getInstance();
   Timer _timer;
-  bool loading = false;
+  bool loading = false, streamEmpty = true;
 
   @override
   void initState() {
@@ -34,8 +34,9 @@ class _ScoreHoleState extends State<ScoreHole> {
     _controller = StreamController();
     _timer = Timer.periodic(Duration(milliseconds: 3500), (timer) {
       _partie.fetchPlayersHoleScore(widget.scoreId).then((value) {
-        if (value.length < widget.nbJoueurs) {
+        if (value.length < widget.nbJoueurs || streamEmpty) {
           _controller.add(value);
+          streamEmpty = true;
         } else {
           stopStream();
         }
@@ -187,7 +188,11 @@ class _ScoreHoleState extends State<ScoreHole> {
                         } else {
                           return (snapshot.data.length <
                                   partieProvider.partieData.nbJoueurs)
-                              ? Container()
+                              ? Container(
+                                  child: Text(
+                                  partieProvider.partieData.nbJoueurs
+                                      .toString(),
+                                ))
                               : (partieProvider.isLastHole)
                                   ? nextHoleButton()
                                   : endPartieButton();
