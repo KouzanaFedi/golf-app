@@ -78,92 +78,90 @@ class MetaInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final partieProvider = Provider.of<PartieProvider>(context, listen: false);
-    return
-        // GestureDetector(
-        //   onTap: () {
-        //     partieProvider.deleteGameHistory();
-        //   },
-        //   child:
-        Container(
-      margin: EdgeInsets.only(top: 20),
-      width: 300,
-      height: 75,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(25),
-        boxShadow: kElevationToShadow[2],
-      ),
-      child: FutureBuilder<WeatherModerl>(
-        future: Ressource.getInstance().fetchWeather(),
-        builder: (context, snapshot) {
-          DateTime date = DateTime.now();
-          if (snapshot.connectionState == ConnectionState.done) {
-            final weather = snapshot.data;
-            String weatherIcon = "https:${weather.icon}";
-            return Container(
-              margin: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  RichText(
-                    text: TextSpan(
-                      style: TextStyle(color: Colors.black),
-                      children: [
-                        TextSpan(text: "${getDay(date.weekday)}\n"),
-                        TextSpan(
-                          text:
-                              "${date.day} ${getMonth(date.month)} ${date.year}",
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: Color(
-                              0xFF9AA6AC,
+    return GestureDetector(
+      onTap: () {
+        partieProvider.deleteGameHistory();
+      },
+      child: Container(
+        margin: EdgeInsets.only(top: 20),
+        width: 300,
+        height: 75,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(25),
+          boxShadow: kElevationToShadow[2],
+        ),
+        child: FutureBuilder<WeatherModerl>(
+          future: Ressource.getInstance().fetchWeather(),
+          builder: (context, snapshot) {
+            DateTime date = DateTime.now();
+            if (snapshot.connectionState == ConnectionState.done) {
+              final weather = snapshot.data;
+              String weatherIcon = "https:${weather.icon}";
+              return Container(
+                margin: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    RichText(
+                      text: TextSpan(
+                        style: TextStyle(color: Colors.black),
+                        children: [
+                          TextSpan(text: "${getDay(date.weekday)}\n"),
+                          TextSpan(
+                            text:
+                                "${date.day} ${getMonth(date.month)} ${date.year}",
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Color(
+                                0xFF9AA6AC,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  Container(
-                    child: Row(
+                    Container(
+                      child: Row(
+                        children: [
+                          Image.network(
+                            weatherIcon,
+                          ),
+                          Text(
+                            "${weather.temp}°",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 11,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Column(
                       children: [
-                        Image.network(
-                          weatherIcon,
+                        Transform.rotate(
+                          angle: -weather.windDegre * (pi / 180),
+                          child: Icon(CustomIcons.long_arrow_alt_right),
                         ),
                         Text(
-                          "${weather.temp}°",
+                          "${weather.windSpeed}km/h",
                           style: TextStyle(
-                            color: Colors.black,
+                            color: Color(0xFF9AA6AC),
                             fontSize: 11,
                           ),
                         )
                       ],
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      Transform.rotate(
-                        angle: -weather.windDegre * (pi / 180),
-                        child: Icon(CustomIcons.long_arrow_alt_right),
-                      ),
-                      Text(
-                        "${weather.windSpeed}km/h",
-                        style: TextStyle(
-                          color: Color(0xFF9AA6AC),
-                          fontSize: 11,
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ),
+                    )
+                  ],
+                ),
+              );
+            }
+            return Center(
+              child: CircularProgressIndicator(),
             );
-          }
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        },
+          },
+        ),
       ),
-      // ),
     );
   }
 }

@@ -34,7 +34,7 @@ class _ModifyButtonState extends State<ModifyButton> {
               await partieProvider.updateShot();
               if (partieProvider
                   .holePlayed[partieProvider.currentHole].shots.last.inHole) {
-                Navigator.of(context).pushReplacement(ScoreHole.route());
+                // Navigator.of(context).pushReplacement(ScoreHole.route());
               }
               setState(() {
                 loading = false;

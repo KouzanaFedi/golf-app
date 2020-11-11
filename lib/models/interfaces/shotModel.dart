@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ShotModel {
   int clubId, methodId, scoreUnitId;
   final int shotNumber;
-  bool penality, sandSave, inHole;
+  bool penality, sandSave, inHole, _send = false;
 
   ShotModel({
     @required this.shotNumber,
@@ -17,7 +17,7 @@ class ShotModel {
 
   //getters
 
-  bool get send => scoreUnitId != null;
+  bool get send => _send;
   bool get canSubmitShot => clubId != null && methodId != null;
   bool get canModifyShot => canSubmitShot && send;
   //setters
@@ -42,8 +42,12 @@ class ShotModel {
     inHole = !inHole;
   }
 
-  setSend(int i) {
+  setUnitId(int i) {
     scoreUnitId = i;
+  }
+
+  setSend() {
+    _send = true;
   }
 
   factory ShotModel.fromJSON(Map<String, dynamic> data) {

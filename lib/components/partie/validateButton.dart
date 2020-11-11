@@ -32,13 +32,22 @@ class _ValidateButtonState extends State<ValidateButton> {
               setState(() {
                 loading = true;
               });
-              await partieProvider.submitShot();
+              bool rep = await partieProvider.submitShot();
               setState(() {
                 loading = false;
               });
-
-              if (shot.inHole)
-                Navigator.of(context).pushReplacement(ScoreHole.route());
+              if (rep) {
+                if (partieProvider.holePlayed.length <
+                    partieProvider.trous.length) {
+                  await partieProvider.goToNextHole();
+                }
+                partieProvider.setSendWithDelay(shot);
+                Navigator.of(context).pushReplacement(ScoreHole.route(
+                    partieProvider.holePlayed[holeNb].scoreId,
+                    partieProvider.partieData.nbJoueurs));
+              } else {
+                partieProvider.setSendWithOutDelay(shot);
+              }
             }
           : null,
       child: Container(

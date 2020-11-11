@@ -136,7 +136,7 @@ class PartieProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> submitShot() async {
+  Future<bool> submitShot() async {
     if (isFirstHole && isFirstShot) {
       await initScoreHole(_holesHistory[0], partieData.id);
     }
@@ -154,16 +154,18 @@ class PartieProvider with ChangeNotifier {
       ),
     );
 
-    if (shot.inHole && _holesHistory.length < trous.length) {
-      HolePlayed hole = HolePlayed(
-        holeIndex: _currentHole + 2,
-        shots: [
-          ShotModel(shotNumber: 1),
-        ],
-      );
-      initScoreHole(hole, partieData.id);
-      _holesHistory.add(hole);
-    } else if (!shot.inHole) {
+    if (shot.inHole) {
+      // && _holesHistory.length < trous.length) {
+      // HolePlayed hole = HolePlayed(
+      //   holeIndex: _currentHole + 2,
+      //   shots: [
+      //     ShotModel(shotNumber: 1),
+      //   ],
+      // );
+      // initScoreHole(hole, partieData.id);
+      // _holesHistory.add(hole);
+      return true;
+    } else {
       _holesHistory[_currentHole].shots.add(
             ShotModel(
               shotNumber: _currentShot + 2,
@@ -171,10 +173,23 @@ class PartieProvider with ChangeNotifier {
               sandSave: isSandSave(shot.methodId),
             ),
           );
+      notifyListeners();
     }
-
     _pref.storeGameHistory(jsonEncode(toJSON()));
     print(_pref.getGameHistory());
+    return false;
+  }
+
+  Future goToNextHole() async {
+    HolePlayed hole = HolePlayed(
+      holeIndex: _currentHole + 2,
+      shots: [
+        ShotModel(shotNumber: 1),
+      ],
+    );
+    await initScoreHole(hole, partieData.id);
+    _holesHistory.add(hole);
+    notifyListeners();
   }
 
   Future<void> updateShot() async {
@@ -187,14 +202,7 @@ class PartieProvider with ChangeNotifier {
         hole.shots.removeLast();
       } while (hole.shots.length > shot.shotNumber);
       if (_holesHistory.length < trous.length) {
-        HolePlayed hole = HolePlayed(
-          holeIndex: _currentHole + 2,
-          shots: [
-            ShotModel(shotNumber: 1),
-          ],
-        );
-        await initScoreHole(hole, partieData.id);
-        _holesHistory.add(hole);
+        await goToNextHole();
       }
     } else {
       if (hole.shots.length == shot.shotNumber) {
@@ -215,7 +223,19 @@ class PartieProvider with ChangeNotifier {
   }
 
   void sendShot(ShotModel shot, int i) {
-    shot.setSend(i);
+    shot.setUnitId(i);
+    notifyListeners();
+  }
+
+  void setSendWithDelay(ShotModel shot) {
+    Future.delayed(Duration(seconds: 1), () {
+      shot.setSend();
+      notifyListeners();
+    });
+  }
+
+  void setSendWithOutDelay(ShotModel shot) {
+    shot.setSend();
     notifyListeners();
   }
 
@@ -249,20 +269,5 @@ class PartieProvider with ChangeNotifier {
       listOfHoles.add(element.toJSON());
     });
     return listOfHoles;
-  }
-
-  StreamController<List<PlayerScoreProfile>> holeScoreStream() {
-    StreamController<List<PlayerScoreProfile>> stream = StreamController();
-    Timer.periodic(Duration(milliseconds: 3500), (_) {
-      partie
-          .fetchPlayersHoleScore(_holesHistory[_currentHole].scoreId)
-          .then((value) {
-        if (value.length < partieData.nbJoueurs) {
-          stream.add(value);
-        } else
-          stream.close();
-      });
-    });
-    return stream;
   }
 }
