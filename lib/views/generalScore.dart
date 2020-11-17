@@ -17,14 +17,25 @@ class GeneralScore extends StatelessWidget {
           future: partieProvider.fetchGeneralScore(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              return SingleChildScrollView(
-                child: Column(
-                  children: [
-                    ScoreHeader(),
-                    ScoreTable(listOfScores: snapshot.data),
-                  ],
-                ),
-              );
+              if (snapshot.data.isEmpty) {
+                return Center(
+                    child: Text(
+                  "Erreur Serveur.",
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ));
+              } else
+                return SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      ScoreHeader(),
+                      ScoreTable(listOfScores: snapshot.data),
+                    ],
+                  ),
+                );
             } else {
               return Center(
                 child: CircularProgressIndicator(),

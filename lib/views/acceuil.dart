@@ -13,6 +13,8 @@ import 'package:golf_app/models/interfaces/user.dart';
 import 'package:golf_app/models/providers/menuProvider.dart';
 import 'package:golf_app/models/providers/reservationProvider.dart';
 import 'package:golf_app/models/providers/userProvider.dart';
+import 'package:golf_app/utils/sharedPref.dart';
+import 'package:golf_app/views/partieView.dart';
 import 'package:provider/provider.dart';
 
 class Acceuil extends StatefulWidget {
@@ -43,6 +45,13 @@ class _AcceuilState extends State<Acceuil> {
     final userProvider = Provider.of<UserProvider>(context);
 
     ThemeData theme = Theme.of(context);
+    SharedPref.getInstance().then((value) {
+      if (value.isGameStartedExists()) {
+        Future.delayed(Duration(milliseconds: 2500), () {
+          Navigator.of(context).pushReplacement(PartieView.route());
+        });
+      }
+    });
 
     return SafeArea(
       child: Stack(
@@ -138,9 +147,9 @@ class _AcceuilState extends State<Acceuil> {
                           child: ConstrainedBox(
                             constraints: BoxConstraints(
                                 maxHeight:
-                                    MediaQuery.of(context).size.height - 149,
+                                    MediaQuery.of(context).size.height - 153,
                                 minHeight:
-                                    MediaQuery.of(context).size.height - 149),
+                                    MediaQuery.of(context).size.height - 153),
                             child: _list[menuProvider.currentTab],
                           ),
                         ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:golf_app/components/partie/clubsChoice.dart';
 import 'package:golf_app/components/partie/methodsChoice.dart';
-import 'package:golf_app/components/partie/modifyButton.dart';
 import 'package:golf_app/components/partie/radioBoxes.dart';
 import 'package:golf_app/components/partie/shotHeader.dart';
 import 'package:golf_app/components/partie/switcherField.dart';
@@ -71,7 +70,7 @@ class PartieBottomSheet extends StatelessWidget {
                   MethodsChoice(),
                   RadioBoxes(),
                   SwitcherField(),
-                  !shot.send ? ValidateButton() : ModifyButton(),
+                  !shot.send ? ValidateButton() : Container(),
                 ],
               ),
             );

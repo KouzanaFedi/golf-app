@@ -5,7 +5,7 @@ import 'package:golf_app/models/providers/menuProvider.dart';
 import 'package:golf_app/models/providers/partieProvider.dart';
 import 'package:golf_app/models/providers/trousProvider.dart';
 import 'package:golf_app/models/providers/userProvider.dart';
-import 'package:golf_app/views/splashScreen.dart';
+import 'package:golf_app/views/interScreen1.dart';
 import 'package:provider/provider.dart';
 
 main() {
@@ -13,7 +13,6 @@ main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -61,7 +60,7 @@ class MyApp extends StatelessWidget {
             accentColor: Colors.grey,
             fontFamily: "poppins",
           ),
-          home: SplashScreen()),
+          home: InterScreen1()),
     );
   }
 }

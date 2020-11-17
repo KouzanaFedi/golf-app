@@ -1,6 +1,8 @@
+import 'dart:convert';
+
 class User {
-  String name, email, sexe, telephone, dob, photo;
-  int handicap, departId, sacId;
+  String name, email, sexe, telephone, dob, photo, handicap;
+  int departId, sacId;
   User({
     this.name,
     this.email,
@@ -23,6 +25,7 @@ class User {
       photo: (json["photo"] == null) ? null : json["photo"],
       departId: json["depart_id"],
       sacId: json["sac_id"],
+      handicap: json["handicap"],
     );
   }
 }

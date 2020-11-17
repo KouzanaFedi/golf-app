@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:golf_app/models/providers/menuProvider.dart';
 import 'package:golf_app/models/providers/userProvider.dart';
+import 'package:golf_app/views/interScreen2.dart';
 import 'package:golf_app/views/partieView.dart';
 import 'package:provider/provider.dart';
 
@@ -163,7 +164,8 @@ class Menu extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.of(context).pushReplacement(PartieView.route());
+                    Navigator.of(context).pushReplacement(
+                        InterScreen2.route(userProvider.partieModel.id));
                   },
                   child: Container(
                     height: 50,

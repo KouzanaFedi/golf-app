@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:golf_app/models/providers/userProvider.dart';
+import 'package:provider/provider.dart';
 
 class ScoreHeader extends StatelessWidget {
   const ScoreHeader({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -47,7 +50,7 @@ class ScoreHeader extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: "36\n",
+                    text: "${userProvider.user.handicap}\n",
                   ),
                   TextSpan(
                       text: "Hcp",

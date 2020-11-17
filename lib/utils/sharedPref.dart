@@ -31,4 +31,16 @@ class SharedPref {
   void deleteGameHistory() {
     _prefs.remove("gameHistory");
   }
+
+  void setGameStarted() {
+    _prefs.setBool("gameStarted", true);
+  }
+
+  bool isGameStartedExists() {
+    return _prefs.containsKey("gameStarted");
+  }
+
+  void deleteGameStarted() {
+    _prefs.remove("gameStarted");
+  }
 }

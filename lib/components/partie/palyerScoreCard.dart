@@ -24,13 +24,13 @@ class PlayerScoreCard extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(left: 25, right: 25, bottom: 15),
       width: MediaQuery.of(context).size.width * .9,
-      padding: EdgeInsets.only(top: 10, bottom: 10, right: 5),
+      padding: EdgeInsets.only(top: 10, bottom: 10, right: 15, left: 15),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(50),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
@@ -81,7 +81,7 @@ class PlayerScoreCard extends StatelessWidget {
             ],
           ),
           Text(
-            type,
+            type.toString(),
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w600,

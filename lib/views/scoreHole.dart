@@ -6,7 +6,7 @@ import 'package:golf_app/components/partie/palyerScoreCard.dart';
 import 'package:golf_app/models/interfaces/playerScoreProfile.dart';
 import 'package:golf_app/models/interfaces/trouModel.dart';
 import 'package:golf_app/models/providers/partieProvider.dart';
-import 'package:golf_app/views/splashScreen.dart';
+import 'package:golf_app/views/interScreen1.dart';
 import 'package:provider/provider.dart';
 
 class ScoreHole extends StatefulWidget {
@@ -34,10 +34,9 @@ class _ScoreHoleState extends State<ScoreHole> {
     _controller = StreamController();
     _timer = Timer.periodic(Duration(milliseconds: 3500), (timer) {
       _partie.fetchPlayersHoleScore(widget.scoreId).then((value) {
-        if (value.length < widget.nbJoueurs || streamEmpty) {
-          _controller.add(value);
-          streamEmpty = true;
-        } else {
+        _controller.add(value);
+        streamEmpty = false;
+        if (value.length == widget.nbJoueurs && !streamEmpty) {
           stopStream();
         }
       });
@@ -78,7 +77,7 @@ class _ScoreHoleState extends State<ScoreHole> {
               setState(() {
                 loading = false;
               });
-              Navigator.of(context).pop();
+              // Navigator.of(context).pop();
             },
             child: Container(
               width: MediaQuery.of(context).size.width * .8,
@@ -113,8 +112,10 @@ class _ScoreHoleState extends State<ScoreHole> {
               ),
             ),
             onPressed: () {
+              partieProvider.computePartieStats();
+              partieProvider.clearGame();
               Navigator.of(context).pushAndRemoveUntil(
-                SplashScreen.route(),
+                InterScreen1.route(),
                 (Route<dynamic> route) => false,
               );
             },
@@ -166,8 +167,6 @@ class _ScoreHoleState extends State<ScoreHole> {
               child: StreamBuilder<List<PlayerScoreProfile>>(
                 stream: _controller.stream,
                 builder: (context, snapshot) {
-                  debugPrint(snapshot.connectionState.toString());
-                  debugPrint(snapshot.data.toString());
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
                       child: CircularProgressIndicator(),
@@ -176,6 +175,7 @@ class _ScoreHoleState extends State<ScoreHole> {
                     return ListView.builder(
                       itemCount: snapshot.data.length + 1,
                       itemBuilder: (context, index) {
+                        print(snapshot.data.length);
                         if (index < snapshot.data.length) {
                           PlayerScoreProfile profile = snapshot.data[index];
                           return PlayerScoreCard(
@@ -188,14 +188,10 @@ class _ScoreHoleState extends State<ScoreHole> {
                         } else {
                           return (snapshot.data.length <
                                   partieProvider.partieData.nbJoueurs)
-                              ? Container(
-                                  child: Text(
-                                  partieProvider.partieData.nbJoueurs
-                                      .toString(),
-                                ))
-                              : (partieProvider.isLastHole)
-                                  ? nextHoleButton()
-                                  : endPartieButton();
+                              ? Container()
+                              : (partieProvider.islastHoleInGame)
+                                  ? endPartieButton()
+                                  : nextHoleButton();
                         }
                       },
                     );

@@ -29,7 +29,7 @@ class MetaInfo extends StatelessWidget {
         return "Samedi";
         break;
       default:
-        return "Dimance";
+        return "Dimanche";
         break;
     }
   }
@@ -80,7 +80,7 @@ class MetaInfo extends StatelessWidget {
     final partieProvider = Provider.of<PartieProvider>(context, listen: false);
     return GestureDetector(
       onTap: () {
-        partieProvider.deleteGameHistory();
+        partieProvider.clearGame();
       },
       child: Container(
         margin: EdgeInsets.only(top: 20),
@@ -128,7 +128,7 @@ class MetaInfo extends StatelessWidget {
                             weatherIcon,
                           ),
                           Text(
-                            "${weather.temp}°",
+                            "${weather.temp.round()}°",
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 11,

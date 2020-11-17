@@ -28,26 +28,47 @@ class _ValidateButtonState extends State<ValidateButton> {
         ),
       ),
       onPressed: shot.canSubmitShot
-          ? () async {
-              setState(() {
-                loading = true;
-              });
-              bool rep = await partieProvider.submitShot();
-              setState(() {
-                loading = false;
-              });
-              if (rep) {
-                if (partieProvider.holePlayed.length <
-                    partieProvider.trous.length) {
-                  await partieProvider.goToNextHole();
-                }
-                partieProvider.setSendWithDelay(shot);
-                Navigator.of(context).pushReplacement(ScoreHole.route(
-                    partieProvider.holePlayed[holeNb].scoreId,
-                    partieProvider.partieData.nbJoueurs));
-              } else {
-                partieProvider.setSendWithOutDelay(shot);
-              }
+          ? () {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25)),
+                  title: Text("Jouer coup ${shotNb + 1} du trou ${holeNb + 1}"),
+                  content: Text(
+                      "Batton : ${partieProvider.getClubName(shot.clubId)}\nMise en jeu : ${partieProvider.getMethodName(shot.methodId)}\nPinalité : ${(shot.penality) ? 'Vrai' : 'Faux'}\nSand save : ${(shot.sandSave) ? 'Vrai' : 'Faux'}\nBalle dans le trou : ${(shot.inHole) ? 'Vrai' : 'Faux'}"),
+                  actions: [
+                    FlatButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text("Annuler"),
+                      textColor: Colors.grey,
+                    ),
+                    FlatButton(
+                      onPressed: () async {
+                        int count = 0;
+                        setState(() {
+                          loading = true;
+                        });
+                        bool rep = await partieProvider.submitShot();
+                        setState(() {
+                          loading = false;
+                        });
+                        if (rep) {
+                          partieProvider.setSendWithDelay(shot);
+                          Navigator.of(context)
+                              .popUntil((route) => count++ >= 2);
+                        } else {
+                          Navigator.of(context).pop();
+                          partieProvider.setSendWithOutDelay(shot);
+                        }
+                      },
+                      child: Text('Continuer'),
+                    ),
+                  ],
+                ),
+              );
             }
           : null,
       child: Container(

@@ -83,11 +83,6 @@ class HoleMap extends StatelessWidget {
                         )),
                   ),
                 ),
-                // GestureDetector(
-                //   onTap: () {
-                //     Navigator.of(context).push(ScoreHole.route());
-                //   },
-                //   child:
                 Distences(
                   blue: trou.dtBlue,
                   red: trou.dtRed,
