@@ -1,7 +1,7 @@
 class TrouModel {
   final int number, dtWhite, dtYellow, dtRed, dtBlue, par, strokeIndex, parGir;
   final String image2D;
-  double _lat, _long, _rotation, _sTop, _sLeft, _fTop, _fLeft;
+  double _lat, _long, _sTop, _sLeft, _fTop, _fLeft;
 
   TrouModel({
     this.dtBlue,
@@ -17,19 +17,15 @@ class TrouModel {
 
   double get latitude => _lat;
   double get longitude => _long;
-  double get rotation => _rotation;
   double get sTop => _sTop;
   double get sLeft => _sLeft;
   double get fTop => _fTop;
   double get fLeft => _fLeft;
+  String get smallImage => image2D.split(".").join('-s.');
 
   void setLatLong(double lat, double long) {
     _lat = lat;
     _long = long;
-  }
-
-  void setRotation(double rot) {
-    _rotation = rot;
   }
 
   void setFlagsPos(double top, double left) {

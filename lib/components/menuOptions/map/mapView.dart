@@ -4,6 +4,8 @@ import 'package:golf_app/models/providers/trousProvider.dart';
 import 'package:provider/provider.dart';
 
 class MapView extends StatelessWidget {
+  final int nbTrou;
+  MapView({this.nbTrou});
   @override
   Widget build(BuildContext context) {
     final trouProvider = Provider.of<TrouProvider>(context);
@@ -13,7 +15,7 @@ class MapView extends StatelessWidget {
         Container(
           child: ClipRRect(
             borderRadius: BorderRadius.circular(40),
-            child: Map(),
+            child: Map(nbTrou: nbTrou),
           ),
           height: 400,
           width: 300,

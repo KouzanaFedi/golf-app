@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:golf_app/models/providers/menuProvider.dart';
 import 'package:golf_app/models/providers/userProvider.dart';
 import 'package:golf_app/views/interScreen2.dart';
-import 'package:golf_app/views/partieView.dart';
 import 'package:provider/provider.dart';
 
 import 'menuOptions/joueurs.dart';
@@ -146,7 +145,9 @@ class Menu extends StatelessWidget {
                     MenuOption(
                       title: "Le parcours",
                       image: "assets/hole_icon1.png",
-                      child: Parcours(),
+                      child: Parcours(
+                        nbTrou: int.parse(userProvider.partieModel.nbTrou),
+                      ),
                     )
                   ],
                 ),

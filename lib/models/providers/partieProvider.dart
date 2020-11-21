@@ -189,6 +189,7 @@ class PartieProvider with ChangeNotifier {
               sandSave: isSandSave(shot.methodId),
             ),
           );
+      _currentShot++;
       notifyListeners();
       _pref.storeGameHistory(jsonEncode(toJSON()));
       print(_pref.getGameHistory());
@@ -208,6 +209,10 @@ class PartieProvider with ChangeNotifier {
     _pref.storeGameHistory(jsonEncode(toJSON()));
     print(_pref.getGameHistory());
     notifyListeners();
+  }
+
+  void goNextHoleId() {
+    _currentHole++;
   }
 
   void sendShot(ShotModel shot, int i) {

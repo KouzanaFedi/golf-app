@@ -2,8 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:golf_app/api/client.dart';
 import 'package:golf_app/models/interfaces/club.dart';
 import 'package:golf_app/api/constants/endPoints.dart';
+import 'package:golf_app/models/interfaces/clubStat.dart';
+import 'package:golf_app/models/interfaces/gameStats.dart';
 import 'package:golf_app/models/interfaces/methodJeu.dart';
 import 'package:golf_app/models/interfaces/news.dart';
+import 'package:golf_app/models/interfaces/statistics.dart';
 import 'package:golf_app/models/interfaces/trouModel.dart';
 import 'package:golf_app/models/interfaces/weatherModel.dart';
 
@@ -89,8 +92,55 @@ class Ressource {
   }
 
   Future<WeatherModerl> fetchWeather() async {
-    var data = (await Dio().get(WEATHER)).data;
+    return WeatherModerl.fromJSON((await Dio().get(WEATHER)).data["current"]);
+  }
 
-    return WeatherModerl.fromJSON(data["current"]);
+  Future<Statistics> fetchStats() async {
+    print("sending fetch stats req...");
+    var data = (await _client.get(GENERAL_STATS));
+    print(data);
+    return Statistics.fromJSON(data);
+  }
+
+  Future<List<GameStats>> fetchGameStats() async {
+    print("sending fetch game stats req...");
+
+    List<GameStats> list = [];
+    List<dynamic> data = (await _client.get(GAMES_STATS))["data"];
+    print(data);
+
+    if (data.isNotEmpty) {
+      for (var item in data) {
+        list.add(GameStats.fromJSON(item));
+      }
+      while (list.length > 6) {
+        list.removeLast();
+      }
+    }
+
+    return list;
+  }
+
+  Future<List<ClubStat>> fetchClubStats() async {
+    print("sending fetch club stats req...");
+    List<ClubStat> list = [];
+    Map<String, dynamic> data = await _client.get(CLUBS_STAT);
+    print(data);
+    int nbFrap = data["nombre frappes"];
+    List<dynamic> listData = data["data"];
+
+    if (listData.isNotEmpty) {
+      for (var item in listData) {
+        ClubStat clubStat = ClubStat.fromJSON(item);
+        clubStat.setPercentage(
+            double.parse((clubStat.count / nbFrap).toStringAsFixed(2)));
+        list.add(clubStat);
+      }
+      list.sort((c, n) => c.count.compareTo(n.count));
+      while (list.length > 3) {
+        list.removeLast();
+      }
+    }
+    return list;
   }
 }

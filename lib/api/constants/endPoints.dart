@@ -4,6 +4,7 @@ const String BASE_URL = "https://club-house-api.herokuapp.com/api";
 const String REGISTER_URL = BASE_URL + "/register";
 const String LOGIN_URL = BASE_URL + "/login";
 const String GETUSER_URL = BASE_URL + "/user";
+const String GET_USER_DEPART = BASE_URL + "/show";
 const String LOGOUT_URL = BASE_URL + "/logout";
 
 //clubs
@@ -38,7 +39,11 @@ const String UPDATE_SHOT = BASE_URL + "/scores/update_coup";
 const String HOLE_SCORE = BASE_URL + "/scores/voir_score_apres_trou";
 const String COMPUTE_PARTIE_STATS =
     BASE_URL + "/statistiques/calculer_statistiques";
-
+const String GENERAL_STATS =
+    BASE_URL + "/statistiques/afficher_statistiques_generales";
+const String GAMES_STATS =
+    BASE_URL + "/statistiques/afficher_statistiques_par_match";
+const String CLUBS_STAT = BASE_URL + "/statistiques/voir_most_played_club";
 // maps
 const String MAPS_URL = BASE_URL + "/parties/index_trous";
 

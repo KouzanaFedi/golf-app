@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:golf_app/models/providers/partieProvider.dart';
-import 'package:golf_app/views/scoreHole.dart';
 import 'package:provider/provider.dart';
 
 class ValidateButton extends StatefulWidget {

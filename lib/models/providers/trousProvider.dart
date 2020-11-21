@@ -59,7 +59,6 @@ class TrouProvider with ChangeNotifier {
     json.forEach((element) {
       double lat = element["latitude"];
       double long = element["longitude"];
-      double rotation = element["rotation"];
       double fTop = element["fTop"];
       double fLeft = element["fLeft"];
       double sTop = element["sTop"];
@@ -67,7 +66,6 @@ class TrouProvider with ChangeNotifier {
       TrouModel trou =
           _trouList.firstWhere((trou) => trou.number == element["order"]);
       trou.setLatLong(lat, long);
-      trou.setRotation(rotation);
       trou.setFlagsPos(fTop, fLeft);
       trou.setStatsPos(sTop, sLeft);
     });

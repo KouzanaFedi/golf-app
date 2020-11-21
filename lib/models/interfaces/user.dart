@@ -1,8 +1,6 @@
-import 'dart:convert';
-
 class User {
-  String name, email, sexe, telephone, dob, photo, handicap;
-  int departId, sacId;
+  String name, email, sexe, telephone, dob, photo, handicap, depart;
+  int sacId;
   User({
     this.name,
     this.email,
@@ -11,9 +9,12 @@ class User {
     this.dob,
     this.photo,
     this.handicap,
-    this.departId,
     this.sacId,
   });
+
+  void setDepart(String d) {
+    depart = d;
+  }
 
   factory User.fromJSON(Map<String, dynamic> json) {
     return User(
@@ -23,7 +24,6 @@ class User {
       telephone: json["telephone"],
       dob: json["dateDeNaissance"],
       photo: (json["photo"] == null) ? null : json["photo"],
-      departId: json["depart_id"],
       sacId: json["sac_id"],
       handicap: json["handicap"],
     );

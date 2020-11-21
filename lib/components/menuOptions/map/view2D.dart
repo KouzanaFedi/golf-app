@@ -4,6 +4,8 @@ import 'package:golf_app/models/providers/trousProvider.dart';
 import 'package:provider/provider.dart';
 
 class View2D extends StatelessWidget {
+  final int nbTrou;
+  View2D({this.nbTrou});
   @override
   Widget build(BuildContext context) {
     final trouProvider = Provider.of<TrouProvider>(context);
@@ -16,7 +18,7 @@ class View2D extends StatelessWidget {
         SizedBox(
           height: 400,
           child: PageView.builder(
-            itemCount: trouProvider.trouList.length,
+            itemCount: nbTrou,
             controller: _pageController,
             itemBuilder: (context, index) => Center(
               child: HoleCard(

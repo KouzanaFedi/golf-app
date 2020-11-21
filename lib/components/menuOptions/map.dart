@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:golf_app/components/menuOptions/map/holeMarker.dart';
+import 'package:golf_app/models/interfaces/trouModel.dart';
 import 'package:golf_app/models/providers/trousProvider.dart';
 import 'package:latlong/latlong.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:provider/provider.dart';
 
 class Map extends StatefulWidget {
+  final int nbTrou;
+  Map({this.nbTrou});
   @override
   _MapState createState() => _MapState();
 }
@@ -36,7 +39,8 @@ class _MapState extends State<Map> {
 
     final trouProvider = Provider.of<TrouProvider>(context);
     List<Marker> list = [];
-    trouProvider.trouList.forEach((element) {
+    for (var i = 0; i < widget.nbTrou; i++) {
+      TrouModel element = trouProvider.trouList[i];
       Marker marker = Marker(
           width: 25,
           height: 50,
@@ -44,7 +48,7 @@ class _MapState extends State<Map> {
           builder: (ctx) =>
               HoleMarker(order: element.number, currentHole: currentHole));
       list.add(marker);
-    });
+    }
     setState(() {
       holeMarkers = list;
     });

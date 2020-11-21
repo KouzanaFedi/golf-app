@@ -78,7 +78,15 @@ class Auth {
           headers: {"authorization": "Bearer $_userToken"},
         ),
       );
-      return User.fromJSON(json);
+      User user = User.fromJSON(json);
+      String depart = (await Client.getInstance().get(
+        GET_USER_DEPART,
+        options: Options(
+          headers: {"authorization": "Bearer $_userToken"},
+        ),
+      ))["data"]["depart "];
+      user.setDepart(depart);
+      return user;
     } else
       return null;
   }

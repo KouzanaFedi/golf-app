@@ -3,6 +3,7 @@ import 'package:golf_app/components/partie/generalScore/scoreHeader.dart';
 import 'package:golf_app/components/partie/generalScore/scoreTable.dart';
 import 'package:golf_app/models/interfaces/scoreGeneralModel.dart';
 import 'package:golf_app/models/providers/partieProvider.dart';
+import 'package:golf_app/views/interScreen1.dart';
 import 'package:provider/provider.dart';
 
 class GeneralScore extends StatelessWidget {
@@ -33,6 +34,38 @@ class GeneralScore extends StatelessWidget {
                     children: [
                       ScoreHeader(),
                       ScoreTable(listOfScores: snapshot.data),
+                      partieProvider.islastHoleInGame
+                          ? Container(
+                              margin: EdgeInsets.only(left: 25, right: 25),
+                              child: FlatButton(
+                                splashColor: Colors.amber,
+                                color: Colors.red,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(20),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  partieProvider.computePartieStats();
+                                  partieProvider.clearGame();
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                      InterScreen1.route(), (route) => false);
+                                },
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width * .8,
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "Fin partie",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Container()
                     ],
                   ),
                 );

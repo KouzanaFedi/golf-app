@@ -17,12 +17,9 @@ class HoleCard extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(40),
           ),
-          child: Transform.rotate(
-            angle: trou.rotation,
-            child: Image.asset(
-              "assets/holes/${trou.image2D}",
-              fit: BoxFit.contain,
-            ),
+          child: Image.asset(
+            "assets/holes/${trou.smallImage}",
+            fit: BoxFit.contain,
           ),
         ),
         Positioned(

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:golf_app/components/menuOptions/map.dart';
 
 class FullScreenMap extends StatelessWidget {
-  static Route<dynamic> route() =>
-      MaterialPageRoute(builder: (context) => FullScreenMap());
+  final int nbTrou;
+  FullScreenMap({this.nbTrou});
+  static Route<dynamic> route(int nbTrou) =>
+      MaterialPageRoute(builder: (context) => FullScreenMap(nbTrou: nbTrou));
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -14,7 +16,7 @@ class FullScreenMap extends StatelessWidget {
           height: screenSize.height,
           child: Stack(
             children: [
-              Map(),
+              Map(nbTrou: nbTrou),
               BackButton(
                 color: Colors.black,
               ),

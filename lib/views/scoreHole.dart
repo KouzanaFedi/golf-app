@@ -6,7 +6,7 @@ import 'package:golf_app/components/partie/palyerScoreCard.dart';
 import 'package:golf_app/models/interfaces/playerScoreProfile.dart';
 import 'package:golf_app/models/interfaces/trouModel.dart';
 import 'package:golf_app/models/providers/partieProvider.dart';
-import 'package:golf_app/views/interScreen1.dart';
+import 'package:golf_app/views/generalScore.dart';
 import 'package:provider/provider.dart';
 
 class ScoreHole extends StatefulWidget {
@@ -77,7 +77,7 @@ class _ScoreHoleState extends State<ScoreHole> {
               setState(() {
                 loading = false;
               });
-              // Navigator.of(context).pop();
+              partieProvider.goNextHoleId();
             },
             child: Container(
               width: MediaQuery.of(context).size.width * .8,
@@ -114,10 +114,7 @@ class _ScoreHoleState extends State<ScoreHole> {
             onPressed: () {
               partieProvider.computePartieStats();
               partieProvider.clearGame();
-              Navigator.of(context).pushAndRemoveUntil(
-                InterScreen1.route(),
-                (Route<dynamic> route) => false,
-              );
+              Navigator.of(context).pushReplacement(GeneralScore.route());
             },
             child: Container(
               width: MediaQuery.of(context).size.width * .8,
@@ -131,7 +128,7 @@ class _ScoreHoleState extends State<ScoreHole> {
                       ),
                     )
                   : Text(
-                      "Fin partie",
+                      "Voir score",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 14,
