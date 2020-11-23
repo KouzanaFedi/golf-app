@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:golf_app/api/constants/endPoints.dart';
 
 class PlayerIcon extends StatelessWidget {
-  final String name, image;
-  PlayerIcon({this.image, this.name});
+  final String name, image, sexe;
+  PlayerIcon({this.image, this.name, this.sexe});
+  Image loadAssetImage(String gender) {
+    if (gender == "femme")
+      return Image.asset("assets/player-f.png");
+    else
+      return Image.asset("assets/player-m.png");
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    // final width = (MediaQuery.of(context).size.width - 50) / 3;
     return Container(
       margin: EdgeInsets.only(bottom: 10),
       child: Row(
@@ -22,7 +29,20 @@ class PlayerIcon extends StatelessWidget {
                 color: theme.primaryColor,
                 shape: BoxShape.circle,
               ),
-              child: CircleAvatar(),
+              child: CircleAvatar(
+                child: image == null
+                    ? loadAssetImage(sexe)
+                    : ClipOval(
+                        child: Image.network(
+                          "$IMAGE_BASE_URL$image",
+                          width: 40,
+                          height: 40,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) =>
+                              loadAssetImage(sexe),
+                        ),
+                      ),
+              ),
             ),
           ),
           Flexible(

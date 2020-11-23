@@ -9,6 +9,7 @@ import 'package:golf_app/models/interfaces/news.dart';
 import 'package:golf_app/models/interfaces/statistics.dart';
 import 'package:golf_app/models/interfaces/trouModel.dart';
 import 'package:golf_app/models/interfaces/weatherModel.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Ressource {
   static Ressource _instance;
@@ -96,25 +97,26 @@ class Ressource {
   }
 
   Future<Statistics> fetchStats() async {
-    print("sending fetch stats req...");
     var data = (await _client.get(GENERAL_STATS));
-    print(data);
     return Statistics.fromJSON(data);
   }
 
   Future<List<GameStats>> fetchGameStats() async {
-    print("sending fetch game stats req...");
-
     List<GameStats> list = [];
     List<dynamic> data = (await _client.get(GAMES_STATS))["data"];
-    print(data);
 
     if (data.isNotEmpty) {
-      for (var item in data) {
-        list.add(GameStats.fromJSON(item));
-      }
+      data.sort(
+          (a, b) => (a["partie_id"] as int).compareTo(b["partie_id"] as int));
+
+      data.asMap().forEach((key, item) {
+        GameStats gs = GameStats.fromJSON(item);
+        gs.setOrder(key + 1);
+        list.add(gs);
+      });
+
       while (list.length > 6) {
-        list.removeLast();
+        list.removeAt(0);
       }
     }
 
@@ -122,25 +124,42 @@ class Ressource {
   }
 
   Future<List<ClubStat>> fetchClubStats() async {
-    print("sending fetch club stats req...");
     List<ClubStat> list = [];
     Map<String, dynamic> data = await _client.get(CLUBS_STAT);
-    print(data);
+
     int nbFrap = data["nombre frappes"];
     List<dynamic> listData = data["data"];
 
     if (listData.isNotEmpty) {
+      listData.sort((a, b) => (b['count'] as int).compareTo(a['count'] as int));
+      listData =
+          listData.sublist(0, (listData.length > 3) ? 3 : listData.length);
       for (var item in listData) {
         ClubStat clubStat = ClubStat.fromJSON(item);
         clubStat.setPercentage(
             double.parse((clubStat.count / nbFrap).toStringAsFixed(2)));
         list.add(clubStat);
       }
-      list.sort((c, n) => c.count.compareTo(n.count));
-      while (list.length > 3) {
-        list.removeLast();
-      }
     }
     return list;
+  }
+
+  Future updateImage(PickedFile image) async {
+    String name = image.path.split('/').last;
+    var data = FormData.fromMap({
+      "photo": await MultipartFile.fromFile(image.path, filename: name),
+    });
+    await _client.post(UPDATE_IMAGE, data: data);
+  }
+
+  Future updateInfor(String name, String numb) async {
+    var data = {};
+    if (name != null) {
+      data["name"] = name;
+    }
+    if (numb != null) {
+      data["telephone"] = numb;
+    }
+    await _client.put(UPDATE_INFO, data: data);
   }
 }

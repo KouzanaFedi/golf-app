@@ -3,6 +3,7 @@ import 'package:golf_app/models/interfaces/user.dart';
 import 'package:golf_app/models/providers/logInValidation.dart';
 import 'package:golf_app/utils/deviceUtils.dart';
 import 'package:golf_app/views/acceuil.dart';
+import 'package:golf_app/views/interScreen1.dart';
 import 'package:provider/provider.dart';
 
 class LogInButton extends StatefulWidget {
@@ -40,7 +41,7 @@ class _LogInButtonState extends State<LogInButton> {
                   loading = false;
                 });
                 if (user != null) {
-                  Navigator.of(context).pushReplacement(Acceuil.route(user));
+                  Navigator.of(context).pushReplacement(InterScreen1.route());
                 } else {
                   Scaffold.of(context).showSnackBar(SnackBar(
                     content: Text("Mot de passe incorrect"),

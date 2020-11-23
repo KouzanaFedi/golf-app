@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:golf_app/api/requests/auth.dart';
 import 'package:golf_app/api/requests/partie.dart';
 import 'package:golf_app/api/requests/ressource.dart';
 import 'package:golf_app/models/interfaces/clubStat.dart';
@@ -7,6 +8,7 @@ import 'package:golf_app/models/interfaces/joueur.dart';
 import 'package:golf_app/models/interfaces/partieModel.dart';
 import 'package:golf_app/models/interfaces/statistics.dart';
 import 'package:golf_app/models/interfaces/user.dart';
+import 'package:image_picker/image_picker.dart';
 
 class UserProvider with ChangeNotifier {
   User _user;
@@ -32,7 +34,6 @@ class UserProvider with ChangeNotifier {
 
   void setUser(User user) {
     _user = user;
-    notifyListeners();
   }
 
   Future<void> setPartie() async {
@@ -51,28 +52,33 @@ class UserProvider with ChangeNotifier {
 
   void setStats() async {
     _statistics = await _ressource.fetchStats();
-    print("stats object : ");
-    print(_statistics.toString());
   }
 
   void setClubStats() async {
     _clubStats = await _ressource.fetchClubStats();
-    print("club stats object : ");
-    _clubStats.forEach((element) {
-      print(element.toString());
-    });
   }
 
   void setGameStats() async {
     _gameStats = await _ressource.fetchGameStats();
-    print("game stats object : ");
-    _gameStats.forEach((element) {
-      print(element.toString());
-    });
   }
 
   Future<void> refreshPartie() async {
     await setPartie();
+    await refreshUser();
+    notifyListeners();
+  }
+
+  Future updateImage(PickedFile image) async {
+    await _ressource.updateImage(image);
+  }
+
+  Future refreshUser() async {
+    _user = await (await Auth.getInstance()).getUser();
+    notifyListeners();
+  }
+
+  void updateInfor(String nom, String numb) {
+    _user.update(nom, numb);
     notifyListeners();
   }
 }

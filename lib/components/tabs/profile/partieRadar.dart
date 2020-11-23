@@ -1,20 +1,28 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_radar_chart/flutter_radar_chart.dart';
+import 'package:flutter_echarts/flutter_echarts.dart';
+import 'package:golf_app/models/providers/userProvider.dart';
+import 'package:provider/provider.dart';
 
 class PartieRadar extends StatelessWidget {
-  final ticks = [20, 40, 60, 80, 100];
-  final data = [
-    [15, 20, 0, 55, 6, 82]
+  final indicators = [
+    {"name": "Albatros", "max": 100},
+    {"name": "Birdie", "max": 100},
+    {"name": "Bogey", "max": 100},
+    {"name": "Eagle", "max": 100},
+    {"name": "Hole\nIn One", "max": 100},
+    {"name": "Tripple\nBogey", "max": 100},
+  ];
+  final colorsHex = [
+    '#f44336',
+    '#2196f3',
+    '#4caf50',
+    '#cddc39',
+    '#3f51b5',
+    '#ffc107',
   ];
 
-  final features = [
-    "Albatros",
-    "Birdie",
-    "Bogey",
-    "Eagle",
-    "Hole In One",
-    "Tripple Bogey"
-  ];
   final colors = [
     Colors.red,
     Colors.blue,
@@ -24,7 +32,7 @@ class PartieRadar extends StatelessWidget {
     Colors.amber,
   ];
 
-  Widget legend(int index) {
+  Widget legend(int index, int partie) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -39,7 +47,7 @@ class PartieRadar extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(left: 5),
           child: Text(
-            features[index],
+            "Partie $partie",
             style: TextStyle(
               color: Color(0xFF4D4D4D),
               fontWeight: FontWeight.w500,
@@ -50,10 +58,10 @@ class PartieRadar extends StatelessWidget {
     );
   }
 
-  Widget generateLegend() {
+  Widget generateLegend(List<int> parties) {
     List<Widget> list = [];
-    for (var i = 0; i < features.length; i++) {
-      list.add(legend(i));
+    for (var i = 0; i < parties.length; i++) {
+      list.add(legend(i, parties[i]));
     }
     return Wrap(
       children: [...list],
@@ -64,10 +72,23 @@ class PartieRadar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
+    final userProvider = Provider.of<UserProvider>(context);
+    List<Map<String, dynamic>> statsValues = [];
+    List<int> partiesNb = [];
+    if (userProvider.gameStats != null && userProvider.gameStats.isNotEmpty) {
+      userProvider.gameStats.asMap().forEach((key, element) {
+        statsValues.add({
+          "value": element.values,
+          "areaStyle": {"color": '${colorsHex[key]}', "opacity": 0.5}
+        });
+        partiesNb.add(element.order);
+      });
+    }
+
     return Container(
       width: screenSize.width,
       margin: EdgeInsets.only(top: 20),
-      padding: EdgeInsets.all(25),
+      padding: EdgeInsets.symmetric(vertical: 25),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(25),
@@ -83,32 +104,38 @@ class PartieRadar extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 30),
-            child: SizedBox(
-              width: screenSize.width * .75,
-              height: screenSize.width * .75,
-              child: RadarChart(
-                featuresTextStyle: TextStyle(
-                  color: Color(0xFF9AA6AC),
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                ),
-                ticksTextStyle: TextStyle(
-                  color: Colors.black,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                ),
-                outlineColor: Colors.grey,
-                ticks: ticks,
-                features: features,
-                data: data,
-                sides: features.length,
-                graphColors: colors,
-              ),
+          Container(
+            margin: EdgeInsets.only(top: 25),
+            height: screenSize.width * .75,
+            child: Echarts(
+              option: '''
+                {
+                  radar: {
+                      name: {
+                          textStyle: {
+                              color: '#fff',
+                              backgroundColor: '#999',
+                              borderRadius: 3,
+                              padding: [3, 5],
+                          }
+                      },
+                      indicator: ${jsonEncode(indicators)},
+                  }, 
+                  color: ${jsonEncode(colorsHex)},
+                  series: [{
+                      type: 'radar',
+                      data: ${jsonEncode(statsValues)}
+                  }]
+              }
+              ''',
             ),
           ),
-          generateLegend(),
+          (partiesNb.isNotEmpty)
+              ? Container(
+                  child: generateLegend(partiesNb),
+                  margin: EdgeInsets.only(top: 15),
+                )
+              : Container(),
         ],
       ),
     );

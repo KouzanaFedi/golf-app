@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:golf_app/components/partie/generalScore/scoreHeader.dart';
 import 'package:golf_app/components/partie/generalScore/scoreTable.dart';
+import 'package:golf_app/models/interfaces/joueur.dart';
 import 'package:golf_app/models/interfaces/scoreGeneralModel.dart';
 import 'package:golf_app/models/providers/partieProvider.dart';
+import 'package:golf_app/models/providers/userProvider.dart';
 import 'package:golf_app/views/interScreen1.dart';
 import 'package:provider/provider.dart';
 
@@ -12,6 +14,7 @@ class GeneralScore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final partieProvider = Provider.of<PartieProvider>(context, listen: false);
+    final List<Joueur> joueurs = Provider.of<UserProvider>(context).listJoueur;
     return SafeArea(
       child: Scaffold(
         body: FutureBuilder<List<ScoreGeneralModel>>(
@@ -33,7 +36,7 @@ class GeneralScore extends StatelessWidget {
                   child: Column(
                     children: [
                       ScoreHeader(),
-                      ScoreTable(listOfScores: snapshot.data),
+                      ScoreTable(listOfScores: snapshot.data, joueurs: joueurs),
                       partieProvider.islastHoleInGame
                           ? Container(
                               margin: EdgeInsets.only(left: 25, right: 25),

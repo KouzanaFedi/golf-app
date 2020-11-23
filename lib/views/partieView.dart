@@ -17,13 +17,6 @@ class PartieView extends StatelessWidget {
         backgroundColor: Colors.white,
         body: Consumer<PartieProvider>(
           builder: (context, value, child) {
-            print("in hole : " +
-                value.holePlayed.last.shots.last.inHole.toString());
-            print("in send : " +
-                (value.holePlayed.last.shots.last.scoreUnitId != null)
-                    .toString());
-            print("length : " +
-                (value.holePlayed.length < value.trous.length).toString());
             if (value.trous.length == 0) {
               return Center(
                 child: CircularProgressIndicator(),

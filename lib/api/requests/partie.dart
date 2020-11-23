@@ -48,7 +48,6 @@ class Partie {
       GENERAL_SCORE,
       queryParameters: {"partie_id": partieId},
     ))["data"];
-    print(data);
     if (data.isNotEmpty) {
       data.forEach((element) {
         list.add(ScoreGeneralModel.fromJSON(element));
@@ -78,27 +77,12 @@ class Partie {
     }))["data"]["id"];
   }
 
-  // Future<void> updateShot(int clubId, int methodId, int scoreUnitId,
-  //     bool inHole, bool penality, bool sandSave) async {
-  //   int _inhole = inHole ? 1 : 0;
-  //   await _client.put(PLAY_SHOT, data: {
-  //     "scoreUnitaire_id": scoreUnitId,
-  //     "baton_id": clubId,
-  //     "methode_id": methodId,
-  //     "balle_marque": _inhole.toString(),
-  //     "penalties": penality,
-  //     "sandSave": sandSave,
-  //   });
-  // }
-
   Future<List<PlayerScoreProfile>> fetchPlayersHoleScore(int scoreId) async {
     List<PlayerScoreProfile> list = [];
-    print("Sending fetchPlayersHoleScore req...");
     List<dynamic> data = (await _client
         .get(HOLE_SCORE, queryParameters: {"score_id": scoreId}))["data"];
     if (data.isNotEmpty) {
       data.forEach((element) {
-        print(element[0]);
         PlayerScoreProfile psp = PlayerScoreProfile.fromJSON(element[0]);
         if (psp.type != null) {
           list.add(psp);
@@ -110,15 +94,12 @@ class Partie {
   }
 
   Future computePartieStats(int partieId) async {
-    var data =
-        await _client.put(COMPUTE_PARTIE_STATS, data: {"partie_id": partieId});
-    print(data);
+    await _client.put(COMPUTE_PARTIE_STATS, data: {"partie_id": partieId});
   }
 
   Future<bool> canStartGame(int partieId) async {
     String data = (await _client.post(START_PARTIE,
         queryParameters: {"partie_id": partieId}))["message"];
-    print(data);
     return !data.contains("attente");
   }
 }

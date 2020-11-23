@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class User {
   String name, email, sexe, telephone, dob, photo, handicap, depart;
   int sacId;
@@ -12,8 +14,24 @@ class User {
     this.sacId,
   });
 
+  Image loadAssetImage() {
+    if (this.sexe == "femme")
+      return Image.asset("assets/player-f.png");
+    else
+      return Image.asset("assets/player-m.png");
+  }
+
   void setDepart(String d) {
     depart = d;
+  }
+
+  void update(String name, String number) {
+    if (name != null) {
+      this.name = name;
+    }
+    if (number != null) {
+      this.telephone = number;
+    }
   }
 
   factory User.fromJSON(Map<String, dynamic> json) {

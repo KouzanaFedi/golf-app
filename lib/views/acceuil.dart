@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:golf_app/api/constants/endPoints.dart';
 import 'package:golf_app/components/animatedLogo.dart';
 import 'package:golf_app/components/fullBackground.dart';
 import 'package:golf_app/components/halfBackground.dart';
@@ -13,17 +14,12 @@ import 'package:golf_app/models/interfaces/user.dart';
 import 'package:golf_app/models/providers/menuProvider.dart';
 import 'package:golf_app/models/providers/reservationProvider.dart';
 import 'package:golf_app/models/providers/userProvider.dart';
-import 'package:golf_app/utils/sharedPref.dart';
-import 'package:golf_app/views/partieView.dart';
 import 'package:provider/provider.dart';
 
 class Acceuil extends StatefulWidget {
-  final User user;
-  Acceuil({this.user});
-  static Route<dynamic> route(User usr) => MaterialPageRoute(
-      builder: (context) => Acceuil(
-            user: usr,
-          ));
+  Acceuil();
+  static Route<dynamic> route() =>
+      MaterialPageRoute(builder: (context) => Acceuil());
 
   @override
   _AcceuilState createState() => _AcceuilState();
@@ -33,30 +29,16 @@ class _AcceuilState extends State<Acceuil> {
   List<Widget> _list = [General(), Reservation(), Profile(), OptionsTab()];
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    UserProvider userProvider = context.read<UserProvider>();
-    Future.microtask(() => userProvider.setUser(widget.user));
-  }
-
-  @override
   Widget build(BuildContext context) {
     final menuProvider = Provider.of<MenuProvider>(context);
     final userProvider = Provider.of<UserProvider>(context);
 
     ThemeData theme = Theme.of(context);
-    SharedPref.getInstance().then((value) {
-      if (value.isGameStartedExists()) {
-        Future.delayed(Duration(milliseconds: 2500), () {
-          Navigator.of(context).pushReplacement(PartieView.route());
-        });
-      }
-    });
-
     return SafeArea(
       child: Stack(
         children: [
-          menuProvider.currentTabIsReservation
+          menuProvider.currentTabIsReservation ||
+                  menuProvider.currentTabIsSettings
               ? HalfBackground()
               : FullBackground(),
           MultiProvider(
@@ -102,7 +84,26 @@ class _AcceuilState extends State<Acceuil> {
                                     decoration: BoxDecoration(
                                         color: Colors.white,
                                         shape: BoxShape.circle),
-                                    child: CircleAvatar(),
+                                    child: CircleAvatar(
+                                      child: (userProvider.user != null)
+                                          ? userProvider.user.photo == null
+                                              ? userProvider.user
+                                                  .loadAssetImage()
+                                              : ClipOval(
+                                                  child: Image.network(
+                                                    "$IMAGE_BASE_URL${userProvider.user.photo}",
+                                                    width: 45,
+                                                    height: 45,
+                                                    fit: BoxFit.cover,
+                                                    errorBuilder: (context,
+                                                            error,
+                                                            stackTrace) =>
+                                                        userProvider.user
+                                                            .loadAssetImage(),
+                                                  ),
+                                                )
+                                          : null,
+                                    ),
                                   ),
                                   onTap: () {
                                     menuProvider.goToProfileTab();
@@ -147,16 +148,16 @@ class _AcceuilState extends State<Acceuil> {
                           child: ConstrainedBox(
                             constraints: BoxConstraints(
                                 maxHeight:
-                                    MediaQuery.of(context).size.height - 153,
+                                    MediaQuery.of(context).size.height - 150,
                                 minHeight:
-                                    MediaQuery.of(context).size.height - 153),
+                                    MediaQuery.of(context).size.height - 150),
                             child: _list[menuProvider.currentTab],
                           ),
                         ),
                       ),
                     ],
                   ),
-                  menuProvider.isOpen && userProvider.havePartie
+                  (menuProvider.isOpen && userProvider.havePartie)
                       ? Opacity(
                           child: Container(
                             width: MediaQuery.of(context).size.width,

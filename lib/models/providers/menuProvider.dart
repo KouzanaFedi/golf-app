@@ -5,7 +5,7 @@ class MenuProvider with ChangeNotifier {
   double _closedHeight = -410;
 
   double _currentHeight;
-  int _currentTab = 2;
+  int _currentTab = 0;
 
   MenuProvider() {
     _currentHeight = _closedHeight;

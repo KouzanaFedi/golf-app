@@ -50,7 +50,8 @@ class ScoreHeader extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: "${userProvider.user.handicap}\n",
+                    text:
+                        "${(userProvider.user != null) ? userProvider.user.handicap : ''}\n",
                   ),
                   TextSpan(
                       text: "Hcp",

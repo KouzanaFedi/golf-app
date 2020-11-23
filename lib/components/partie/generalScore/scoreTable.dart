@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:golf_app/components/partie/generalScore/labelRow.dart';
 import 'package:golf_app/components/partie/generalScore/scoreRow.dart';
+import 'package:golf_app/models/interfaces/joueur.dart';
 import 'package:golf_app/models/interfaces/scoreGeneralModel.dart';
 
 class ScoreTable extends StatelessWidget {
   final List<ScoreGeneralModel> listOfScores;
-  ScoreTable({this.listOfScores});
+  final List<Joueur> joueurs;
+  ScoreTable({this.listOfScores, this.joueurs});
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +19,8 @@ class ScoreTable extends StatelessWidget {
       playersData.add({
         "name": element.name,
         "image": element.image,
+        "sexe":
+            joueurs.singleWhere((joueur) => joueur.name == element.name).gender,
       });
       firstHalfScores.add(element.score.sublist(0, 9));
       if (eighteenShots) {

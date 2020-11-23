@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Joueur {
   final String name, email, dob, gender, handicap, depart, photo;
   Joueur({
@@ -9,6 +11,13 @@ class Joueur {
     this.name,
     this.photo,
   });
+
+  Image loadAssetImage() {
+    if (this.gender == "femme")
+      return Image.asset("assets/player-f.png");
+    else
+      return Image.asset("assets/player-m.png");
+  }
 
   factory Joueur.fromJSON(Map<String, dynamic> json) {
     return Joueur(

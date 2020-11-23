@@ -18,12 +18,12 @@ class ClubsStats extends StatelessWidget {
     List<ClubRow> listOfRows = [];
     if (listOfClubs != null && listOfStats != null) {
       if (listOfStats.isNotEmpty) {
-        listOfStats.forEach((element) {
-          Club club = listOfClubs.singleWhere(
-            (club) => club.id == element.id,
-            orElse: null,
-          );
-          listOfRows.add(ClubRow(club: club, value: element.perscentage));
+        listOfStats.forEach((stat) {
+          listOfClubs.forEach((club) {
+            if (club.id == stat.id) {
+              listOfRows.add(ClubRow(club: club, value: stat.perscentage));
+            }
+          });
         });
       }
     }

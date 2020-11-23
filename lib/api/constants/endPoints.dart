@@ -1,11 +1,14 @@
 const String BASE_URL = "https://club-house-api.herokuapp.com/api";
-
+const String IMAGE_BASE_URL =
+    "https://club-house-api.herokuapp.com/uploads/users/";
 //USER
 const String REGISTER_URL = BASE_URL + "/register";
 const String LOGIN_URL = BASE_URL + "/login";
 const String GETUSER_URL = BASE_URL + "/user";
 const String GET_USER_DEPART = BASE_URL + "/show";
 const String LOGOUT_URL = BASE_URL + "/logout";
+const String UPDATE_IMAGE = BASE_URL + "/updateImage";
+const String UPDATE_INFO = BASE_URL + "/update";
 
 //clubs
 const String AVAILABLE_CLUBS_URL = BASE_URL + "/baton/index";

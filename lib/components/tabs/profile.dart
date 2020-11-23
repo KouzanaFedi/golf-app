@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_radar_chart/flutter_radar_chart.dart';
 import 'package:golf_app/components/menuOptions/sac.dart';
+import 'package:golf_app/components/tabs/profile/addImageButton.dart';
 import 'package:golf_app/components/tabs/profile/clubsStats.dart';
 import 'package:golf_app/components/tabs/profile/generalStats.dart';
 import 'package:golf_app/components/tabs/profile/partieRadar.dart';
 import 'package:golf_app/models/providers/userProvider.dart';
 import 'package:golf_app/views/options.dart';
 import 'package:provider/provider.dart';
+import 'package:golf_app/api/constants/endPoints.dart';
 
 class Profile extends StatelessWidget {
   Widget subTitle(String title, String value) => Column(
@@ -99,48 +100,31 @@ class Profile extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Container(),
+                      AddImageButton(),
                       Container(
-                        margin: EdgeInsets.only(top: 35),
-                        width: 50,
-                        height: 50,
                         decoration: BoxDecoration(
-                          boxShadow: kElevationToShadow[2],
+                          color: Colors.white,
                           shape: BoxShape.circle,
                         ),
-                        child: FlatButton(
-                          splashColor: Colors.greenAccent,
-                          color: theme.primaryColor,
-                          shape: CircleBorder(),
-                          onPressed: () {},
-                          padding: EdgeInsets.all(5),
-                          child: Icon(
-                            Icons.add_a_photo,
-                            color: Colors.white,
-                          ),
+                        width: 100,
+                        height: 100,
+                        padding: EdgeInsets.all(2),
+                        child: CircleAvatar(
+                          child: (userProvider.user.photo == null)
+                              ? userProvider.user.loadAssetImage()
+                              : ClipOval(
+                                  child: Image.network(
+                                    "$IMAGE_BASE_URL${userProvider.user.photo}",
+                                    width: 100,
+                                    height: 100,
+                                    fit: BoxFit.cover,
+                                    errorBuilder:
+                                        (context, error, stackTrace) =>
+                                            userProvider.user.loadAssetImage(),
+                                  ),
+                                ),
                         ),
                       ),
-                      Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
-                          ),
-                          width: 100,
-                          height: 100,
-                          padding: EdgeInsets.all(2),
-                          child: CircleAvatar(
-                              // backgroundImage: NetworkImage(
-                              //   "https://club-house-api.herokuapp.com/uploads/users/1602018271.jpeg",
-                              // ),
-                              )
-                          //  (user.photo != null)?
-
-                          // :
-                          //     Image(
-                          //         image: AssetImage(
-                          //   "assets/player.png",
-                          // )),
-
-                          ),
                       Container(
                         margin: EdgeInsets.only(top: 35),
                         width: 50,

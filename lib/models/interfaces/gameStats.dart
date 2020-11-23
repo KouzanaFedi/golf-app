@@ -1,6 +1,7 @@
 class GameStats {
   final int partieId, handicap;
   final double birdie, par, holeInOne, bogey, albatros, trippleBogey, eagle;
+  int _order;
 
   GameStats({
     this.albatros,
@@ -13,6 +14,20 @@ class GameStats {
     this.partieId,
     this.trippleBogey,
   });
+
+  void setOrder(int o) {
+    _order = o;
+  }
+
+  int get order => _order;
+  List<int> get values => [
+        albatros.round(),
+        birdie.round(),
+        bogey.round(),
+        eagle.round(),
+        holeInOne.round(),
+        trippleBogey.round()
+      ];
 
   @override
   String toString() {

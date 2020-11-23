@@ -7,7 +7,10 @@ class LabelRow extends StatelessWidget {
   List<Widget> generatePlayers() {
     List<Widget> list = [];
     playersData.forEach((element) {
-      list.add(PlayerIcon(name: element["name"], image: element["image"]));
+      list.add(PlayerIcon(
+          name: element["name"],
+          image: element["image"],
+          sexe: element["sexe"]));
     });
     return list;
   }

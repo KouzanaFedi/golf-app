@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:golf_app/models/providers/golfBagProvider.dart';
 import 'package:golf_app/models/providers/menuProvider.dart';
+import 'package:golf_app/models/providers/optionsProvider.dart';
 import 'package:golf_app/models/providers/partieProvider.dart';
 import 'package:golf_app/models/providers/trousProvider.dart';
 import 'package:golf_app/models/providers/userProvider.dart';
@@ -21,6 +22,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => UserProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => OptionsProvider(),
         ),
         ChangeNotifierProvider(
           create: (context) => MenuProvider(),

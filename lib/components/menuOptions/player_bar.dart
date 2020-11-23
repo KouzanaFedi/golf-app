@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:golf_app/api/constants/endPoints.dart';
 import 'package:golf_app/models/interfaces/joueur.dart';
 
 class PlayerBar extends StatelessWidget {
@@ -32,12 +33,19 @@ class PlayerBar extends StatelessWidget {
                     color: Colors.greenAccent,
                     shape: BoxShape.circle,
                   ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: Image.asset(
-                      "assets/half_Background.png",
-                      fit: BoxFit.scaleDown,
-                    ),
+                  child: CircleAvatar(
+                    child: joueur.photo == null
+                        ? joueur.loadAssetImage()
+                        : ClipOval(
+                            child: Image.network(
+                              "$IMAGE_BASE_URL${joueur.photo}",
+                              width: 40,
+                              height: 40,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  joueur.loadAssetImage(),
+                            ),
+                          ),
                   ),
                 ),
                 Container(

@@ -172,7 +172,6 @@ class _ScoreHoleState extends State<ScoreHole> {
                     return ListView.builder(
                       itemCount: snapshot.data.length + 1,
                       itemBuilder: (context, index) {
-                        print(snapshot.data.length);
                         if (index < snapshot.data.length) {
                           PlayerScoreProfile profile = snapshot.data[index];
                           return PlayerScoreCard(

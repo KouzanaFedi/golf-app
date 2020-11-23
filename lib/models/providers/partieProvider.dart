@@ -26,9 +26,11 @@ class PartieProvider with ChangeNotifier {
   List<HolePlayed> _holesHistory = [];
 
   PartieProvider({this.trous, this.myClubs, this.methods, this.partieData}) {
-    int nbTrou = int.parse(partieData.nbTrou);
-    if (nbTrou < 18 && trous.length > 0) {
-      trous = trous.sublist(0, nbTrou);
+    if (trous != null && partieData != null) {
+      int nbTrou = int.parse(partieData.nbTrou);
+      if (nbTrou < 18 && trous.length > 0) {
+        trous = trous.sublist(0, nbTrou);
+      }
     }
     init();
     collapse();
@@ -56,7 +58,6 @@ class PartieProvider with ChangeNotifier {
     _pref = await SharedPref.getInstance();
     if (_pref.gameHistoryExists()) {
       List<dynamic> data = jsonDecode(_pref.getGameHistory());
-      print(data);
       List<HolePlayed> storedHistory = [];
       if (data.isNotEmpty) {
         data.forEach((element) {
@@ -155,8 +156,6 @@ class PartieProvider with ChangeNotifier {
   void clearGame() {
     _pref.deleteGameHistory();
     _pref.deleteGameStarted();
-    print("game started exists: " + _pref.isGameStartedExists().toString());
-    print("game history exists: " + _pref.gameHistoryExists().toString());
   }
 
   Future<bool> submitShot() async {
@@ -179,7 +178,6 @@ class PartieProvider with ChangeNotifier {
 
     if (shot.inHole) {
       _pref.storeGameHistory(jsonEncode(toJSON()));
-      print(_pref.getGameHistory());
       return true;
     } else {
       _holesHistory[_currentHole].shots.add(
@@ -192,7 +190,6 @@ class PartieProvider with ChangeNotifier {
       _currentShot++;
       notifyListeners();
       _pref.storeGameHistory(jsonEncode(toJSON()));
-      print(_pref.getGameHistory());
       return false;
     }
   }
@@ -207,7 +204,6 @@ class PartieProvider with ChangeNotifier {
     await initScoreHole(hole, partieData.id);
     _holesHistory.add(hole);
     _pref.storeGameHistory(jsonEncode(toJSON()));
-    print(_pref.getGameHistory());
     notifyListeners();
   }
 
