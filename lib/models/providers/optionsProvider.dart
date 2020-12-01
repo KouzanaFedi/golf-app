@@ -14,7 +14,7 @@ class OptionsProvider with ChangeNotifier {
 
   bool get editing => _editing;
   String _obliField() => "Champ obligatoir.";
-  String _miniChar(int x) => "Minimun $x caractères.";
+  String _miniChar(int x) => "Minimun $x chiffres.";
 
   void setName(String value) {
     if (value.isEmpty) {

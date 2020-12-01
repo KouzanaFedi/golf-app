@@ -11,20 +11,30 @@ class Parcours extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final trouProvider = Provider.of<TrouProvider>(context);
-
+    print("trous : " + trouProvider.trouList.length.toString());
     return Padding(
       padding: EdgeInsets.only(top: 20),
-      child: AnimatedSwitcher(
-        duration: Duration(milliseconds: 500),
-        child: (trouProvider.is2DView)
-            ? View2D(nbTrou: nbTrou)
-            : MapView(nbTrou: nbTrou),
-        transitionBuilder: (child, animation) {
-          return ScaleTransition(
-            scale: animation,
-            child: child,
-          );
-        },
+      child: Consumer<TrouProvider>(
+        builder: (context, value, child) => value.trouList.isNotEmpty
+            ? AnimatedSwitcher(
+                duration: Duration(milliseconds: 500),
+                child: (value.is2DView)
+                    ? View2D(nbTrou: nbTrou)
+                    : MapView(nbTrou: nbTrou),
+                transitionBuilder: (child, animation) {
+                  return ScaleTransition(
+                    scale: animation,
+                    child: child,
+                  );
+                },
+              )
+            : Container(
+                height: 400,
+                alignment: Alignment.center,
+                child: CircularProgressIndicator(
+                  backgroundColor: Theme.of(context).primaryColor,
+                ),
+              ),
       ),
     );
   }

@@ -14,6 +14,7 @@ class TrouProvider with ChangeNotifier {
   bool _is2DView = true;
   TrouProvider() {
     loadTrou();
+    fetchMethods();
   }
 
   List<TrouModel> get trouList => _trouList;
@@ -43,14 +44,19 @@ class TrouProvider with ChangeNotifier {
     }
   }
 
-  void loadTrou() async {
-    _trouList = await Ressource.getInstance().fetchHoles();
-    await fetchMethods();
-    await addLatLongToTrou();
+  void loadTrou() {
+    Ressource.getInstance().fetchHoles().then((value) {
+      _trouList = value;
+      addLatLongToTrou();
+      notifyListeners();
+    });
   }
 
-  Future<void> fetchMethods() async {
-    _methods = await Ressource.getInstance().fetchMethods();
+  void fetchMethods() {
+    Ressource.getInstance().fetchMethods().then((value) {
+      _methods = value;
+      notifyListeners();
+    });
   }
 
   Future<void> addLatLongToTrou() async {

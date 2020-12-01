@@ -10,7 +10,6 @@ import 'package:golf_app/components/tabs/general.dart';
 import 'package:golf_app/components/tabs/options.dart';
 import 'package:golf_app/components/tabs/profile.dart';
 import 'package:golf_app/components/tabs/reservation.dart';
-import 'package:golf_app/models/interfaces/user.dart';
 import 'package:golf_app/models/providers/menuProvider.dart';
 import 'package:golf_app/models/providers/reservationProvider.dart';
 import 'package:golf_app/models/providers/userProvider.dart';

@@ -209,6 +209,7 @@ class PartieProvider with ChangeNotifier {
 
   void goNextHoleId() {
     _currentHole++;
+    notifyListeners();
   }
 
   void sendShot(ShotModel shot, int i) {

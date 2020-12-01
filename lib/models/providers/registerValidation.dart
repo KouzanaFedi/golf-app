@@ -16,6 +16,7 @@ class RegisterValidation with ChangeNotifier {
 
   String _obliField() => "Champ obligatoir.";
   String _miniChar(int x) => "Minimun $x caractères.";
+  String _miniChiffre(int x) => "Minimun $x chiffres.";
   String _invalidFormat() => "Format invalide.";
 
   //getters
@@ -113,7 +114,7 @@ class RegisterValidation with ChangeNotifier {
       if (value[0] == '0') {
         _number = ValidationItem(null, _invalidFormat());
       } else if (value.length < 8) {
-        _number = ValidationItem(null, _miniChar(8));
+        _number = ValidationItem(null, _miniChiffre(8));
       } else
         _number = ValidationItem(value, null);
     } catch (e) {

@@ -17,7 +17,7 @@ class PercentageChart extends StatelessWidget {
                 percentageValues: true,
                 size: Size(width, width),
                 duration: Duration(milliseconds: 1500),
-                holeLabel: "$value%",
+                holeLabel: "${value.toStringAsFixed(1)}%",
                 labelStyle: TextStyle(
                   color: theme.primaryColor,
                   fontSize: 15 * (width / 80),
