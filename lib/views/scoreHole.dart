@@ -34,8 +34,10 @@ class _ScoreHoleState extends State<ScoreHole> {
     _controller = StreamController();
     _timer = Timer.periodic(Duration(milliseconds: 3500), (timer) {
       _partie.fetchPlayersHoleScore(widget.scoreId).then((value) {
-        _controller.add(value);
-        streamEmpty = false;
+        if (!_controller.isClosed) {
+          _controller.add(value);
+          streamEmpty = false;
+        }
         if (value.length == widget.nbJoueurs && !streamEmpty) {
           stopStream();
         }
@@ -77,7 +79,6 @@ class _ScoreHoleState extends State<ScoreHole> {
               setState(() {
                 loading = false;
               });
-              partieProvider.goNextHoleId();
             },
             child: Container(
               width: MediaQuery.of(context).size.width * .8,
@@ -180,6 +181,7 @@ class _ScoreHoleState extends State<ScoreHole> {
                             order: index + 1,
                             score: profile.score,
                             type: profile.type,
+                            gender: profile.gender,
                           );
                         } else {
                           return (snapshot.data.length <

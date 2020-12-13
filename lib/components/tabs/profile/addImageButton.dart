@@ -38,7 +38,6 @@ class AddImageButton extends StatelessWidget {
                                   imageQuality: 50);
                               if (image != null) {
                                 await userProvider.updateImage(image);
-                                userProvider.refreshUser();
                               }
                               Navigator.of(context).pop();
                             }),
@@ -50,7 +49,6 @@ class AddImageButton extends StatelessWidget {
                                 source: ImageSource.camera, imageQuality: 50);
                             if (image != null) {
                               await userProvider.updateImage(image);
-                              userProvider.refreshUser();
                             }
                             Navigator.of(context).pop();
                           },

@@ -25,13 +25,20 @@ class User {
     depart = d;
   }
 
-  void update(String name, String number) {
+  void update(String name, String number, String hcp) {
     if (name != null) {
       this.name = name;
     }
     if (number != null) {
       this.telephone = number;
     }
+    if (hcp != null) {
+      this.handicap = hcp;
+    }
+  }
+
+  void updateImage(String image) {
+    photo = image;
   }
 
   factory User.fromJSON(Map<String, dynamic> json) {

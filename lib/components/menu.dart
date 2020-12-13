@@ -12,70 +12,34 @@ import 'menuOptions/sac.dart';
 class Menu extends StatelessWidget {
   final double menuHeight = 460;
   String getDay(int d) {
-    switch (d) {
-      case 1:
-        return "lundi";
-        break;
-      case 2:
-        return "mardi";
-        break;
-      case 3:
-        return "mercredi";
-        break;
-      case 4:
-        return "jeudi";
-        break;
-      case 5:
-        return "vendredi";
-        break;
-      case 6:
-        return "samedi";
-        break;
-      default:
-        return "dimance";
-        break;
-    }
+    List<String> days = [
+      "Lundi",
+      "Mardi",
+      "Mercredi",
+      "Jeudi",
+      "Vendredi",
+      "Samedi",
+      "Dimanche"
+    ];
+    return days[d - 1];
   }
 
   String getMonth(int d) {
-    switch (d) {
-      case 1:
-        return "janvier";
-        break;
-      case 2:
-        return "février";
-        break;
-      case 3:
-        return "mars";
-        break;
-      case 4:
-        return "avril";
-        break;
-      case 5:
-        return "mai";
-        break;
-      case 6:
-        return "juin";
-        break;
-      case 7:
-        return "juillet";
-        break;
-      case 8:
-        return "août";
-        break;
-      case 9:
-        return "septembre";
-        break;
-      case 10:
-        return "octobre";
-        break;
-      case 11:
-        return "novembre";
-        break;
-      default:
-        return "décembre";
-        break;
-    }
+    List<String> months = [
+      "jan",
+      "fév",
+      "mar",
+      "avr",
+      "mai",
+      "jui",
+      "jui",
+      "aoû",
+      "sep",
+      "oct",
+      "nov",
+      "déc"
+    ];
+    return months[d - 1];
   }
 
   @override

@@ -144,21 +144,25 @@ class Ressource {
     return list;
   }
 
-  Future updateImage(PickedFile image) async {
+  Future<String> updateImage(PickedFile image) async {
     String name = image.path.split('/').last;
     var data = FormData.fromMap({
       "photo": await MultipartFile.fromFile(image.path, filename: name),
     });
-    await _client.post(UPDATE_IMAGE, data: data);
+    var res = await _client.post(UPDATE_IMAGE, data: data);
+    return res['data'];
   }
 
-  Future updateInfor(String name, String numb) async {
+  Future updateInfor(String name, String numb, String hcp) async {
     var data = {};
     if (name != null) {
       data["name"] = name;
     }
     if (numb != null) {
       data["telephone"] = numb;
+    }
+    if (hcp != null) {
+      data["handicap"] = hcp;
     }
     await _client.put(UPDATE_INFO, data: data);
   }

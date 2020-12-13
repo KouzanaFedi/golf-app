@@ -1,6 +1,6 @@
-const String BASE_URL = "https://club-house-api.herokuapp.com/api";
-const String IMAGE_BASE_URL =
-    "https://club-house-api.herokuapp.com/uploads/users/";
+const String URL = "https://club-house-api.herokuapp.com";
+const String BASE_URL = URL + "/api";
+const String IMAGE_BASE_URL = URL + "/uploads/users/";
 //USER
 const String REGISTER_URL = BASE_URL + "/register";
 const String LOGIN_URL = BASE_URL + "/login";
@@ -57,8 +57,7 @@ const String NEWS_URL = BASE_URL + "/actualite/index";
 const String METHODS_LIST = BASE_URL + "/methodes/index";
 
 //news image
-const String NEWS_IMAGE =
-    "http://club-house-api.herokuapp.com/uploads/actualite/";
+const String NEWS_IMAGE = URL + "/uploads/actualite/";
 
 const String WEATHER =
     "http://api.weatherapi.com/v1/current.json?key=f30a3398d6934305b4394836201610&q=Tunis";

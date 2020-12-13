@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:golf_app/components/logoutButton.dart';
+import 'package:golf_app/components/tabs/options/hcpEditField.dart';
 import 'package:golf_app/components/tabs/options/nameEditField.dart';
 import 'package:golf_app/components/tabs/options/numberEditField.dart';
 import 'package:golf_app/models/providers/optionsProvider.dart';
@@ -52,15 +53,19 @@ class OptionsTab extends StatelessWidget {
                           ),
                           disabledTextColor: Colors.grey,
                           onPressed: (optionsProvider.nameError == null &&
-                                  optionsProvider.numberError == null)
+                                  optionsProvider.numberError == null &&
+                                  optionsProvider.hcpError == null)
                               ? () async {
                                   if (optionsProvider.newName != null ||
-                                      optionsProvider.newNumber != null) {
+                                      optionsProvider.newNumber != null ||
+                                      optionsProvider.newHcp != null) {
                                     optionsProvider.setLoading();
                                     await optionsProvider.updateInfo();
                                     userProvider.updateInfor(
-                                        optionsProvider.newName,
-                                        optionsProvider.newNumber);
+                                      optionsProvider.newName,
+                                      optionsProvider.newNumber,
+                                      optionsProvider.newHcp,
+                                    );
                                     optionsProvider.unSetLoading();
                                   }
                                   optionsProvider.unSetEditing();
@@ -94,11 +99,34 @@ class OptionsTab extends StatelessWidget {
             ),
             NameEditField(),
             NumberEditField(),
+            HcpEditField(),
+            FlatButton(
+              onPressed: () {},
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Conditions Générales d’utilisation',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                      ),
+                    ),
+                    Icon(Icons.arrow_forward),
+                  ],
+                ),
+              ),
+            ),
             Container(
               alignment: Alignment.centerRight,
               child: LogOutButton(),
               margin: EdgeInsets.only(top: 25),
             ),
+            Container(
+              height: 130,
+            )
           ],
         ),
       ),

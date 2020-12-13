@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:golf_app/api/constants/endPoints.dart';
 
 class PlayerScoreCard extends StatelessWidget {
   final int order, score;
-  final String name, image, type;
-  PlayerScoreCard({this.score, this.image, this.name, this.order, this.type});
+  final String name, image, type, gender;
+  PlayerScoreCard(
+      {this.score, this.image, this.name, this.order, this.type, this.gender});
   Color getColor(ThemeData theme) {
     switch (order) {
       case 1:
@@ -16,6 +18,13 @@ class PlayerScoreCard extends StatelessWidget {
       default:
         return theme.primaryColor;
     }
+  }
+
+  Image loadAssetImage() {
+    if (this.gender == "femme")
+      return Image.asset("assets/player-f.png");
+    else
+      return Image.asset("assets/player-m.png");
   }
 
   @override
@@ -44,7 +53,20 @@ class PlayerScoreCard extends StatelessWidget {
                       shape: BoxShape.circle,
                       color: getColor(theme),
                     ),
-                    child: CircleAvatar(),
+                    child: CircleAvatar(
+                      child: image == null
+                          ? loadAssetImage()
+                          : ClipOval(
+                              child: Image.network(
+                                "$IMAGE_BASE_URL$image",
+                                width: 40,
+                                height: 40,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    loadAssetImage(),
+                              ),
+                            ),
+                    ),
                   ),
                   Positioned(
                     top: 0,

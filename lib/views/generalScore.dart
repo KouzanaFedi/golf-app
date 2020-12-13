@@ -68,7 +68,51 @@ class GeneralScore extends StatelessWidget {
                                 ),
                               ),
                             )
-                          : Container()
+                          : Align(
+                              alignment: Alignment.centerRight,
+                              child: Container(
+                                width: 150,
+                                child: FlatButton(
+                                  splashColor: Colors.transparent,
+                                  color: Colors.transparent,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(20),
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    partieProvider.sharedPrefDebug();
+                                    partieProvider.computePartieStats();
+                                    partieProvider.clearGame();
+                                    partieProvider.sharedPrefDebug();
+                                    Navigator.of(context).pushAndRemoveUntil(
+                                        InterScreen1.route(), (route) => false);
+                                  },
+                                  child: Container(
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          "Quitter partie",
+                                          style: TextStyle(
+                                            color: Colors.red,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(left: 5),
+                                          child: Icon(
+                                            Icons.exit_to_app,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
                     ],
                   ),
                 );

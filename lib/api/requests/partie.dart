@@ -20,7 +20,7 @@ class Partie {
     String res = json['message'];
 
     if (res.contains("existant")) {
-      partieModel = PartieModel.fromJSON(json['data']);
+      partieModel = PartieModel.fromJSON(json['data'][0]);
     } else
       partieModel = null;
 

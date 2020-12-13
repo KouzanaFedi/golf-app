@@ -26,7 +26,7 @@ class UserProvider with ChangeNotifier {
 
   User get user => _user;
   PartieModel get partieModel => _partieModel;
-  bool get havePartie => _partieModel != null;
+  bool get havePartie => _partieModel != null && !_partieModel.started;
   List<Joueur> get listJoueur => _listJoueur;
   Statistics get stats => _statistics;
   List<GameStats> get gameStats => _gameStats;
@@ -64,21 +64,17 @@ class UserProvider with ChangeNotifier {
 
   Future<void> refreshPartie() async {
     await setPartie();
-    await refreshUser();
     notifyListeners();
   }
 
   Future updateImage(PickedFile image) async {
-    await _ressource.updateImage(image);
-  }
-
-  Future refreshUser() async {
-    _user = await (await Auth.getInstance()).getUser();
+    String img = await _ressource.updateImage(image);
+    user.updateImage(img);
     notifyListeners();
   }
 
-  void updateInfor(String nom, String numb) {
-    _user.update(nom, numb);
+  void updateInfor(String nom, String numb, String hcp) {
+    _user.update(nom, numb, hcp);
     notifyListeners();
   }
 }

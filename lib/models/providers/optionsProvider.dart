@@ -10,7 +10,8 @@ class OptionsProvider with ChangeNotifier {
   String newNumber;
   String numberError;
 
-  OptionsProvider();
+  String newHcp;
+  String hcpError;
 
   bool get editing => _editing;
   String _obliField() => "Champ obligatoir.";
@@ -42,6 +43,21 @@ class OptionsProvider with ChangeNotifier {
     }
   }
 
+  void setHcp(String value) {
+    if (value.isEmpty) {
+      hcpError = _obliField();
+    } else {
+      int x = int.tryParse(value);
+      if (x < -10 || x > 36) {
+        hcpError = "Handicap doit être entre -10 et 36.";
+      } else {
+        newHcp = x.toString();
+        hcpError = null;
+      }
+    }
+    notifyListeners();
+  }
+
   void setNumber(String value) {
     if (value.isEmpty) {
       numberError = _obliField();
@@ -69,6 +85,6 @@ class OptionsProvider with ChangeNotifier {
   }
 
   Future updateInfo() async {
-    await Ressource.getInstance().updateInfor(newName, newNumber);
+    await Ressource.getInstance().updateInfor(newName, newNumber, newHcp);
   }
 }

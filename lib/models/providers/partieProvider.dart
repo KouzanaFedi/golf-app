@@ -158,6 +158,10 @@ class PartieProvider with ChangeNotifier {
     _pref.deleteGameStarted();
   }
 
+  void sharedPrefDebug() {
+    print(_pref.isGameStartedExists());
+  }
+
   Future<bool> submitShot() async {
     if (isFirstHole && isFirstShot) {
       await initScoreHole(_holesHistory[0], partieData.id);
@@ -201,15 +205,12 @@ class PartieProvider with ChangeNotifier {
         ShotModel(shotNumber: 1),
       ],
     );
-    await initScoreHole(hole, partieData.id);
-    _holesHistory.add(hole);
-    _pref.storeGameHistory(jsonEncode(toJSON()));
-    notifyListeners();
-  }
-
-  void goNextHoleId() {
-    _currentHole++;
-    notifyListeners();
+    initScoreHole(hole, partieData.id).then((_) {
+      _holesHistory.add(hole);
+      nextHole();
+      _pref.storeGameHistory(jsonEncode(toJSON()));
+      notifyListeners();
+    });
   }
 
   void sendShot(ShotModel shot, int i) {

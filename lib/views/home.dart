@@ -6,7 +6,6 @@ import 'package:golf_app/components/halfBackground.dart';
 import 'package:golf_app/components/logInButton.dart';
 import 'package:golf_app/components/registerButton.dart';
 import 'package:golf_app/models/providers/contactValidation.dart';
-import 'package:golf_app/models/providers/logInValidation.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {

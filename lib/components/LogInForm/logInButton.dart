@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:golf_app/models/interfaces/user.dart';
 import 'package:golf_app/models/providers/logInValidation.dart';
 import 'package:golf_app/utils/deviceUtils.dart';
-import 'package:golf_app/views/acceuil.dart';
 import 'package:golf_app/views/interScreen1.dart';
 import 'package:provider/provider.dart';
 

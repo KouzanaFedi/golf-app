@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:golf_app/api/client.dart';
 import 'package:golf_app/api/requests/auth.dart';
-import 'package:golf_app/components/tabs/profile/partieRadar.dart';
 import 'package:golf_app/models/interfaces/user.dart';
 import 'package:golf_app/models/providers/userProvider.dart';
 import 'package:golf_app/utils/sharedPref.dart';

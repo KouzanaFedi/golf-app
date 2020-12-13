@@ -19,8 +19,7 @@ class ScoreTable extends StatelessWidget {
       playersData.add({
         "name": element.name,
         "image": element.image,
-        "sexe":
-            joueurs.singleWhere((joueur) => joueur.name == element.name).gender,
+        "sexe": element.gender,
       });
       firstHalfScores.add(element.score.sublist(0, 9));
       if (eighteenShots) {

@@ -16,7 +16,6 @@ import 'package:golf_app/models/providers/userProvider.dart';
 import 'package:provider/provider.dart';
 
 class Acceuil extends StatefulWidget {
-  Acceuil();
   static Route<dynamic> route() =>
       MaterialPageRoute(builder: (context) => Acceuil());
 
@@ -47,7 +46,7 @@ class _AcceuilState extends State<Acceuil> {
               ),
             ],
             child: Scaffold(
-              resizeToAvoidBottomPadding: false,
+              resizeToAvoidBottomInset: false,
               backgroundColor: Colors.transparent,
               bottomNavigationBar: NavBar(),
               floatingActionButton: FloatingActionButton(
